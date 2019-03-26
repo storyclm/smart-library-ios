@@ -1,0 +1,33 @@
+PODS:
+  - Alamofire (4.8.1)
+  - AlamofireNetworkActivityLogger (2.3.0):
+    - Alamofire (~> 4.6)
+  - Kingfisher (5.1.1)
+  - SVProgressHUD (2.2.5)
+  - SwiftKeychainWrapper (3.2.0)
+
+DEPENDENCIES:
+  - Alamofire (= 4.8.1)
+  - AlamofireNetworkActivityLogger (~> 2.0)
+  - Kingfisher (~> 5.1)
+  - SVProgressHUD (~> 2.2)
+  - SwiftKeychainWrapper
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireNetworkActivityLogger
+    - Kingfisher
+    - SVProgressHUD
+    - SwiftKeychainWrapper
+
+SPEC CHECKSUMS:
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  AlamofireNetworkActivityLogger: 6f3076652ab7fa6c819b59be08ea038d339e36d8
+  Kingfisher: 2558186963e5be42d98c5b110ccb3130148b77e4
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftKeychainWrapper: 82c4c02cdc36f9a24f7edfcaab3e336401caa1a1
+
+PODFILE CHECKSUM: 3c458acfa4d73c6a1b50147ed5369ed1e0bcfeb0
+
+COCOAPODS: 1.6.0

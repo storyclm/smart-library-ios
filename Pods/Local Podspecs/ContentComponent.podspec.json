@@ -1,0 +1,46 @@
+{
+  "name": "ContentComponent",
+  "version": "0.0.1",
+  "summary": "StoryCLM Content Manager",
+  "description": "Description os SCLMManaging",
+  "homepage": "https://storyclm.com/",
+  "license": {
+    "type": "MIT",
+    "file": "FILE_LICENSE"
+  },
+  "authors": {
+    "Alexander Yolkin": "alexander.yolkin@gmail.com"
+  },
+  "platforms": {
+    "ios": "11.0"
+  },
+  "source": {
+    "git": "http://StoryCLM/SCLMManaging.git",
+    "tag": "0.0.1"
+  },
+  "source_files": [
+    "ContentComponent",
+    "ContentComponent/**/*.{swift}"
+  ],
+  "exclude_files": "ContentComponent/Exclude",
+  "public_header_files": "ContentComponent/**/*.h",
+  "resources": "ContentComponent/*.xcdatamodeld",
+  "frameworks": "CoreData",
+  "resource_bundles": {
+    "ContentComponent": [
+      "ContentComponent/*.xcdatamodeld"
+    ]
+  },
+  "requires_arc": true,
+  "dependencies": {
+    "Alamofire": [
+      "4.8.0"
+    ],
+    "Kingfisher": [
+      "~> 5.1"
+    ],
+    "Zip": [
+      "~> 1.1"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+framework module ContentComponent {
+  umbrella header "ContentComponent.h"
+
+  export *
+  module * { export * }
+}
+
+module ContentComponent.Swift {
+    header "ContentComponent-Swift.h"
+    requires objc
+}
