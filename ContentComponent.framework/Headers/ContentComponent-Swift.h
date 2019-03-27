@@ -276,7 +276,7 @@ SWIFT_CLASS("_TtC16ContentComponent14ContentPackage")
 
 
 @interface ContentPackage (SWIFT_EXTENSION(ContentComponent))
-- (nonnull instancetype)initWithContext:(NSManagedObjectContext * _Nonnull)context;
+- (nonnull instancetype)initWithContext:(NSManagedObjectContext * _Nonnull)context SWIFT_UNAVAILABLE;
 @end
 
 
