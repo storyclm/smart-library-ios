@@ -114,6 +114,7 @@
 		5C9092202306D77C00750FA8 /* SLLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLLocationManager.swift; sourceTree = "<group>"; };
 		5C9092222306D77C00750FA8 /* SLSessionsCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLSessionsCredentials.swift; sourceTree = "<group>"; };
 		5C9092232306D77C00750FA8 /* SLSessionsSyncManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLSessionsSyncManager.swift; sourceTree = "<group>"; };
+		5C9092272306DBBE00750FA8 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5CA88DC621F8727A00A7AAF0 /* Library.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Library.storyboard; sourceTree = "<group>"; };
 		5CA88DC821F872A900A7AAF0 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		5CA88DCB21F8749000A7AAF0 /* LibraryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
@@ -284,6 +285,7 @@
 		5C48B5BF21F74E2500EE1795 = {
 			isa = PBXGroup;
 			children = (
+				5C9092272306DBBE00750FA8 /* .gitignore */,
 				5C48B5CA21F74E2500EE1795 /* SmartLibrary */,
 				5C48B5DF21F74E2700EE1795 /* SmartLibraryTests */,
 				5C48B5C921F74E2500EE1795 /* Products */,
