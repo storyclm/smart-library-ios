@@ -9,64 +9,43 @@
 /* Begin PBXBuildFile section */
 		15D5C56C12B8A7CCE88E27D8 /* Pods_SmartLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1917A91CAC59A59BD9C623 /* Pods_SmartLibrary.framework */; };
 		22ACB71D73C925DAC5877D6E /* Pods_SmartLibraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E402F5F095AC622451F2832 /* Pods_SmartLibraryTests.framework */; };
-		5C12E39D2200AD57004D68F5 /* PresentationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E39C2200AD57004D68F5 /* PresentationVC.swift */; };
-		5C12E3A02201A207004D68F5 /* SLProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E39F2201A207004D68F5 /* SLProgressView.swift */; };
+		5C12E39D2200AD57004D68F5 /* PresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E39C2200AD57004D68F5 /* PresentationViewController.swift */; };
 		5C12E3A42201AC1B004D68F5 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E3A32201AC1B004D68F5 /* AlertController.swift */; };
 		5C1AF8F321F9BA1700CF4ABA /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1AF8F221F9BA1700CF4ABA /* Date+Ext.swift */; };
-		5C1AF8F721F9EEC100CF4ABA /* LibraryLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5C1AF8F921F9EEC100CF4ABA /* LibraryLocalizable.strings */; };
-		5C1AF8FB21F9F03C00CF4ABA /* LibraryLocalized+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1AF8FA21F9F03C00CF4ABA /* LibraryLocalized+Ext.swift */; };
-		5C22E8152236515E005F11CC /* LibraryLocalized+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1AF8FA21F9F03C00CF4ABA /* LibraryLocalized+Ext.swift */; };
-		5C22E8162236515E005F11CC /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB914722240223001C4E57 /* MediaCell.swift */; };
-		5C22E8172236515E005F11CC /* MediaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB914922240874001C4E57 /* MediaViewModel.swift */; };
-		5C22E8182236515E005F11CC /* NFDownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C24FAC522256BF80097B70C /* NFDownloadButton.swift */; };
-		5C22E8192236515E005F11CC /* SLPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C24FAC1222559090097B70C /* SLPlayerViewController.swift */; };
-		5C22E81A2236515E005F11CC /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA88DCB21F8749000A7AAF0 /* LibraryCell.swift */; };
-		5C22E81B2236515E005F11CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C48B5CB21F74E2500EE1795 /* AppDelegate.swift */; };
-		5C22E81C2236515E005F11CC /* PresentationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E39C2200AD57004D68F5 /* PresentationVC.swift */; };
-		5C22E81D2236515E005F11CC /* SLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C24FAC32225591F0097B70C /* SLPreviewController.swift */; };
-		5C22E81E2236515E005F11CC /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1AF8F221F9BA1700CF4ABA /* Date+Ext.swift */; };
-		5C22E81F2236515E005F11CC /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E3A32201AC1B004D68F5 /* AlertController.swift */; };
-		5C22E8202236515E005F11CC /* MediaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45D52C2209DDB800107541 /* MediaVC.swift */; };
-		5C22E8212236515E005F11CC /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA88DCD21F8751F00A7AAF0 /* LibraryViewModel.swift */; };
-		5C22E8222236515E005F11CC /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C24FAC7222574E30097B70C /* UIColor+Ext.swift */; };
-		5C22E8232236515E005F11CC /* SLProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E39F2201A207004D68F5 /* SLProgressView.swift */; };
-		5C22E8242236515E005F11CC /* LibraryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA88DC821F872A900A7AAF0 /* LibraryVC.swift */; };
-		5C22E8282236515E005F11CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C48B5D421F74E2700EE1795 /* LaunchScreen.storyboard */; };
-		5C22E8292236515E005F11CC /* LibraryLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5C1AF8F921F9EEC100CF4ABA /* LibraryLocalizable.strings */; };
-		5C22E82A2236515E005F11CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C48B5D221F74E2700EE1795 /* Assets.xcassets */; };
-		5C22E82B2236515E005F11CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C48B5CF21F74E2500EE1795 /* Main.storyboard */; };
-		5C22E82C2236515E005F11CC /* Library_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA88DC621F8727A00A7AAF0 /* Library_iPad.storyboard */; };
-		5C22E82D2236515E005F11CC /* Library_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA88DC221F8724D00A7AAF0 /* Library_iPhone.storyboard */; };
-		5C24FAC2222559090097B70C /* SLPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C24FAC1222559090097B70C /* SLPlayerViewController.swift */; };
-		5C24FAC42225591F0097B70C /* SLPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C24FAC32225591F0097B70C /* SLPreviewController.swift */; };
 		5C24FAC622256BF80097B70C /* NFDownloadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C24FAC522256BF80097B70C /* NFDownloadButton.swift */; };
 		5C24FAC8222574E30097B70C /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C24FAC7222574E30097B70C /* UIColor+Ext.swift */; };
-		5C45D52D2209DDB800107541 /* MediaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45D52C2209DDB800107541 /* MediaVC.swift */; };
+		5C2F2BF12306A32B004F4DB9 /* MapPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F2BEF2306A32B004F4DB9 /* MapPresentationController.swift */; };
+		5C2F2BF32306A32B004F4DB9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F2BF02306A32B004F4DB9 /* MapViewController.swift */; };
+		5C2F2BF72306A4FE004F4DB9 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F2BF62306A4FE004F4DB9 /* UIView+Ext.swift */; };
+		5C2F2C082306A7FF004F4DB9 /* PSBaseTreeGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F2BFA2306A7FF004F4DB9 /* PSBaseTreeGraphView.m */; };
+		5C2F2C0A2306A7FF004F4DB9 /* PSBaseSubtreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F2BFB2306A7FF004F4DB9 /* PSBaseSubtreeView.m */; };
+		5C2F2C0C2306A7FF004F4DB9 /* PSBaseBranchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F2BFD2306A7FF004F4DB9 /* PSBaseBranchView.m */; };
+		5C2F2C0E2306A7FF004F4DB9 /* SlideLeafNodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C2F2BFF2306A7FF004F4DB9 /* SlideLeafNodeView.xib */; };
+		5C2F2C102306A7FF004F4DB9 /* PSBaseLeafView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F2C002306A7FF004F4DB9 /* PSBaseLeafView.m */; };
+		5C2F2C122306A7FF004F4DB9 /* SlideModelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F2C042306A7FF004F4DB9 /* SlideModelNode.swift */; };
+		5C2F2C142306A7FF004F4DB9 /* SlideLeafView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2F2C062306A7FF004F4DB9 /* SlideLeafView.swift */; };
+		5C45D52D2209DDB800107541 /* MediaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45D52C2209DDB800107541 /* MediaViewController.swift */; };
 		5C48B5CC21F74E2500EE1795 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C48B5CB21F74E2500EE1795 /* AppDelegate.swift */; };
 		5C48B5D121F74E2500EE1795 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C48B5CF21F74E2500EE1795 /* Main.storyboard */; };
 		5C48B5D321F74E2700EE1795 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C48B5D221F74E2700EE1795 /* Assets.xcassets */; };
 		5C48B5D621F74E2700EE1795 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C48B5D421F74E2700EE1795 /* LaunchScreen.storyboard */; };
 		5C48B5E121F74E2700EE1795 /* SmartLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C48B5E021F74E2700EE1795 /* SmartLibraryTests.swift */; };
 		5C8A7C4C2245009B007634C8 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8A7C4B2245009B007634C8 /* LoginViewModel.swift */; };
-		5C8A7C4D2245009B007634C8 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8A7C4B2245009B007634C8 /* LoginViewModel.swift */; };
-		5CA88DC321F8724E00A7AAF0 /* Library_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA88DC221F8724D00A7AAF0 /* Library_iPhone.storyboard */; };
-		5CA88DC721F8727A00A7AAF0 /* Library_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA88DC621F8727A00A7AAF0 /* Library_iPad.storyboard */; };
-		5CA88DC921F872A900A7AAF0 /* LibraryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA88DC821F872A900A7AAF0 /* LibraryVC.swift */; };
+		5C90921B2306BD0800750FA8 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C90921A2306BD0800750FA8 /* SectionHeaderView.swift */; };
+		5C9092242306D77C00750FA8 /* SLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9092202306D77C00750FA8 /* SLLocationManager.swift */; };
+		5C9092252306D77C00750FA8 /* SLSessionsCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9092222306D77C00750FA8 /* SLSessionsCredentials.swift */; };
+		5C9092262306D77C00750FA8 /* SLSessionsSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9092232306D77C00750FA8 /* SLSessionsSyncManager.swift */; };
+		5CA88DC721F8727A00A7AAF0 /* Library.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CA88DC621F8727A00A7AAF0 /* Library.storyboard */; };
+		5CA88DC921F872A900A7AAF0 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA88DC821F872A900A7AAF0 /* LibraryViewController.swift */; };
 		5CA88DCC21F8749000A7AAF0 /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA88DCB21F8749000A7AAF0 /* LibraryCell.swift */; };
 		5CA88DCE21F8752000A7AAF0 /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA88DCD21F8751F00A7AAF0 /* LibraryViewModel.swift */; };
 		5CDC85CA224A272A0001189E /* ContentComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CDC85C9224A272A0001189E /* ContentComponent.framework */; };
-		5CF05A2422424A0900138B5A /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF05A2322424A0900138B5A /* LoginVC.swift */; };
-		5CF05A2522424A2000138B5A /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF05A2322424A0900138B5A /* LoginVC.swift */; };
-		5CF05A652243A2B000138B5A /* LibraryNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF05A642243A2B000138B5A /* LibraryNC.swift */; };
-		5CF05A662243A2B500138B5A /* LibraryNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF05A642243A2B000138B5A /* LibraryNC.swift */; };
-		5CF05A742243AC2300138B5A /* AuthCredentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CF05A732243AC2200138B5A /* AuthCredentials.plist */; };
+		5CF05A2422424A0900138B5A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF05A2322424A0900138B5A /* LoginViewController.swift */; };
+		5CF05A652243A2B000138B5A /* LibraryNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF05A642243A2B000138B5A /* LibraryNavigationController.swift */; };
 		5CF05A762243ACC000138B5A /* AuthCredentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CF05A752243ACBF00138B5A /* AuthCredentials.plist */; };
 		5CF90827224A499F00F3F48B /* ContentComponent.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5CDC85C9224A272A0001189E /* ContentComponent.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5CF90828224A49A900F3F48B /* ContentComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CDC85C9224A272A0001189E /* ContentComponent.framework */; };
-		5CF90829224A49A900F3F48B /* ContentComponent.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5CDC85C9224A272A0001189E /* ContentComponent.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5CFB914822240223001C4E57 /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB914722240223001C4E57 /* MediaCell.swift */; };
 		5CFB914A22240874001C4E57 /* MediaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB914922240874001C4E57 /* MediaViewModel.swift */; };
-		D6718D9ADE0711DE0115FAFD /* Pods_SmartLibrary_Staging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 126AB419A6CBA046B987E441 /* Pods_SmartLibrary_Staging.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,17 +70,6 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5CDC85C2224A21E00001189E /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				5CF90829224A49A900F3F48B /* ContentComponent.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -109,18 +77,29 @@
 		171CFB13C4FC7E001AE5A125 /* Pods-SmartLibrary_Staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLibrary_Staging.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLibrary_Staging/Pods-SmartLibrary_Staging.debug.xcconfig"; sourceTree = "<group>"; };
 		37B1820E2322DAA480E7B7DE /* Pods-SmartLibraryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLibraryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLibraryTests/Pods-SmartLibraryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4F3025B1508031E6E7A16175 /* Pods-SmartLibraryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLibraryTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLibraryTests/Pods-SmartLibraryTests.release.xcconfig"; sourceTree = "<group>"; };
-		5C12E39C2200AD57004D68F5 /* PresentationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationVC.swift; sourceTree = "<group>"; };
-		5C12E39F2201A207004D68F5 /* SLProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLProgressView.swift; sourceTree = "<group>"; };
+		5C12E39C2200AD57004D68F5 /* PresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationViewController.swift; sourceTree = "<group>"; };
 		5C12E3A32201AC1B004D68F5 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		5C1AF8F221F9BA1700CF4ABA /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
-		5C1AF8F821F9EEC100CF4ABA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LibraryLocalizable.strings; sourceTree = "<group>"; };
-		5C1AF8FA21F9F03C00CF4ABA /* LibraryLocalized+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryLocalized+Ext.swift"; sourceTree = "<group>"; };
-		5C22E8332236515E005F11CC /* SmartLibrary_Staging.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartLibrary_Staging.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5C24FAC1222559090097B70C /* SLPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLPlayerViewController.swift; sourceTree = "<group>"; };
-		5C24FAC32225591F0097B70C /* SLPreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLPreviewController.swift; sourceTree = "<group>"; };
 		5C24FAC522256BF80097B70C /* NFDownloadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFDownloadButton.swift; sourceTree = "<group>"; };
 		5C24FAC7222574E30097B70C /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
-		5C45D52C2209DDB800107541 /* MediaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaVC.swift; sourceTree = "<group>"; };
+		5C2F2BEF2306A32B004F4DB9 /* MapPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPresentationController.swift; sourceTree = "<group>"; };
+		5C2F2BF02306A32B004F4DB9 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		5C2F2BF62306A4FE004F4DB9 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		5C2F2BFA2306A7FF004F4DB9 /* PSBaseTreeGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBaseTreeGraphView.m; sourceTree = "<group>"; };
+		5C2F2BFB2306A7FF004F4DB9 /* PSBaseSubtreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBaseSubtreeView.m; sourceTree = "<group>"; };
+		5C2F2BFC2306A7FF004F4DB9 /* PSTreeGraphModelNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTreeGraphModelNode.h; sourceTree = "<group>"; };
+		5C2F2BFD2306A7FF004F4DB9 /* PSBaseBranchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBaseBranchView.m; sourceTree = "<group>"; };
+		5C2F2BFE2306A7FF004F4DB9 /* PSTreeGraphDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTreeGraphDelegate.h; sourceTree = "<group>"; };
+		5C2F2BFF2306A7FF004F4DB9 /* SlideLeafNodeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideLeafNodeView.xib; sourceTree = "<group>"; };
+		5C2F2C002306A7FF004F4DB9 /* PSBaseLeafView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSBaseLeafView.m; sourceTree = "<group>"; };
+		5C2F2C012306A7FF004F4DB9 /* PSBaseSubtreeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBaseSubtreeView.h; sourceTree = "<group>"; };
+		5C2F2C022306A7FF004F4DB9 /* PSBaseTreeGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBaseTreeGraphView.h; sourceTree = "<group>"; };
+		5C2F2C032306A7FF004F4DB9 /* PSBaseTreeGraphView_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBaseTreeGraphView_Internal.h; sourceTree = "<group>"; };
+		5C2F2C042306A7FF004F4DB9 /* SlideModelNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideModelNode.swift; sourceTree = "<group>"; };
+		5C2F2C052306A7FF004F4DB9 /* PSBaseBranchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBaseBranchView.h; sourceTree = "<group>"; };
+		5C2F2C062306A7FF004F4DB9 /* SlideLeafView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideLeafView.swift; sourceTree = "<group>"; };
+		5C2F2C072306A7FF004F4DB9 /* PSBaseLeafView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSBaseLeafView.h; sourceTree = "<group>"; };
+		5C45D52C2209DDB800107541 /* MediaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewController.swift; sourceTree = "<group>"; };
 		5C45D530220AFCF700107541 /* SmartLibrary-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmartLibrary-Bridging-Header.h"; sourceTree = "<group>"; };
 		5C48B5C821F74E2500EE1795 /* SmartLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C48B5CB21F74E2500EE1795 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,17 +110,20 @@
 		5C48B5E021F74E2700EE1795 /* SmartLibraryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartLibraryTests.swift; sourceTree = "<group>"; };
 		5C48B5E221F74E2700EE1795 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C8A7C4B2245009B007634C8 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		5CA88DC221F8724D00A7AAF0 /* Library_iPhone.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Library_iPhone.storyboard; sourceTree = "<group>"; };
-		5CA88DC621F8727A00A7AAF0 /* Library_iPad.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Library_iPad.storyboard; sourceTree = "<group>"; };
-		5CA88DC821F872A900A7AAF0 /* LibraryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryVC.swift; sourceTree = "<group>"; };
+		5C90921A2306BD0800750FA8 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		5C9092202306D77C00750FA8 /* SLLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLLocationManager.swift; sourceTree = "<group>"; };
+		5C9092222306D77C00750FA8 /* SLSessionsCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLSessionsCredentials.swift; sourceTree = "<group>"; };
+		5C9092232306D77C00750FA8 /* SLSessionsSyncManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLSessionsSyncManager.swift; sourceTree = "<group>"; };
+		5C9092272306DBBE00750FA8 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5C9092282306E60F00750FA8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5CA88DC621F8727A00A7AAF0 /* Library.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Library.storyboard; sourceTree = "<group>"; };
+		5CA88DC821F872A900A7AAF0 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		5CA88DCB21F8749000A7AAF0 /* LibraryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 		5CA88DCD21F8751F00A7AAF0 /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
 		5CDC85C9224A272A0001189E /* ContentComponent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ContentComponent.framework; sourceTree = "<group>"; };
-		5CF05A2322424A0900138B5A /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		5CF05A642243A2B000138B5A /* LibraryNC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryNC.swift; sourceTree = "<group>"; };
-		5CF05A6C2243AB5900138B5A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CF05A2322424A0900138B5A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5CF05A642243A2B000138B5A /* LibraryNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryNavigationController.swift; sourceTree = "<group>"; };
 		5CF05A6E2243AB5900138B5A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5CF05A732243AC2200138B5A /* AuthCredentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AuthCredentials.plist; sourceTree = "<group>"; };
 		5CF05A752243ACBF00138B5A /* AuthCredentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AuthCredentials.plist; sourceTree = "<group>"; };
 		5CFB914722240223001C4E57 /* MediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
 		5CFB914922240874001C4E57 /* MediaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaViewModel.swift; sourceTree = "<group>"; };
@@ -153,15 +135,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5C22E8252236515E005F11CC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5CF90828224A49A900F3F48B /* ContentComponent.framework in Frameworks */,
-				D6718D9ADE0711DE0115FAFD /* Pods_SmartLibrary_Staging.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5C48B5C521F74E2500EE1795 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -206,21 +179,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5C12E39E2201A1E9004D68F5 /* View */ = {
+		5C12E39E2201A1E9004D68F5 /* NFDownloadButton */ = {
 			isa = PBXGroup;
 			children = (
-				5C24FAC1222559090097B70C /* SLPlayerViewController.swift */,
-				5C24FAC32225591F0097B70C /* SLPreviewController.swift */,
-				5C12E39F2201A207004D68F5 /* SLProgressView.swift */,
 				5C24FAC522256BF80097B70C /* NFDownloadButton.swift */,
 			);
-			path = View;
+			path = NFDownloadButton;
 			sourceTree = "<group>";
 		};
 		5C12E3A12201ABF6004D68F5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				5C90921F2306D77C00750FA8 /* LocationManager */,
+				5C9092212306D77C00750FA8 /* SessionsManager */,
 				5C12E3A22201ABFF004D68F5 /* AlertController */,
+				5C2F2BF92306A7FF004F4DB9 /* PSTreeGraphView */,
+				5C12E39E2201A1E9004D68F5 /* NFDownloadButton */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -238,22 +212,82 @@
 			children = (
 				5C1AF8F221F9BA1700CF4ABA /* Date+Ext.swift */,
 				5C24FAC7222574E30097B70C /* UIColor+Ext.swift */,
+				5C2F2BF62306A4FE004F4DB9 /* UIView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		5C1AF8F421F9EE4200CF4ABA /* LibrarySupport */ = {
+		5C2F2BE923069E28004F4DB9 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				5C1AF8FA21F9F03C00CF4ABA /* LibraryLocalized+Ext.swift */,
-				5C1AF8F921F9EEC100CF4ABA /* LibraryLocalizable.strings */,
+				5CF05A2322424A0900138B5A /* LoginViewController.swift */,
+				5C8A7C4B2245009B007634C8 /* LoginViewModel.swift */,
 			);
-			path = LibrarySupport;
+			path = Login;
+			sourceTree = "<group>";
+		};
+		5C2F2BEA23069E4C004F4DB9 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				5C2F2BF52306A331004F4DB9 /* Map */,
+				5C12E39C2200AD57004D68F5 /* PresentationViewController.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		5C2F2BEB23069E54004F4DB9 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				5C2F2BEE23069EE2004F4DB9 /* Cell */,
+				5C45D52C2209DDB800107541 /* MediaViewController.swift */,
+				5CFB914922240874001C4E57 /* MediaViewModel.swift */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
+		5C2F2BEE23069EE2004F4DB9 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				5CFB914722240223001C4E57 /* MediaCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		5C2F2BF52306A331004F4DB9 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				5C2F2BF02306A32B004F4DB9 /* MapViewController.swift */,
+				5C2F2BEF2306A32B004F4DB9 /* MapPresentationController.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		5C2F2BF92306A7FF004F4DB9 /* PSTreeGraphView */ = {
+			isa = PBXGroup;
+			children = (
+				5C2F2BFA2306A7FF004F4DB9 /* PSBaseTreeGraphView.m */,
+				5C2F2BFB2306A7FF004F4DB9 /* PSBaseSubtreeView.m */,
+				5C2F2BFC2306A7FF004F4DB9 /* PSTreeGraphModelNode.h */,
+				5C2F2BFD2306A7FF004F4DB9 /* PSBaseBranchView.m */,
+				5C2F2BFE2306A7FF004F4DB9 /* PSTreeGraphDelegate.h */,
+				5C2F2BFF2306A7FF004F4DB9 /* SlideLeafNodeView.xib */,
+				5C2F2C002306A7FF004F4DB9 /* PSBaseLeafView.m */,
+				5C2F2C012306A7FF004F4DB9 /* PSBaseSubtreeView.h */,
+				5C2F2C022306A7FF004F4DB9 /* PSBaseTreeGraphView.h */,
+				5C2F2C032306A7FF004F4DB9 /* PSBaseTreeGraphView_Internal.h */,
+				5C2F2C042306A7FF004F4DB9 /* SlideModelNode.swift */,
+				5C2F2C052306A7FF004F4DB9 /* PSBaseBranchView.h */,
+				5C2F2C062306A7FF004F4DB9 /* SlideLeafView.swift */,
+				5C2F2C072306A7FF004F4DB9 /* PSBaseLeafView.h */,
+			);
+			path = PSTreeGraphView;
 			sourceTree = "<group>";
 		};
 		5C48B5BF21F74E2500EE1795 = {
 			isa = PBXGroup;
 			children = (
+				5C9092272306DBBE00750FA8 /* .gitignore */,
+				5C9092282306E60F00750FA8 /* README.md */,
 				5C48B5CA21F74E2500EE1795 /* SmartLibrary */,
 				5C48B5DF21F74E2700EE1795 /* SmartLibraryTests */,
 				5C48B5C921F74E2500EE1795 /* Products */,
@@ -267,7 +301,6 @@
 			children = (
 				5C48B5C821F74E2500EE1795 /* SmartLibrary.app */,
 				5C48B5DC21F74E2700EE1795 /* SmartLibraryTests.xctest */,
-				5C22E8332236515E005F11CC /* SmartLibrary_Staging.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -275,7 +308,7 @@
 		5C48B5CA21F74E2500EE1795 /* SmartLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				5CA88DBB21F8719500A7AAF0 /* Scenes */,
+				5CA88DBB21F8719500A7AAF0 /* Modules */,
 				5C12E3A12201ABF6004D68F5 /* Common */,
 				5C1AF8F121F9BA0200CF4ABA /* Extensions */,
 				5CF05A692243AB3A00138B5A /* Supporting Files */,
@@ -293,63 +326,51 @@
 			path = SmartLibraryTests;
 			sourceTree = "<group>";
 		};
-		5CA88DBB21F8719500A7AAF0 /* Scenes */ = {
+		5C90921F2306D77C00750FA8 /* LocationManager */ = {
 			isa = PBXGroup;
 			children = (
-				5CA88DBE21F871A900A7AAF0 /* Library */,
+				5C9092202306D77C00750FA8 /* SLLocationManager.swift */,
 			);
-			path = Scenes;
+			path = LocationManager;
+			sourceTree = "<group>";
+		};
+		5C9092212306D77C00750FA8 /* SessionsManager */ = {
+			isa = PBXGroup;
+			children = (
+				5C9092222306D77C00750FA8 /* SLSessionsCredentials.swift */,
+				5C9092232306D77C00750FA8 /* SLSessionsSyncManager.swift */,
+			);
+			path = SessionsManager;
+			sourceTree = "<group>";
+		};
+		5CA88DBB21F8719500A7AAF0 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				5C2F2BE923069E28004F4DB9 /* Login */,
+				5CA88DBE21F871A900A7AAF0 /* Library */,
+				5C2F2BEA23069E4C004F4DB9 /* Presentation */,
+				5C2F2BEB23069E54004F4DB9 /* Media */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		5CA88DBE21F871A900A7AAF0 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				5CA88DBF21F871CA00A7AAF0 /* LibraryModel */,
-				5CA88DC021F871D100A7AAF0 /* LibraryView */,
-				5CA88DC121F871D700A7AAF0 /* LibraryViewModel */,
-				5C1AF8F421F9EE4200CF4ABA /* LibrarySupport */,
+				5CA88DCA21F873D600A7AAF0 /* Cell */,
+				5CF05A642243A2B000138B5A /* LibraryNavigationController.swift */,
+				5CA88DC821F872A900A7AAF0 /* LibraryViewController.swift */,
+				5CA88DCD21F8751F00A7AAF0 /* LibraryViewModel.swift */,
+				5CA88DC621F8727A00A7AAF0 /* Library.storyboard */,
 			);
 			path = Library;
-			sourceTree = "<group>";
-		};
-		5CA88DBF21F871CA00A7AAF0 /* LibraryModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LibraryModel;
-			sourceTree = "<group>";
-		};
-		5CA88DC021F871D100A7AAF0 /* LibraryView */ = {
-			isa = PBXGroup;
-			children = (
-				5C12E39E2201A1E9004D68F5 /* View */,
-				5CA88DCA21F873D600A7AAF0 /* Cell */,
-				5CF05A642243A2B000138B5A /* LibraryNC.swift */,
-				5CA88DC821F872A900A7AAF0 /* LibraryVC.swift */,
-				5C12E39C2200AD57004D68F5 /* PresentationVC.swift */,
-				5C45D52C2209DDB800107541 /* MediaVC.swift */,
-				5CF05A2322424A0900138B5A /* LoginVC.swift */,
-				5CA88DC221F8724D00A7AAF0 /* Library_iPhone.storyboard */,
-				5CA88DC621F8727A00A7AAF0 /* Library_iPad.storyboard */,
-			);
-			path = LibraryView;
-			sourceTree = "<group>";
-		};
-		5CA88DC121F871D700A7AAF0 /* LibraryViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				5CA88DCD21F8751F00A7AAF0 /* LibraryViewModel.swift */,
-				5CFB914922240874001C4E57 /* MediaViewModel.swift */,
-				5C8A7C4B2245009B007634C8 /* LoginViewModel.swift */,
-			);
-			path = LibraryViewModel;
 			sourceTree = "<group>";
 		};
 		5CA88DCA21F873D600A7AAF0 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
 				5CA88DCB21F8749000A7AAF0 /* LibraryCell.swift */,
-				5CFB914722240223001C4E57 /* MediaCell.swift */,
+				5C90921A2306BD0800750FA8 /* SectionHeaderView.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -369,54 +390,15 @@
 		5CF05A6A2243AB5900138B5A /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				5CF05A6B2243AB5900138B5A /* Staging */,
-				5CF05A6D2243AB5900138B5A /* Production */,
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
-		5CF05A6B2243AB5900138B5A /* Staging */ = {
-			isa = PBXGroup;
-			children = (
-				5CF05A6C2243AB5900138B5A /* Info.plist */,
-				5CF05A732243AC2200138B5A /* AuthCredentials.plist */,
-			);
-			path = Staging;
-			sourceTree = "<group>";
-		};
-		5CF05A6D2243AB5900138B5A /* Production */ = {
-			isa = PBXGroup;
-			children = (
 				5CF05A6E2243AB5900138B5A /* Info.plist */,
 				5CF05A752243ACBF00138B5A /* AuthCredentials.plist */,
 			);
-			path = Production;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5C22E8112236515E005F11CC /* SmartLibrary_Staging */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5C22E8302236515E005F11CC /* Build configuration list for PBXNativeTarget "SmartLibrary_Staging" */;
-			buildPhases = (
-				5C22E8122236515E005F11CC /* [CP] Check Pods Manifest.lock */,
-				5C22E8132236515E005F11CC /* Sources */,
-				5C22E8252236515E005F11CC /* Frameworks */,
-				5C22E8272236515E005F11CC /* Resources */,
-				5C22E82E2236515E005F11CC /* ShellScript */,
-				5C22E82F2236515E005F11CC /* [CP] Embed Pods Frameworks */,
-				5CDC85C2224A21E00001189E /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SmartLibrary_Staging;
-			productName = SmartLibrary2;
-			productReference = 5C22E8332236515E005F11CC /* SmartLibrary_Staging.app */;
-			productType = "com.apple.product-type.application";
-		};
 		5C48B5C721F74E2500EE1795 /* SmartLibrary */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5C48B5E521F74E2700EE1795 /* Build configuration list for PBXNativeTarget "SmartLibrary" */;
@@ -467,13 +449,6 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Breffi;
 				TargetAttributes = {
-					5C22E8112236515E005F11CC = {
-						SystemCapabilities = {
-							com.apple.BackgroundModes = {
-								enabled = 0;
-							};
-						};
-					};
 					5C48B5C721F74E2500EE1795 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
@@ -503,37 +478,21 @@
 			projectRoot = "";
 			targets = (
 				5C48B5C721F74E2500EE1795 /* SmartLibrary */,
-				5C22E8112236515E005F11CC /* SmartLibrary_Staging */,
 				5C48B5DB21F74E2700EE1795 /* SmartLibraryTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		5C22E8272236515E005F11CC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5C22E8282236515E005F11CC /* LaunchScreen.storyboard in Resources */,
-				5C22E8292236515E005F11CC /* LibraryLocalizable.strings in Resources */,
-				5C22E82A2236515E005F11CC /* Assets.xcassets in Resources */,
-				5C22E82B2236515E005F11CC /* Main.storyboard in Resources */,
-				5C22E82C2236515E005F11CC /* Library_iPad.storyboard in Resources */,
-				5C22E82D2236515E005F11CC /* Library_iPhone.storyboard in Resources */,
-				5CF05A742243AC2300138B5A /* AuthCredentials.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5C48B5C621F74E2500EE1795 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				5C48B5D621F74E2700EE1795 /* LaunchScreen.storyboard in Resources */,
-				5C1AF8F721F9EEC100CF4ABA /* LibraryLocalizable.strings in Resources */,
 				5C48B5D321F74E2700EE1795 /* Assets.xcassets in Resources */,
+				5C2F2C0E2306A7FF004F4DB9 /* SlideLeafNodeView.xib in Resources */,
 				5C48B5D121F74E2500EE1795 /* Main.storyboard in Resources */,
-				5CA88DC721F8727A00A7AAF0 /* Library_iPad.storyboard in Resources */,
-				5CA88DC321F8724E00A7AAF0 /* Library_iPhone.storyboard in Resources */,
+				5CA88DC721F8727A00A7AAF0 /* Library.storyboard in Resources */,
 				5CF05A762243ACC000138B5A /* AuthCredentials.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -597,7 +556,9 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/StoryIoT/StoryIoT.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -607,7 +568,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityLogger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StoryIoT.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -627,119 +590,41 @@
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO|FIXME|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | \\\nxargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | \\\nperl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"\n";
 		};
-		5C22E8122236515E005F11CC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SmartLibrary_Staging-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5C22E82E2236515E005F11CC /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "KEYWORDS=\"TODO|FIXME|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | \\\nxargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | \\\nperl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"\n";
-		};
-		5C22E82F2236515E005F11CC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SmartLibrary_Staging/Pods-SmartLibrary_Staging-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityLogger.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartLibrary_Staging/Pods-SmartLibrary_Staging-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		5C22E8132236515E005F11CC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5C22E8152236515E005F11CC /* LibraryLocalized+Ext.swift in Sources */,
-				5C22E8162236515E005F11CC /* MediaCell.swift in Sources */,
-				5C22E8172236515E005F11CC /* MediaViewModel.swift in Sources */,
-				5C22E8182236515E005F11CC /* NFDownloadButton.swift in Sources */,
-				5C22E8192236515E005F11CC /* SLPlayerViewController.swift in Sources */,
-				5C22E81A2236515E005F11CC /* LibraryCell.swift in Sources */,
-				5C22E81B2236515E005F11CC /* AppDelegate.swift in Sources */,
-				5C22E81C2236515E005F11CC /* PresentationVC.swift in Sources */,
-				5C22E81D2236515E005F11CC /* SLPreviewController.swift in Sources */,
-				5C22E81E2236515E005F11CC /* Date+Ext.swift in Sources */,
-				5C22E81F2236515E005F11CC /* AlertController.swift in Sources */,
-				5C22E8202236515E005F11CC /* MediaVC.swift in Sources */,
-				5C22E8212236515E005F11CC /* LibraryViewModel.swift in Sources */,
-				5CF05A2522424A2000138B5A /* LoginVC.swift in Sources */,
-				5C22E8222236515E005F11CC /* UIColor+Ext.swift in Sources */,
-				5C22E8232236515E005F11CC /* SLProgressView.swift in Sources */,
-				5C22E8242236515E005F11CC /* LibraryVC.swift in Sources */,
-				5C8A7C4D2245009B007634C8 /* LoginViewModel.swift in Sources */,
-				5CF05A662243A2B500138B5A /* LibraryNC.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5C48B5C421F74E2500EE1795 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C1AF8FB21F9F03C00CF4ABA /* LibraryLocalized+Ext.swift in Sources */,
 				5CFB914822240223001C4E57 /* MediaCell.swift in Sources */,
 				5CFB914A22240874001C4E57 /* MediaViewModel.swift in Sources */,
 				5C24FAC622256BF80097B70C /* NFDownloadButton.swift in Sources */,
-				5C24FAC2222559090097B70C /* SLPlayerViewController.swift in Sources */,
 				5CA88DCC21F8749000A7AAF0 /* LibraryCell.swift in Sources */,
 				5C48B5CC21F74E2500EE1795 /* AppDelegate.swift in Sources */,
-				5C12E39D2200AD57004D68F5 /* PresentationVC.swift in Sources */,
-				5C24FAC42225591F0097B70C /* SLPreviewController.swift in Sources */,
+				5C2F2C0A2306A7FF004F4DB9 /* PSBaseSubtreeView.m in Sources */,
+				5C2F2C0C2306A7FF004F4DB9 /* PSBaseBranchView.m in Sources */,
+				5C12E39D2200AD57004D68F5 /* PresentationViewController.swift in Sources */,
 				5C1AF8F321F9BA1700CF4ABA /* Date+Ext.swift in Sources */,
+				5C2F2C122306A7FF004F4DB9 /* SlideModelNode.swift in Sources */,
 				5C12E3A42201AC1B004D68F5 /* AlertController.swift in Sources */,
-				5C45D52D2209DDB800107541 /* MediaVC.swift in Sources */,
+				5C2F2BF12306A32B004F4DB9 /* MapPresentationController.swift in Sources */,
+				5C45D52D2209DDB800107541 /* MediaViewController.swift in Sources */,
+				5C9092252306D77C00750FA8 /* SLSessionsCredentials.swift in Sources */,
+				5C2F2BF32306A32B004F4DB9 /* MapViewController.swift in Sources */,
 				5CA88DCE21F8752000A7AAF0 /* LibraryViewModel.swift in Sources */,
-				5CF05A2422424A0900138B5A /* LoginVC.swift in Sources */,
+				5C9092262306D77C00750FA8 /* SLSessionsSyncManager.swift in Sources */,
+				5C2F2C082306A7FF004F4DB9 /* PSBaseTreeGraphView.m in Sources */,
+				5CF05A2422424A0900138B5A /* LoginViewController.swift in Sources */,
 				5C24FAC8222574E30097B70C /* UIColor+Ext.swift in Sources */,
-				5C12E3A02201A207004D68F5 /* SLProgressView.swift in Sources */,
-				5CA88DC921F872A900A7AAF0 /* LibraryVC.swift in Sources */,
+				5C2F2C142306A7FF004F4DB9 /* SlideLeafView.swift in Sources */,
+				5C2F2BF72306A4FE004F4DB9 /* UIView+Ext.swift in Sources */,
+				5C2F2C102306A7FF004F4DB9 /* PSBaseLeafView.m in Sources */,
+				5C9092242306D77C00750FA8 /* SLLocationManager.swift in Sources */,
+				5CA88DC921F872A900A7AAF0 /* LibraryViewController.swift in Sources */,
+				5C90921B2306BD0800750FA8 /* SectionHeaderView.swift in Sources */,
 				5C8A7C4C2245009B007634C8 /* LoginViewModel.swift in Sources */,
-				5CF05A652243A2B000138B5A /* LibraryNC.swift in Sources */,
+				5CF05A652243A2B000138B5A /* LibraryNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,14 +647,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5C1AF8F921F9EEC100CF4ABA /* LibraryLocalizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5C1AF8F821F9EEC100CF4ABA /* en */,
-			);
-			name = LibraryLocalizable.strings;
-			sourceTree = "<group>";
-		};
 		5C48B5CF21F74E2500EE1795 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -789,62 +666,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		5C22E8312236515E005F11CC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 171CFB13C4FC7E001AE5A125 /* Pods-SmartLibrary_Staging.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ALBS6P5GL6;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = SmartLibrary/Settings/Staging/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.breffi.SmartLibrary2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG STAGING";
-				SWIFT_OBJC_BRIDGING_HEADER = "SmartLibrary/SmartLibrary-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		5C22E8322236515E005F11CC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6BCBC01A6C25FE8F33B7AEC /* Pods-SmartLibrary_Staging.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ALBS6P5GL6;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = SmartLibrary/Settings/Staging/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.breffi.SmartLibrary2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "SmartLibrary/SmartLibrary-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		5C48B5E321F74E2700EE1795 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -974,7 +795,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = SmartLibrary/Settings/Production/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SmartLibrary/Settings/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1003,7 +824,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = SmartLibrary/Settings/Production/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/SmartLibrary/Settings/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1065,15 +886,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5C22E8302236515E005F11CC /* Build configuration list for PBXNativeTarget "SmartLibrary_Staging" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5C22E8312236515E005F11CC /* Debug */,
-				5C22E8322236515E005F11CC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		5C48B5C321F74E2500EE1795 /* Build configuration list for PBXProject "SmartLibrary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

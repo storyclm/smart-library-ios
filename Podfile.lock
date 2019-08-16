@@ -2,16 +2,21 @@ PODS:
   - Alamofire (4.8.1)
   - AlamofireNetworkActivityLogger (2.3.0):
     - Alamofire (~> 4.6)
-  - Kingfisher (5.1.1)
+  - Kingfisher (5.2.0)
+  - StoryIoT (1.0.0):
+    - Alamofire (= 4.8.1)
   - SVProgressHUD (2.2.5)
   - SwiftKeychainWrapper (3.2.0)
+  - Zip (1.1.0)
 
 DEPENDENCIES:
   - Alamofire (= 4.8.1)
   - AlamofireNetworkActivityLogger (~> 2.0)
-  - Kingfisher (~> 5.1)
+  - Kingfisher (~> 5.2.0)
+  - StoryIoT (from `https://github.com/storyclm/story-iot-ios.git`, tag `develop`)
   - SVProgressHUD (~> 2.2)
   - SwiftKeychainWrapper
+  - Zip (~> 1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -20,14 +25,27 @@ SPEC REPOS:
     - Kingfisher
     - SVProgressHUD
     - SwiftKeychainWrapper
+    - Zip
+
+EXTERNAL SOURCES:
+  StoryIoT:
+    :git: https://github.com/storyclm/story-iot-ios.git
+    :tag: develop
+
+CHECKOUT OPTIONS:
+  StoryIoT:
+    :git: https://github.com/storyclm/story-iot-ios.git
+    :tag: develop
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   AlamofireNetworkActivityLogger: 6f3076652ab7fa6c819b59be08ea038d339e36d8
-  Kingfisher: 2558186963e5be42d98c5b110ccb3130148b77e4
+  Kingfisher: 07067cfacf371117330dceb4b4b8f5c4b691ab42
+  StoryIoT: 3912bed258a2a49ee1b80a4992c17d8f8e94a5e6
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftKeychainWrapper: 82c4c02cdc36f9a24f7edfcaab3e336401caa1a1
+  Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 3c458acfa4d73c6a1b50147ed5369ed1e0bcfeb0
+PODFILE CHECKSUM: f9064262eed6e93016976d6f42485daedf0d33da
 
 COCOAPODS: 1.6.0
