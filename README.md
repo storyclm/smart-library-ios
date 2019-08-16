@@ -24,7 +24,7 @@ ContentComponent состоит из следующих модулей:
 
 Для работы с ContentComponent необходимо установить SCLMAuthService и SCLMSyncService с данными из AuthCredentials.plist
 
-```
+```swift
 SCLMAuthService.shared.setClientId(clientId)
 SCLMAuthService.shared.setClientSecret(clientSecret)
 SCLMAuthService.shared.setAppId(appId)
@@ -34,9 +34,9 @@ SCLMAuthService.shared.setAuthEndpoint(authEndpoint)
 
 ### Логин
 
-Для логина необходимо вызвать следующий метод
+Для авторизации от имени пользователя необходимо вызвать следующий метод
 
-```
+```swift
 SCLMAuthService.shared.login(username: username, password: password, success: {
 success()
 
@@ -47,6 +47,26 @@ failure(error)
 ```
 
 При успешной аутентификации будет получен token, который в дальнейшем будет использован SCLMSyncService для доступа к RESTful API
+
+Для авторизации от имени приложения необходимо вызвать следующий метод
+
+```
+func authAsApplication(clientId: String,
+secret: String,
+username: String,
+password: String,
+success: @escaping (SCLMToken?) -> Void,
+failure: @escaping (Error) -> Void) {}
+```
+
+Для авторизации от имени клиента необходимо вызвать следующий метод
+
+```
+func authAsService(clientId: String,
+secret: String,
+success: @escaping (SCLMToken?) -> Void,
+failure: @escaping (Error) -> Void) {}
+```
 
 ### Синхронизация Клиентов
 
@@ -200,7 +220,7 @@ completionHandler(error)
 pod 'StoryIoT', :git => 'https://github.com/storyclm/story-iot-ios.git', :tag => ‘develop’
 ```
 
-SLSessionsSyncManager иничиализируется в AppDelegate через
+SLSessionsSyncManager инициализируется в AppDelegate через
 
 ```
 SLSessionsSyncManager.shared.startTimer()
