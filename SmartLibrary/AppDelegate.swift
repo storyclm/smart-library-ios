@@ -43,7 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setupServicesWithAuthCredentials()
         
-        let libraryNC = LibraryNC.get()
+        SLSessionsSyncManager.shared.startTimer()
+        
+        let libraryNC = LibraryNavigationController.get()
         AppDelegate.shared().window?.rootViewController = libraryNC
         
         return true

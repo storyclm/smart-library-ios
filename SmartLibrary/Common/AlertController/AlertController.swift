@@ -15,13 +15,13 @@ enum AlertControllerButtonType {
     func description() -> String {
         switch self {
         case .ok:
-            return "ОК".libraryLocalized
+            return "ОК"
         case .yes:
-            return "Да".libraryLocalized
+            return "Да"
         case .no:
-            return "Нет".libraryLocalized
+            return "Нет"
         case .cancel:
-            return "Отмена".libraryLocalized
+            return "Отмена"
         }
     }
     

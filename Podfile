@@ -8,20 +8,19 @@ workspace 'SmartLibrary'
   
 def my_pods
   # Pods for SmartLibrary
-  pod 'SwiftKeychainWrapper'
-  pod 'SVProgressHUD', '~> 2.2'
+  pod 'StoryIoT', :git => 'https://github.com/storyclm/story-iot-ios.git', :tag => ‘develop’
   pod 'AlamofireNetworkActivityLogger', '~> 2.0'
+  pod 'SVProgressHUD', '~> 2.2'
+  pod 'SwiftKeychainWrapper'
+
   # Pods for ContentComponent
   pod 'Alamofire', '4.8.1'
-  pod 'Kingfisher', '~> 5.1'
+  pod 'Kingfisher', '~> 5.2.0'
+  pod 'Zip', '~> 1.1'
+  
 end 
   
 target 'SmartLibrary' do
-  inherit! :search_paths
-  my_pods
-end
-
-target 'SmartLibrary_Staging' do
   inherit! :search_paths
   my_pods
 end
