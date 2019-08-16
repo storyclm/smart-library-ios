@@ -273,3 +273,113 @@ func goToSlide(_ slide: Slide, with data: Any)
 func getNavigationData() -> Any
 }
 ```
+
+##### SCLMBridgePresentationModule
+
+```swift
+public protocol SCLMBridgePresentationModuleProtocol: class {
+typealias SlideName = String
+func openPresentation(_ presentation: Presentation, with slideName: String?, and data: Any?)
+func getPreviousSlide() -> Slide?
+func getNextSlide() -> Slide?
+func getCurrentSlideName() -> String?
+func getBackForwardList() -> [SlideName]?
+func getBackForwardPresList() -> [Presentation]?
+func closePresentation(mode: ClosePresentationMode)
+}
+```
+
+##### SCLMBridgeUIModule
+
+```swift
+public protocol SCLMBridgeUIModuleProtocol: class {
+func hideCloseBtn()
+func hideSystemBtns()
+}
+```
+
+##### SCLMBridgeHTTPModule
+
+```swift
+// обрабатывает комманды
+let commands = [command.httpget,
+command.httppost,
+command.httpput,
+command.httpdelete]
+```
+
+##### SCLMBridgeSessionsModule
+
+```swift
+public protocol SCLMBridgeSessionsModuleProtocol: class {
+func setSessionComplete()
+}
+```
+
+##### SCLMBridgeCustomEventsModule
+
+```swift
+public protocol SCLMBridgeCustomEventsModuleProtocol: class {
+func setEventKey(_ key: String, and value: Any)
+}
+```
+
+##### SCLMBridgeMediaFilesModule
+
+```swift
+public protocol SCLMBridgeMediaFilesModuleProtocol: class {
+func openMediaFile(_ fileName: String)
+func openMediaLibrary()
+func showMediaLibraryBtn()
+func hideMediaLibraryBtn()
+}
+```
+
+##### SCLMBridgeMapModule
+
+```swift
+public protocol SCLMBridgeMapModuleProtocol: class {
+func hideMapBtn()
+func showMapBtn()
+}
+```
+
+Для добавления модуля необходимо реализовать протокол добавляемого модуля.
+
+Пример пеализации модуля SCLMBridgeMediaFilesModule
+
+```swift
+
+class PresentationViewController: UIViewController, SCLMBridgeMediaFilesModuleProtocol {
+
+// MARK: - SCLMBridgeMediaFilesModuleProtocol
+
+func openMediaFile(_ fileName: String) {
+DispatchQueue.main.async {
+let mediaVC = MediaViewController.get()
+mediaVC.inject(presentation: self.currentPresentation)
+mediaVC.inject(bridge: self.bridge)
+mediaVC.inject(mediaFileNameToOpenAtLaunch: fileName)
+self.present(mediaVC, animated: true, completion: nil)
+}
+}
+
+func openMediaLibrary() {
+DispatchQueue.main.async {
+let mediaVC = MediaViewController.get()
+mediaVC.inject(presentation: self.currentPresentation)
+mediaVC.inject(bridge: self.bridge)
+self.present(mediaVC, animated: true, completion: nil)
+}
+}
+
+func showMediaLibraryBtn() {
+mediaButton.show()
+}
+
+func hideMediaLibraryBtn() {
+mediaButton.hide()
+}
+
+}
+```

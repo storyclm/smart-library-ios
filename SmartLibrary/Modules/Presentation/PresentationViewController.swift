@@ -568,7 +568,6 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
     // MARK: - SCLMBridgeMediaFilesModuleProtocol
     
     func openMediaFile(_ fileName: String) {
-
         DispatchQueue.main.async {
             let mediaVC = MediaViewController.get()
             mediaVC.inject(presentation: self.currentPresentation)
@@ -576,18 +575,15 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
             mediaVC.inject(mediaFileNameToOpenAtLaunch: fileName)
             self.present(mediaVC, animated: true, completion: nil)
         }
-        
     }
     
     func openMediaLibrary() {
-
         DispatchQueue.main.async {
             let mediaVC = MediaViewController.get()
             mediaVC.inject(presentation: self.currentPresentation)
             mediaVC.inject(bridge: self.bridge)
             self.present(mediaVC, animated: true, completion: nil)
         }
-        
     }
     
     func showMediaLibraryBtn() {
