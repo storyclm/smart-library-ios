@@ -50,7 +50,7 @@ failure(error)
 
 Для авторизации от имени приложения необходимо вызвать следующий метод
 
-```
+```swift
 func authAsApplication(clientId: String,
 secret: String,
 username: String,
@@ -61,7 +61,7 @@ failure: @escaping (Error) -> Void) {}
 
 Для авторизации от имени клиента необходимо вызвать следующий метод
 
-```
+```swift
 func authAsService(clientId: String,
 secret: String,
 success: @escaping (SCLMToken?) -> Void,
@@ -72,7 +72,7 @@ failure: @escaping (Error) -> Void) {}
 
 После успешного логина необходим выполнить синхронизацию клиентов
 
-```
+```swift
 SCLMSyncManager.shared.synchronizeClients { (error) in
 
 }
@@ -85,14 +85,14 @@ SCLMSyncManager.shared.synchronizeClients { (error) in
 Доступ к данным предоставляет NSFetchedResultsController<NSFetchRequestResult> 
 
 Можно использовать существующий NSFetchedResultsController с sectionNameKeyPath: "client.name"
-```
+```swift
 var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> {
 return SCLMSyncManager.shared.fetchedResultsController
 }
 ```
 
 Можно инициализировать свой
-```
+```swift
 public lazy var fetchedResultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
 
 let fetchResult = self.fetchRequest(for: Presentation.entityName(), batchSize: 100, sortKey: "client.name", context: syncManager.context)
@@ -108,7 +108,10 @@ print("FetchedResultsController performFetch error")
 return fetchedResultsController
 
 }()
+```
 
+или так
+```swift
 public lazy var fetchedResultsControllerSectionLess: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
 
 let fetchResult = self.fetchRequest(for: Presentation.entityName(), batchSize: 100, sortKey: "client.name", context: syncManager.context)
@@ -130,7 +133,7 @@ return fetchedResultsController
 
 По умолчанию количество Клиентов (Client) - это количество секций для UITableViewDataSource или UICollectionViewDataSource
 
-```
+```swift
 func numberOfSections(in collectionView: UICollectionView) -> Int {
 
 if let sections = viewModel.fetchedResultsController.sections {
@@ -143,7 +146,7 @@ return 0
 
 Количество объектов секции (Presentation) - это презентации Клиентов.
 
-```
+```swift
 func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
 if let sections = viewModel.fetchedResultsController.sections {
@@ -158,7 +161,7 @@ return 0
 
 Доступ к презентации осуществляется через
 
-```
+```swift
 let presentation = fetchedResultsController.object(at: indexPath) as! Presentation
 ```
 
@@ -166,7 +169,7 @@ let presentation = fetchedResultsController.object(at: indexPath) as! Presentati
 
 При синхронизации клиентов синхронизируются только модели презентаций. Для синхронизации контента презентации неодходимо вызвать
 
-```
+```swift
 SCLMSyncManager.shared.synchronizePresentation(presentation, completionHandler: { (error) in
 completionHandler(error)
 
@@ -178,13 +181,13 @@ progressHandler(progress)
 
 Для восстановления прогреса синхронизации при обновлении данных необходимо воспользоваться следующими инструментами:
 
-```
+```swift
 let presentationSynchronizingNow = SCLMSyncManager.shared.isPresentationSynchronizingNow(presentation: presentation)
 ```
 
 Если контент загружается в настоящий момент, то метод SCLMSyncManager.shared.isPresentationSynchronizingNow вернет объект, у которого есть следующие свойства
 
-```
+```swift
 public weak var downloadRequest: DownloadRequest?
 public var progress = Progress() {
 didSet {
@@ -199,13 +202,13 @@ public var completionHandler: ((_ presentationId: Int?) -> Void)?
 
 Для удаления контента необходимо вызвать
 
-```
+```swift
 SyncManager.shared.deletePresentationContentPackage(presentation)
 ```
 
 Для обновления презентации необходимо вызвать
 
-```
+```swift
 SCLMSyncManager.shared.updatePresentation(presentation) { (error) in
 completionHandler(error)
 }
@@ -216,13 +219,13 @@ completionHandler(error)
 
 Аналитика реализована в библиотеке StoryIot, подклучение которой осуществляется через CocoaPods
 
-```
+```swift
 pod 'StoryIoT', :git => 'https://github.com/storyclm/story-iot-ios.git', :tag => ‘develop’
 ```
 
 SLSessionsSyncManager инициализируется в AppDelegate через
 
-```
+```swift
 SLSessionsSyncManager.shared.startTimer()
 ```
 
