@@ -794,6 +794,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SmartLibrary/Settings/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -823,6 +824,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SmartLibrary/Settings/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
