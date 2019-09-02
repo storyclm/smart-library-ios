@@ -12,7 +12,7 @@ import Kingfisher
 
 protocol LibraryCellProtocol: class {
     func libraryCell(_ cell: LibraryCell, infoButtonPressedForPresentation presentation: Presentation)
-    func libraryCell(_ cell: LibraryCell, syncButtonPressedForPresentation presentation: Presentation, progressHandler: ((Int?, Progress) -> Void)?, completionHandler: ((Int?) -> Void)?)
+    func libraryCell(_ cell: LibraryCell, syncButtonPressedForPresentation presentation: Presentation, progressHandler: ((Int?, Progress) -> Void)?, completionHandler: ((Int?) -> Void)?, psnHandler: ((PresentationSynchronizingNow) -> Void)?)
 }
 
 class LibraryCell: UICollectionViewCell {
@@ -36,6 +36,7 @@ class LibraryCell: UICollectionViewCell {
     
     var progressHandler: ((_ presentationId: Int?, _ progress: Progress) -> Void)?
     var completionHandler: ((_ presentationId: Int?) -> Void)?
+    var psnHandler: ((_ psn: PresentationSynchronizingNow) -> Void)?
     
     // MARK: -
     
@@ -98,7 +99,6 @@ class LibraryCell: UICollectionViewCell {
         self.presentation = presentation
         self.presentationSynchronizingNow = presentationSynchronizingNow
 
-        
         // hanlers
         self.progressHandler = { [weak self] presentationId, progress in
             DispatchQueue.main.async {
@@ -116,29 +116,32 @@ class LibraryCell: UICollectionViewCell {
                 if presentationId == self?.presentation?.presentationId?.intValue {
                     if presentation.isSyncDone() {
                         self?.syncButton.isHidden = true
-                        self?.updateInfoButton(with: presentation)
                     }
                 }
             }
         }
         
+        self.psnHandler = { [weak self] psn in
+            self?.presentationSynchronizingNow = psn
+            self?.presentationSynchronizingNow?.progressHandler = self?.progressHandler
+            self?.presentationSynchronizingNow?.completionHandler = self?.completionHandler
+        }
+        
+        setupImageView(with: presentation)
+        setupLabels(with: presentation)
+        updateSyncButton(with: presentation)
         
         // restore state if presentationSynchronizingNow
         if let _ = presentationSynchronizingNow {
             syncButton.downloadState = .readyToDownload
+            syncButton.setImage(nil, for: .normal)
         } else {
             syncButton.downloadState = .toDownload
+            syncButton.setImage(UIImage(named: "downloadBtn2"), for: .normal)
         }
         self.presentationSynchronizingNow?.progressHandler = self.progressHandler
         self.presentationSynchronizingNow?.completionHandler = self.completionHandler
         
-        
-        setupImageView(with: presentation)
-        setupLabels(with: presentation)
-        setupUnreadImageView(with: presentation)
-        updateInfoButton(with: presentation)
-        updateSyncButton(with: presentation)
-
     }
     
     private func setupImageView(with presentation: Presentation) {
@@ -245,12 +248,14 @@ class LibraryCell: UICollectionViewCell {
         
         if presentation.isSyncReady() || presentation.isUpdateAvailable() {
             sender.downloadState = .readyToDownload
+            syncButton.setImage(nil, for: .normal)
             
-            delegate?.libraryCell(self, syncButtonPressedForPresentation: presentation, progressHandler: self.progressHandler, completionHandler: self.completionHandler)
+            delegate?.libraryCell(self, syncButtonPressedForPresentation: presentation, progressHandler: self.progressHandler, completionHandler: self.completionHandler, psnHandler: self.psnHandler)
             
-  
-        } else if presentation.isSyncNow() {
+            
+        } else if presentation.isSyncNow() || presentation.isSyncWait() {
             sender.downloadState = .toDownload
+            syncButton.setImage(UIImage(named: "downloadBtn2"), for: .normal)
             
             SCLMSyncManager.shared.cancelSynchronizePresentation(presentation)
             

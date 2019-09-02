@@ -66,14 +66,18 @@ class LibraryViewModel: NSObject {
     }
     
     public func synchronizePresentation(_ presentation: Presentation,
-                                        completionHandler: @escaping (_ error: Error?) -> Void,
-                                        progressHandler: @escaping (_ progress :Progress) -> Void) {
+                                        completionHandler: @escaping (_ error: SCLMError?) -> Void,
+                                        progressHandler: @escaping (_ progress :Progress) -> Void,
+                                        psnHandler: ((_ psn: PresentationSynchronizingNow) -> Void)?) {
         
         syncManager.synchronizePresentation(presentation, completionHandler: { (error) in
-            completionHandler(error)
+            completionHandler(error as? SCLMError)
             
-        }) { (progress) in
+        }, progressHandler: { (progress) in
             progressHandler(progress)
+            
+        }) { (psn) in
+            psnHandler?(psn)
             
         }
         

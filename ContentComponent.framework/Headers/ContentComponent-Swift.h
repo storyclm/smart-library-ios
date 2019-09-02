@@ -362,14 +362,6 @@ SWIFT_CLASS("_TtC16ContentComponent12Presentation")
 - (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
 @end
 
-
-@interface Presentation (SWIFT_EXTENSION(ContentComponent))
-- (void)addMediaFilesObject:(MediaFile * _Nonnull)value;
-- (void)removeMediaFilesObject:(MediaFile * _Nonnull)value;
-- (void)addMediaFiles:(NSSet * _Nonnull)values;
-- (void)removeMediaFiles:(NSSet * _Nonnull)values;
-@end
-
 @class Slide;
 
 @interface Presentation (SWIFT_EXTENSION(ContentComponent))
@@ -377,6 +369,14 @@ SWIFT_CLASS("_TtC16ContentComponent12Presentation")
 - (void)removeSlidesObject:(Slide * _Nonnull)value;
 - (void)addSlides:(NSSet * _Nonnull)values;
 - (void)removeSlides:(NSSet * _Nonnull)values;
+@end
+
+
+@interface Presentation (SWIFT_EXTENSION(ContentComponent))
+- (void)addMediaFilesObject:(MediaFile * _Nonnull)value;
+- (void)removeMediaFilesObject:(MediaFile * _Nonnull)value;
+- (void)addMediaFiles:(NSSet * _Nonnull)values;
+- (void)removeMediaFiles:(NSSet * _Nonnull)values;
 @end
 
 
@@ -419,6 +419,21 @@ SWIFT_CLASS("_TtC16ContentComponent28PresentationSynchronizingNow")
 @interface PresentationSynchronizingNow : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
+SWIFT_CLASS("_TtC16ContentComponent16SCLMBridgeModule")
+@interface SCLMBridgeModule : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
+
+
+SWIFT_CLASS("_TtC16ContentComponent18SCLMBridgeResponse")
+@interface SCLMBridgeResponse : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class NSCoder;

@@ -63,6 +63,22 @@ class LoginViewController: UIViewController {
         login()
     }
     
+    @IBAction func signinAsServiceButtonPressed() {
+        SVProgressHUD.setDefaultMaskType(.black)
+        SVProgressHUD.show(withStatus: "Login...")
+        SCLMAuthService.shared.authAsService(success: {
+            SVProgressHUD.dismiss()
+            
+            let libraryVC = LibraryViewController.get()
+            self.navigationController?.pushViewController(libraryVC, animated: true)
+            
+        }) { (error) in
+            SVProgressHUD.dismiss()
+            AlertController.showAlert(title: "Error", message: error.localizedDescription, presentedFor: self, buttonLeft: .ok, buttonRight: nil, buttonLeftHandler: nil, buttonRightHandler: nil)
+            
+        }
+    }
+    
     // MARK: - Helpers
     
     func isValidEmail(email: String?) -> Bool {

@@ -240,11 +240,25 @@
                                             <constraint firstAttribute="height" constant="48" id="Ms9-ph-AwL"/>
                                             <constraint firstAttribute="height" constant="48" id="lek-7m-KHc"/>
                                         </constraints>
-                                        <state key="normal" title="SIGN IN">
+                                        <state key="normal" title="LOGIN WITH USERNAME AND PASS">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="signinButtonPressed" destination="arJ-Kp-0In" eventType="touchUpInside" id="oEf-Yx-1UL"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vES-6n-EyF">
+                                        <rect key="frame" x="66" y="394" width="312" height="48"/>
+                                        <color key="backgroundColor" red="0.27058823529999998" green="0.73725490199999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="WRA-xl-yuv"/>
+                                            <constraint firstAttribute="height" constant="48" id="zfF-b2-Jjp"/>
+                                        </constraints>
+                                        <state key="normal" title="LOGIN AS SERVICE">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="signinAsServiceButtonPressed" destination="arJ-Kp-0In" eventType="touchUpInside" id="3ai-9U-zkf"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -252,13 +266,16 @@
                                 <constraints>
                                     <constraint firstItem="mrS-u4-Qz5" firstAttribute="top" secondItem="4w9-00-0sU" secondAttribute="bottom" constant="43" id="3xQ-qG-e8u"/>
                                     <constraint firstAttribute="width" constant="444" id="4aY-s0-nkD"/>
+                                    <constraint firstItem="vES-6n-EyF" firstAttribute="trailing" secondItem="7od-59-5pF" secondAttribute="trailing" id="4t5-8K-fsS"/>
                                     <constraint firstItem="7od-59-5pF" firstAttribute="trailing" secondItem="QbB-ad-rkD" secondAttribute="trailing" id="684-Mi-FFG"/>
+                                    <constraint firstItem="vES-6n-EyF" firstAttribute="top" secondItem="7od-59-5pF" secondAttribute="bottom" constant="8" id="Q2C-3t-Ioo"/>
                                     <constraint firstItem="QbB-ad-rkD" firstAttribute="top" secondItem="mrS-u4-Qz5" secondAttribute="bottom" constant="24" id="QKh-MF-qmK"/>
                                     <constraint firstAttribute="trailing" secondItem="mrS-u4-Qz5" secondAttribute="trailing" constant="66" id="UUe-wR-wj8"/>
                                     <constraint firstAttribute="bottom" secondItem="7od-59-5pF" secondAttribute="bottom" constant="87" id="Wo2-LQ-1ck"/>
                                     <constraint firstItem="7od-59-5pF" firstAttribute="leading" secondItem="QbB-ad-rkD" secondAttribute="leading" id="XtG-bm-dSw"/>
                                     <constraint firstItem="4w9-00-0sU" firstAttribute="top" secondItem="VX9-e5-C8e" secondAttribute="top" constant="32" id="ats-ji-c0L"/>
                                     <constraint firstItem="QbB-ad-rkD" firstAttribute="trailing" secondItem="mrS-u4-Qz5" secondAttribute="trailing" id="fqE-fz-Nqd"/>
+                                    <constraint firstItem="vES-6n-EyF" firstAttribute="leading" secondItem="7od-59-5pF" secondAttribute="leading" id="ids-zk-6NW"/>
                                     <constraint firstAttribute="height" constant="473" id="rz1-2Y-PEy"/>
                                     <constraint firstItem="QbB-ad-rkD" firstAttribute="leading" secondItem="mrS-u4-Qz5" secondAttribute="leading" id="vMb-wj-Yi6"/>
                                     <constraint firstItem="4w9-00-0sU" firstAttribute="centerX" secondItem="VX9-e5-C8e" secondAttribute="centerX" id="yrA-bQ-3Sb"/>

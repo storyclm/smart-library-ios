@@ -167,7 +167,9 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
                     } else if presentation.isUpdateAvailable() && presentation.isContentExists() {
                         return true
                     } else {
-                        libraryCell(cell, syncButtonPressedForPresentation: presentation, progressHandler: cell.progressHandler, completionHandler: cell.completionHandler)
+                        cell.syncButton.downloadState = .readyToDownload
+                        cell.syncButton.setImage(nil, for: .normal)
+                        libraryCell(cell, syncButtonPressedForPresentation: presentation, progressHandler: cell.progressHandler, completionHandler: cell.completionHandler, psnHandler: cell.psnHandler)
                     }
                     
                 }
@@ -263,7 +265,7 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         showActionSheet(for: cell, presentation: presentation)
     }
 
-    func libraryCell(_ cell: LibraryCell, syncButtonPressedForPresentation presentation: Presentation, progressHandler: ((Int?, Progress) -> Void)?, completionHandler: ((Int?) -> Void)?) {
+    func libraryCell(_ cell: LibraryCell, syncButtonPressedForPresentation presentation: Presentation, progressHandler: ((Int?, Progress) -> Void)?, completionHandler: ((Int?) -> Void)?, psnHandler: ((PresentationSynchronizingNow) -> Void)?) {
         
         if presentation.isSyncNow() {
             return
@@ -303,9 +305,10 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
                 }
                 
             }, progressHandler: { progress in
-                if let progressHandler = progressHandler {
-                    progressHandler(presentation.presentationId?.intValue, progress)
-                }
+                progressHandler?(presentation.presentationId?.intValue, progress)
+                
+            }, psnHandler: { psn in
+                psnHandler?(psn)
                 
             })
             
