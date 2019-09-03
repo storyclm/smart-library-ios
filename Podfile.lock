@@ -7,7 +7,6 @@ PODS:
     - Alamofire (= 4.8.1)
   - SVProgressHUD (2.2.5)
   - SwiftKeychainWrapper (3.2.0)
-  - Zip (1.1.0)
 
 DEPENDENCIES:
   - Alamofire (= 4.8.1)
@@ -16,7 +15,6 @@ DEPENDENCIES:
   - StoryIoT (from `https://github.com/storyclm/story-iot-ios.git`, tag `develop`)
   - SVProgressHUD (~> 2.2)
   - SwiftKeychainWrapper
-  - Zip (~> 1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -25,7 +23,6 @@ SPEC REPOS:
     - Kingfisher
     - SVProgressHUD
     - SwiftKeychainWrapper
-    - Zip
 
 EXTERNAL SOURCES:
   StoryIoT:
@@ -44,8 +41,7 @@ SPEC CHECKSUMS:
   StoryIoT: 3912bed258a2a49ee1b80a4992c17d8f8e94a5e6
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftKeychainWrapper: 82c4c02cdc36f9a24f7edfcaab3e336401caa1a1
-  Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: f9064262eed6e93016976d6f42485daedf0d33da
+PODFILE CHECKSUM: d89901f34c9f3a1fe3a6e21a53158d1b99778029
 
 COCOAPODS: 1.6.0

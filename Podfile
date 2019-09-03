@@ -16,7 +16,6 @@ def my_pods
   # Pods for ContentComponent
   pod 'Alamofire', '4.8.1'
   pod 'Kingfisher', '~> 5.2.0'
-  pod 'Zip', '~> 1.1'
   
 end 
   
