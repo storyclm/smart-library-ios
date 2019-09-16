@@ -38,9 +38,9 @@ SCLMAuthService.shared.setAuthEndpoint(authEndpoint)
 
 ```swift
 SCLMAuthService.shared.login(username: username, password: password, success: {
-	success()
+    success()
 }) { (error) in
-	failure(error)
+    failure(error)
 }
 ```
 
@@ -50,20 +50,20 @@ SCLMAuthService.shared.login(username: username, password: password, success: {
 
 ```swift
 func authAsApplication(clientId: String,
-secret: String,
-username: String,
-password: String,
-success: @escaping (SCLMToken?) -> Void,
-failure: @escaping (Error) -> Void) {}
+                       secret: String,
+                       username: String,
+                       password: String,
+                       success: @escaping (SCLMToken?) -> Void,
+                       failure: @escaping (Error) -> Void) {}
 ```
 
 Для авторизации от имени клиента необходимо вызвать следующий метод
 
 ```swift
 func authAsService(clientId: String,
-secret: String,
-success: @escaping (SCLMToken?) -> Void,
-failure: @escaping (Error) -> Void) {}
+                   secret: String,
+                   success: @escaping (SCLMToken?) -> Void,
+                   failure: @escaping (Error) -> Void) {}
 ```
 
 ### Синхронизация Клиентов
@@ -85,55 +85,54 @@ SCLMSyncManager.shared.synchronizeClients { (error) in
 Можно использовать существующий NSFetchedResultsController с sectionNameKeyPath: "client.name"
 ```swift
 var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> {
-	return SCLMSyncManager.shared.fetchedResultsController
+    return SCLMSyncManager.shared.fetchedResultsController
 }
 ```
 
 Можно инициализировать свой
 ```swift
 public lazy var fetchedResultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
-
-	let fetchResult = self.fetchRequest(for: Presentation.entityName(), batchSize: 100, sortKey: "client.name", context: syncManager.context)
-	let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchResult, managedObjectContext: syncManager.context, sectionNameKeyPath: "client.name", cacheName: nil)
-
-	do {
-		try fetchedResultsController.performFetch()
-	} catch {
-		print("FetchedResultsController performFetch error")
-	}
-
-	return fetchedResultsController
+    
+    let fetchResult = self.fetchRequest(for: Presentation.entityName(), batchSize: 100, sortKey: "client.name", context: syncManager.context)
+    let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchResult, managedObjectContext: syncManager.context, sectionNameKeyPath: "client.name", cacheName: nil)
+    
+    do {
+        try fetchedResultsController.performFetch()
+    } catch {
+        print("FetchedResultsController performFetch error")
+    }
+    
+    return fetchedResultsController
 }()
 ```
 
 или так
 ```swift
 public lazy var fetchedResultsControllerSectionLess: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
-
-	let fetchResult = self.fetchRequest(for: Presentation.entityName(), batchSize: 100, sortKey: "client.name", context: syncManager.context)
-	let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchResult, managedObjectContext: syncManager.context, sectionNameKeyPath: nil, cacheName: nil)
-
-	do {
-		try fetchedResultsController.performFetch()
-	} catch {
-		print("FetchedResultsController performFetch error")
-	}
-
-	return fetchedResultsController
+    
+    let fetchResult = self.fetchRequest(for: Presentation.entityName(), batchSize: 100, sortKey: "client.name", context: syncManager.context)
+    let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchResult, managedObjectContext: syncManager.context, sectionNameKeyPath: nil, cacheName: nil)
+    
+    do {
+        try fetchedResultsController.performFetch()
+    } catch {
+        print("FetchedResultsController performFetch error")
+    }
+    
+    return fetchedResultsController
 }()
 ```
-
 
 
 По умолчанию количество Клиентов (Client) - это количество секций для UITableViewDataSource или UICollectionViewDataSource
 
 ```swift
 func numberOfSections(in collectionView: UICollectionView) -> Int {
-
-	if let sections = viewModel.fetchedResultsController.sections {
-		return sections.count
-	}
-	return 0
+    
+    if let sections = viewModel.fetchedResultsController.sections {
+        return sections.count
+    }
+    return 0
 }
 ```
 
@@ -141,13 +140,13 @@ func numberOfSections(in collectionView: UICollectionView) -> Int {
 
 ```swift
 func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
-	if let sections = viewModel.fetchedResultsController.sections {
-		if sections.count > section {
-			return sections[section].numberOfObjects
-		}
-	}
-	return 0
+    
+    if let sections = viewModel.fetchedResultsController.sections {
+        if sections.count > section {
+            return sections[section].numberOfObjects
+        }
+    }
+    return 0
 }
 ```
 
@@ -163,9 +162,9 @@ let presentation = fetchedResultsController.object(at: indexPath) as! Presentati
 
 ```swift
 SCLMSyncManager.shared.synchronizePresentation(presentation, completionHandler: { (error) in
-	completionHandler(error)
+    completionHandler(error)
 }) { (progress) in
-	progressHandler(progress)
+    progressHandler(progress)
 }
 ```
 
@@ -180,9 +179,9 @@ let presentationSynchronizingNow = SCLMSyncManager.shared.isPresentationSynchron
 ```swift
 public weak var downloadRequest: DownloadRequest?
 public var progress = Progress() {
-	didSet {
-		progressHandler?(presentationId.intValue, progress)
-	}
+    didSet {
+        progressHandler?(presentationId.intValue, progress)
+    }
 }
 public var progressHandler: ((_ presentationId: Int?, _ progress: Progress) -> Void)?
 public var completionHandler: ((_ presentationId: Int?) -> Void)?
@@ -200,7 +199,7 @@ SyncManager.shared.deletePresentationContentPackage(presentation)
 
 ```swift
 SCLMSyncManager.shared.updatePresentation(presentation) { (error) in
-	completionHandler(error)
+    completionHandler(error)
 }
 ```
 
@@ -258,8 +257,8 @@ SCLMBridgeModule - это часть технологии StoryBridge на ст�
 
 ```swift
 public protocol SCLMBridgeBaseModuleProtocol: class {
-	func goToSlide(_ slide: Slide, with data: Any)
-	func getNavigationData() -> Any
+    func goToSlide(_ slide: Slide, with data: Any)
+    func getNavigationData() -> Any
 }
 ```
 
@@ -267,14 +266,15 @@ public protocol SCLMBridgeBaseModuleProtocol: class {
 
 ```swift
 public protocol SCLMBridgePresentationModuleProtocol: class {
-	typealias SlideName = String
-	func openPresentation(_ presentation: Presentation, with slideName: String?, and data: Any?)
-	func getPreviousSlide() -> Slide?
-	func getNextSlide() -> Slide?
-	func getCurrentSlideName() -> String?
-	func getBackForwardList() -> [SlideName]?
-	func getBackForwardPresList() -> [Presentation]?
-	func closePresentation(mode: ClosePresentationMode)
+    typealias SlideName = String
+    
+    func openPresentation(_ presentation: Presentation, with slideName: String?, and data: Any?)
+    func getPreviousSlide() -> Slide?
+    func getNextSlide() -> Slide?
+    func getCurrentSlideName() -> String?
+    func getBackForwardList() -> [SlideName]?
+    func getBackForwardPresList() -> [Presentation]?
+    func closePresentation(mode: ClosePresentationMode)
 }
 ```
 
@@ -282,8 +282,8 @@ public protocol SCLMBridgePresentationModuleProtocol: class {
 
 ```swift
 public protocol SCLMBridgeUIModuleProtocol: class {
-	func hideCloseBtn()
-	func hideSystemBtns()
+    func hideCloseBtn()
+    func hideSystemBtns()
 }
 ```
 
@@ -292,16 +292,16 @@ public protocol SCLMBridgeUIModuleProtocol: class {
 ```swift
 // обрабатывает комманды
 let commands = [command.httpget,
-command.httppost,
-command.httpput,
-command.httpdelete]
+                command.httppost,
+                command.httpput,
+                command.httpdelete]
 ```
 
 ##### SCLMBridgeSessionsModule
 
 ```swift
 public protocol SCLMBridgeSessionsModuleProtocol: class {
-	func setSessionComplete()
+    func setSessionComplete()
 }
 ```
 
@@ -309,7 +309,7 @@ public protocol SCLMBridgeSessionsModuleProtocol: class {
 
 ```swift
 public protocol SCLMBridgeCustomEventsModuleProtocol: class {
-	func setEventKey(_ key: String, and value: Any)
+    func setEventKey(_ key: String, and value: Any)
 }
 ```
 
@@ -317,10 +317,10 @@ public protocol SCLMBridgeCustomEventsModuleProtocol: class {
 
 ```swift
 public protocol SCLMBridgeMediaFilesModuleProtocol: class {
-	func openMediaFile(_ fileName: String)
-	func openMediaLibrary()
-	func showMediaLibraryBtn()
-	func hideMediaLibraryBtn()
+    func openMediaFile(_ fileName: String)
+    func openMediaLibrary()
+    func showMediaLibraryBtn()
+    func hideMediaLibraryBtn()
 }
 ```
 
@@ -328,8 +328,8 @@ public protocol SCLMBridgeMediaFilesModuleProtocol: class {
 
 ```swift
 public protocol SCLMBridgeMapModuleProtocol: class {
-	func hideMapBtn()
-	func showMapBtn()
+    func hideMapBtn()
+    func showMapBtn()
 }
 ```
 
@@ -340,34 +340,64 @@ public protocol SCLMBridgeMapModuleProtocol: class {
 
 class PresentationViewController: UIViewController, SCLMBridgeMediaFilesModuleProtocol {
 
-// MARK: - SCLMBridgeMediaFilesModuleProtocol
+    // MARK: - SCLMBridgeMediaFilesModuleProtocol
 
-	func openMediaFile(_ fileName: String) {
-		DispatchQueue.main.async {
-			let mediaVC = MediaViewController.get()
-			mediaVC.inject(presentation: self.currentPresentation)
-			mediaVC.inject(bridge: self.bridge)
-			mediaVC.inject(mediaFileNameToOpenAtLaunch: fileName)
-			self.present(mediaVC, animated: true, completion: nil)
-		}
-	}
+    func openMediaFile(_ fileName: String) {
+        DispatchQueue.main.async {
+            let mediaVC = MediaViewController.get()
+            mediaVC.inject(presentation: self.currentPresentation)
+            mediaVC.inject(bridge: self.bridge)
+            mediaVC.inject(mediaFileNameToOpenAtLaunch: fileName)
+            self.present(mediaVC, animated: true, completion: nil)
+        }
+    }
 
-	func openMediaLibrary() {
-		DispatchQueue.main.async {
-			let mediaVC = MediaViewController.get()
-			mediaVC.inject(presentation: self.currentPresentation)
-			mediaVC.inject(bridge: self.bridge)
-			self.present(mediaVC, animated: true, completion: nil)
-		}
-	}
+    func openMediaLibrary() {
+        DispatchQueue.main.async {
+            let mediaVC = MediaViewController.get()
+            mediaVC.inject(presentation: self.currentPresentation)
+            mediaVC.inject(bridge: self.bridge)
+            self.present(mediaVC, animated: true, completion: nil)
+        }
+    }
 
-	func showMediaLibraryBtn() {
-		mediaButton.show()
-	}
+    func showMediaLibraryBtn() {
+        mediaButton.show()
+    }
 
-	func hideMediaLibraryBtn() {
-		mediaButton.hide()
-	}
-
+    func hideMediaLibraryBtn() {
+        mediaButton.hide()
+    }
 }
+
+```
+
+#### Создание собственного модуля для обработки команд
+
+* Создаем класс модуля унаследовав его от `SCLMBridgeModule` и реализуем метод `execute`
+
+```swift
+import ContentComponent
+
+class MyCustomBridgeModule: SCLMBridgeModule {
+
+    let commands = [ "myCommand1", "myCommand2" ]
+
+    override func execute(message: SCLMBridgeMessage, result: @escaping (SCLMBridgeResponse?) -> Void) {
+        print(message.command) // Имя команды
+        print(message.data) // Тело команды
+
+        result(SCLMBridgeResponse(guid: message.guid, responseData: nil, errorCode: ResponseStatus.success, errorMessage: nil))
+    }
+}
+```
+
+* Регистрируем новые команды и добавляем свой модуль в мост
+
+```swift
+let bridge = SCLMBridge(presenter: webView, presentation: currentPresentation, delegate: self)
+
+let myModule = MyCustomBridgeModule(presenter: webView, session: bridge.sessions.session, presentation: currentPresentation, settings: nil, environments: nil, delegate: bridge.delegate)
+bridge.subscribe(module: myModule, toCommands: myModule.commands)
+bridge.addBridgeModule(myModule)
 ```
