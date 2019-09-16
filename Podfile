@@ -8,7 +8,7 @@ workspace 'SmartLibrary'
   
 def my_pods
   # Pods for SmartLibrary
-  pod 'StoryIoT', :git => 'https://github.com/storyclm/story-iot-ios.git', :tag => ‘develop’
+  pod 'StoryIoT', :git => 'https://github.com/storyclm/story-iot-ios.git', :tag => 'develop'
   pod 'AlamofireNetworkActivityLogger', '~> 2.0'
   pod 'SVProgressHUD', '~> 2.2'
   pod 'SwiftKeychainWrapper'
@@ -16,6 +16,7 @@ def my_pods
   # Pods for ContentComponent
   pod 'Alamofire', '4.8.1'
   pod 'Kingfisher', '~> 5.2.0'
+#  pod 'Zip', '~> 1.1'
   
 end 
   

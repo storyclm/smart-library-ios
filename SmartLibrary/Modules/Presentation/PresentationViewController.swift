@@ -73,6 +73,12 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
         }
         
         bridge = SCLMBridge(presenter: webView, presentation: currentPresentation, delegate: self)
+
+        if let bridge = self.bridge {
+            let customBridgeModule = CustomBridgeModule(presenter: webView, session: bridge.sessions.session, presentation: currentPresentation, settings: nil, environments: nil, delegate: bridge.delegate)
+            bridge.subscribe(module: customBridgeModule, toCommands: customBridgeModule.commands)
+            bridge.addBridgeModule(customBridgeModule)
+        }
         
         tapGesture.delegate = self
         webView.navigationDelegate = self
