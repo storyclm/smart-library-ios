@@ -73,13 +73,8 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
         }
         
         bridge = SCLMBridge(presenter: webView, presentation: currentPresentation, delegate: self)
+        self.addCustomBridgeModule()
 
-        if let bridge = self.bridge {
-            let customBridgeModule = CustomBridgeModule(presenter: webView, session: bridge.sessions.session, presentation: currentPresentation, settings: nil, environments: nil, delegate: bridge.delegate)
-            bridge.subscribe(module: customBridgeModule, toCommands: customBridgeModule.commands)
-            bridge.addBridgeModule(customBridgeModule)
-        }
-        
         tapGesture.delegate = self
         webView.navigationDelegate = self
         webView.scrollView.isScrollEnabled = false
@@ -629,7 +624,25 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
         
         loadSlide(slide)
     }
-    
+
+    // MARK: - CustomBridgeModule
+
+    func addCustomBridgeModule() {
+        if let bridge = self.bridge {
+            let customBridgeModule = CustomBridgeModule(presenter: webView, session: bridge.sessions.session, presentation: currentPresentation, settings: nil, environments: nil, delegate: nil)
+            customBridgeModule.delegate = self
+
+            bridge.subscribe(module: customBridgeModule, toCommands: CustomBridgeModule.Commands.allCommands)
+            bridge.addBridgeModule(customBridgeModule)
+        }
+    }
+}
+
+extension PresentationViewController: CustomBridgeModuleDelegate {
+
+    func customBridgeModuleDelegateCallback(command: String, params: Any) {
+        print("CustomBridgeModuleDelegate command: \(command) with params: \(params)")
+    }
 }
 
 extension PresentationViewController {

@@ -379,15 +379,47 @@ class PresentationViewController: UIViewController, SCLMBridgeMediaFilesModulePr
 ```swift
 import ContentComponent
 
-class MyCustomBridgeModule: SCLMBridgeModule {
+protocol CustomBridgeModuleDelegate: class {
+    func customBridgeModuleDelegateCallback(command: String, params: Any)
+}
 
-    let commands = [ "myCommand1", "myCommand2" ]
+class CustomBridgeModule: SCLMBridgeModule {
+
+    struct Commands {
+        static let command1 = "Mycommand1"
+        static let command2 = "Mycommand2"
+
+        static var allCommands: [String] {
+            return [ command1, command2 ]
+        }
+    }
+
+    weak var delegate: CustomBridgeModuleDelegate?
 
     override func execute(message: SCLMBridgeMessage, result: @escaping (SCLMBridgeResponse?) -> Void) {
-        print(message.command) // Имя команды
-        print(message.data) // Тело команды
 
-        result(SCLMBridgeResponse(guid: message.guid, responseData: nil, errorCode: ResponseStatus.success, errorMessage: nil))
+        switch message.command {
+        case Commands.command1:
+            result(commandHandler1(guid: message.guid, command:message.command, data: message.data))
+        case Commands.command2:
+            result(commandHandler2(guid: message.guid, command:message.command, data: message.data))
+        default:
+            result(SCLMBridgeResponse(guid: message.guid, responseData: nil, errorCode: .failure, errorMessage: "unknown command"))
+        }
+    }
+
+    private func commandHandler1(guid: String, command: String, data: Any) -> SCLMBridgeResponse {
+        // get some job here
+        delegate?.customBridgeModuleDelegateCallback(command: command, params: data)
+
+        return SCLMBridgeResponse(guid: guid, responseData: nil, errorCode: ResponseStatus.success, errorMessage: nil)
+    }
+
+    private func commandHandler2(guid: String, command: String, data: Any) -> SCLMBridgeResponse {
+        // get some job here
+        delegate?.customBridgeModuleDelegateCallback(command: command, params: data)
+
+        return SCLMBridgeResponse(guid: guid, responseData: nil, errorCode: ResponseStatus.success, errorMessage: nil)
     }
 }
 ```
@@ -395,9 +427,11 @@ class MyCustomBridgeModule: SCLMBridgeModule {
 * Регистрируем новые команды и добавляем свой модуль в мост
 
 ```swift
-let bridge = SCLMBridge(presenter: webView, presentation: currentPresentation, delegate: self)
+if let bridge = self.bridge {
+    let customBridgeModule = CustomBridgeModule(presenter: webView, session: bridge.sessions.session, presentation: currentPresentation, settings: nil, environments: nil, delegate: nil)
+    customBridgeModule.delegate = self
 
-let myModule = MyCustomBridgeModule(presenter: webView, session: bridge.sessions.session, presentation: currentPresentation, settings: nil, environments: nil, delegate: bridge.delegate)
-bridge.subscribe(module: myModule, toCommands: myModule.commands)
-bridge.addBridgeModule(myModule)
+    bridge.subscribe(module: customBridgeModule, toCommands: CustomBridgeModule.Commands.allCommands)
+    bridge.addBridgeModule(customBridgeModule)
+}
 ```

@@ -9,14 +9,47 @@
 import Foundation
 import ContentComponent
 
+protocol CustomBridgeModuleDelegate: class {
+    func customBridgeModuleDelegateCallback(command: String, params: Any)
+}
+
 class CustomBridgeModule: SCLMBridgeModule {
 
-    let commands = [ "Mycommand1", "Mycommand2" ]
+    struct Commands {
+        static let command1 = "Mycommand1"
+        static let command2 = "Mycommand2"
+
+        static var allCommands: [String] {
+            return [ command1, command2 ]
+        }
+    }
+
+    weak var delegate: CustomBridgeModuleDelegate?
 
     override func execute(message: SCLMBridgeMessage, result: @escaping (SCLMBridgeResponse?) -> Void) {
-        print(message.command) // Имя команды
-        print(message.data) // Тело команды
 
-        result(SCLMBridgeResponse(guid: message.guid, responseData: nil, errorCode: ResponseStatus.success, errorMessage: nil))
+        switch message.command {
+        case Commands.command1:
+            result(commandHandler1(guid: message.guid, command:message.command, data: message.data))
+        case Commands.command2:
+            result(commandHandler2(guid: message.guid, command:message.command, data: message.data))
+
+        default:
+            result(SCLMBridgeResponse(guid: message.guid, responseData: nil, errorCode: .failure, errorMessage: "unknown command"))
+        }
+    }
+
+    private func commandHandler1(guid: String, command: String, data: Any) -> SCLMBridgeResponse {
+        // get some job here
+        delegate?.customBridgeModuleDelegateCallback(command: command, params: data)
+
+        return SCLMBridgeResponse(guid: guid, responseData: nil, errorCode: ResponseStatus.success, errorMessage: nil)
+    }
+
+    private func commandHandler2(guid: String, command: String, data: Any) -> SCLMBridgeResponse {
+        // get some job here
+        delegate?.customBridgeModuleDelegateCallback(command: command, params: data)
+
+        return SCLMBridgeResponse(guid: guid, responseData: nil, errorCode: ResponseStatus.success, errorMessage: nil)
     }
 }
