@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ContentComponent
+import StoryContent
 
 protocol CustomBridgeModuleDelegate: class {
     func customBridgeModuleDelegateCallback(command: String, params: Any)

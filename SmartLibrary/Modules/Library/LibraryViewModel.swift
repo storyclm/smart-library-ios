@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-import ContentComponent
+import StoryContent
 
 class LibraryViewModel: NSObject {
     

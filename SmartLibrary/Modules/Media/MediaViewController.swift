@@ -11,7 +11,7 @@ import AVKit
 import QuickLook
 import Kingfisher
 import SVProgressHUD
-import ContentComponent
+import StoryContent
 
 class MediaViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, QLPreviewControllerDelegate, QLPreviewControllerDataSource, MediaCellProtocol {
     

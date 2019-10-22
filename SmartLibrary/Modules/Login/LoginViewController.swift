@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ContentComponent
+import StoryContent
 import SVProgressHUD
 
 class LoginViewController: UIViewController {

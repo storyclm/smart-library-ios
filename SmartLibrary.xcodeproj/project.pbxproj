@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -40,11 +40,9 @@
 		5CA88DC921F872A900A7AAF0 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA88DC821F872A900A7AAF0 /* LibraryViewController.swift */; };
 		5CA88DCC21F8749000A7AAF0 /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA88DCB21F8749000A7AAF0 /* LibraryCell.swift */; };
 		5CA88DCE21F8752000A7AAF0 /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA88DCD21F8751F00A7AAF0 /* LibraryViewModel.swift */; };
-		5CDC85CA224A272A0001189E /* ContentComponent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CDC85C9224A272A0001189E /* ContentComponent.framework */; };
 		5CF05A2422424A0900138B5A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF05A2322424A0900138B5A /* LoginViewController.swift */; };
 		5CF05A652243A2B000138B5A /* LibraryNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF05A642243A2B000138B5A /* LibraryNavigationController.swift */; };
 		5CF05A762243ACC000138B5A /* AuthCredentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CF05A752243ACBF00138B5A /* AuthCredentials.plist */; };
-		5CF90827224A499F00F3F48B /* ContentComponent.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5CDC85C9224A272A0001189E /* ContentComponent.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5CFB914822240223001C4E57 /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB914722240223001C4E57 /* MediaCell.swift */; };
 		5CFB914A22240874001C4E57 /* MediaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFB914922240874001C4E57 /* MediaViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -66,7 +64,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5CF90827224A499F00F3F48B /* ContentComponent.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,7 +119,6 @@
 		5CA88DC821F872A900A7AAF0 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		5CA88DCB21F8749000A7AAF0 /* LibraryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 		5CA88DCD21F8751F00A7AAF0 /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
-		5CDC85C9224A272A0001189E /* ContentComponent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ContentComponent.framework; sourceTree = "<group>"; };
 		5CF05A2322424A0900138B5A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5CF05A642243A2B000138B5A /* LibraryNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryNavigationController.swift; sourceTree = "<group>"; };
 		5CF05A6E2243AB5900138B5A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -141,7 +137,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5CDC85CA224A272A0001189E /* ContentComponent.framework in Frameworks */,
 				15D5C56C12B8A7CCE88E27D8 /* Pods_SmartLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,7 +176,6 @@
 		23036AEC6F3E77F2822E0828 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5CDC85C9224A272A0001189E /* ContentComponent.framework */,
 				9F1917A91CAC59A59BD9C623 /* Pods_SmartLibrary.framework */,
 				8E402F5F095AC622451F2832 /* Pods_SmartLibraryTests.framework */,
 				126AB419A6CBA046B987E441 /* Pods_SmartLibrary_Staging.framework */,
@@ -560,26 +554,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SmartLibrary/Pods-SmartLibrary-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/StoryIoT/StoryIoT.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-SmartLibrary/Pods-SmartLibrary-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityLogger.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StoryIoT.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-SmartLibrary/Pods-SmartLibrary-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

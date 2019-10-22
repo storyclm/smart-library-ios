@@ -8,8 +8,7 @@
 
 import UIKit
 import AlamofireNetworkActivityLogger
-import ContentComponent
-
+import StoryContent
 
 struct StatusBarInfo {
     static var isToHiddenStatus = false

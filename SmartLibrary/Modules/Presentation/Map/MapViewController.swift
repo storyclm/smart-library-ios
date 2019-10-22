@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ContentComponent
+import StoryContent
 
 protocol MapViewControllerProtocol: class {
     func decodeAndLoadSlide(_ slide: Slide)

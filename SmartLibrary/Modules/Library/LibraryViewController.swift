@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ContentComponent
+import StoryContent
 import SVProgressHUD
 
 class LibraryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, LibraryCellProtocol, PresentationViewControllerDelegate, UIPopoverPresentationControllerDelegate {

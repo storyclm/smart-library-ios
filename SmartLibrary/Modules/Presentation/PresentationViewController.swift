@@ -8,7 +8,7 @@
 
 import UIKit
 import WebKit
-import ContentComponent
+import StoryContent
 import CoreLocation
 
 protocol PresentationViewControllerDelegate: class {

@@ -8,7 +8,7 @@
 
 import UIKit
 import AVFoundation
-import ContentComponent
+import StoryContent
 
 protocol MediaCellProtocol: class {
     func downloadButtonPressed(_ sender: NFDownloadButton, for mediaFile: MediaFile?, completion: @escaping () -> Void)

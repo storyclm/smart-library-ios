@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ContentComponent
+import StoryContent
 
 class SlideModelNode: NSObject, PSTreeGraphModelNode, NSCopying {
 

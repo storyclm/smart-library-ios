@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ContentComponent
+import StoryContent
 
 enum MediaViewModelFilter: Int {
     case all = 0

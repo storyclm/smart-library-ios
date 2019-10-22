@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ContentComponent
+import StoryContent
 import StoryIoT
 
 class SLSessionsSyncManager {
