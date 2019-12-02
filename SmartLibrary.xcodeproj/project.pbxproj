@@ -3,12 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		15D5C56C12B8A7CCE88E27D8 /* Pods_SmartLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1917A91CAC59A59BD9C623 /* Pods_SmartLibrary.framework */; };
 		1B238F65232FA53E0078396F /* CustomBridgeModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B238F64232FA53E0078396F /* CustomBridgeModule.swift */; };
+		1BAB7DBC23952ECC00850D4F /* BatchLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB7DBB23952ECB00850D4F /* BatchLoaderView.swift */; };
+		1BAB7DC223952F1600850D4F /* SLLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB7DBE23952F1600850D4F /* SLLoader.swift */; };
+		1BAB7DC323952F1600850D4F /* SLLoaderContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB7DBF23952F1600850D4F /* SLLoaderContentView.swift */; };
+		1BAB7DC423952F1600850D4F /* SLLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB7DC023952F1600850D4F /* SLLoaderView.swift */; };
+		1BAB7DC523952F1600850D4F /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 1BAB7DC123952F1600850D4F /* loader.json */; };
 		22ACB71D73C925DAC5877D6E /* Pods_SmartLibraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E402F5F095AC622451F2832 /* Pods_SmartLibraryTests.framework */; };
 		5C12E39D2200AD57004D68F5 /* PresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E39C2200AD57004D68F5 /* PresentationViewController.swift */; };
 		5C12E3A42201AC1B004D68F5 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E3A32201AC1B004D68F5 /* AlertController.swift */; };
@@ -74,6 +79,11 @@
 		126AB419A6CBA046B987E441 /* Pods_SmartLibrary_Staging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartLibrary_Staging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		171CFB13C4FC7E001AE5A125 /* Pods-SmartLibrary_Staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLibrary_Staging.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLibrary_Staging/Pods-SmartLibrary_Staging.debug.xcconfig"; sourceTree = "<group>"; };
 		1B238F64232FA53E0078396F /* CustomBridgeModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBridgeModule.swift; sourceTree = "<group>"; };
+		1BAB7DBB23952ECB00850D4F /* BatchLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchLoaderView.swift; sourceTree = "<group>"; };
+		1BAB7DBE23952F1600850D4F /* SLLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLLoader.swift; sourceTree = "<group>"; };
+		1BAB7DBF23952F1600850D4F /* SLLoaderContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLLoaderContentView.swift; sourceTree = "<group>"; };
+		1BAB7DC023952F1600850D4F /* SLLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLLoaderView.swift; sourceTree = "<group>"; };
+		1BAB7DC123952F1600850D4F /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
 		37B1820E2322DAA480E7B7DE /* Pods-SmartLibraryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLibraryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLibraryTests/Pods-SmartLibraryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4F3025B1508031E6E7A16175 /* Pods-SmartLibraryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLibraryTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLibraryTests/Pods-SmartLibraryTests.release.xcconfig"; sourceTree = "<group>"; };
 		5C12E39C2200AD57004D68F5 /* PresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationViewController.swift; sourceTree = "<group>"; };
@@ -168,9 +178,30 @@
 		1B238F63232FA5130078396F /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				1BAB7DBA23952EB800850D4F /* Loader */,
 				1B238F64232FA53E0078396F /* CustomBridgeModule.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		1BAB7DBA23952EB800850D4F /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				1BAB7DBD23952F1600850D4F /* SCLMLoader */,
+				1BAB7DBB23952ECB00850D4F /* BatchLoaderView.swift */,
+			);
+			path = Loader;
+			sourceTree = "<group>";
+		};
+		1BAB7DBD23952F1600850D4F /* SCLMLoader */ = {
+			isa = PBXGroup;
+			children = (
+				1BAB7DBE23952F1600850D4F /* SLLoader.swift */,
+				1BAB7DBF23952F1600850D4F /* SLLoaderContentView.swift */,
+				1BAB7DC023952F1600850D4F /* SLLoaderView.swift */,
+				1BAB7DC123952F1600850D4F /* loader.json */,
+			);
+			path = SCLMLoader;
 			sourceTree = "<group>";
 		};
 		23036AEC6F3E77F2822E0828 /* Frameworks */ = {
@@ -496,6 +527,7 @@
 				5C48B5D621F74E2700EE1795 /* LaunchScreen.storyboard in Resources */,
 				5C48B5D321F74E2700EE1795 /* Assets.xcassets in Resources */,
 				5C2F2C0E2306A7FF004F4DB9 /* SlideLeafNodeView.xib in Resources */,
+				1BAB7DC523952F1600850D4F /* loader.json in Resources */,
 				5C48B5D121F74E2500EE1795 /* Main.storyboard in Resources */,
 				5CA88DC721F8727A00A7AAF0 /* Library.storyboard in Resources */,
 				5CF05A762243ACC000138B5A /* AuthCredentials.plist in Resources */,
@@ -585,8 +617,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BAB7DC323952F1600850D4F /* SLLoaderContentView.swift in Sources */,
 				5CFB914822240223001C4E57 /* MediaCell.swift in Sources */,
 				5CFB914A22240874001C4E57 /* MediaViewModel.swift in Sources */,
+				1BAB7DBC23952ECC00850D4F /* BatchLoaderView.swift in Sources */,
 				5C24FAC622256BF80097B70C /* NFDownloadButton.swift in Sources */,
 				5CA88DCC21F8749000A7AAF0 /* LibraryCell.swift in Sources */,
 				5C48B5CC21F74E2500EE1795 /* AppDelegate.swift in Sources */,
@@ -599,6 +633,7 @@
 				5C12E3A42201AC1B004D68F5 /* AlertController.swift in Sources */,
 				5C2F2BF12306A32B004F4DB9 /* MapPresentationController.swift in Sources */,
 				5C45D52D2209DDB800107541 /* MediaViewController.swift in Sources */,
+				1BAB7DC423952F1600850D4F /* SLLoaderView.swift in Sources */,
 				5C9092252306D77C00750FA8 /* SLSessionsCredentials.swift in Sources */,
 				5C2F2BF32306A32B004F4DB9 /* MapViewController.swift in Sources */,
 				5CA88DCE21F8752000A7AAF0 /* LibraryViewModel.swift in Sources */,
@@ -612,6 +647,7 @@
 				5C9092242306D77C00750FA8 /* SLLocationManager.swift in Sources */,
 				5CA88DC921F872A900A7AAF0 /* LibraryViewController.swift in Sources */,
 				5C90921B2306BD0800750FA8 /* SectionHeaderView.swift in Sources */,
+				1BAB7DC223952F1600850D4F /* SLLoader.swift in Sources */,
 				5C8A7C4C2245009B007634C8 /* LoginViewModel.swift in Sources */,
 				5CF05A652243A2B000138B5A /* LibraryNavigationController.swift in Sources */,
 			);

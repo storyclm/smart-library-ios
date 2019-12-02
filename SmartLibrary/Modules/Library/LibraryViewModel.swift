@@ -45,6 +45,24 @@ class LibraryViewModel: NSObject {
         return fetchedResultsController
         
     }()
+
+    public lazy var fetchedResultsControllerInvisible: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
+        let fetchResult = self.fetchRequest(for: Presentation.entityName(), batchSize: 100, sortKey: "client.name", context: syncManager.context)
+        fetchResult.predicate = NSPredicate(format: "visibility == false")
+
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchResult,
+                                                                  managedObjectContext: syncManager.context,
+                                                                  sectionNameKeyPath: "client.name",
+                                                                  cacheName: nil)
+
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("FetchedResultsController performFetch error: \(error)")
+        }
+
+        return fetchedResultsController
+    }()
     
     func fetchRequest(for name: String, batchSize:Int, sortKey: String?, context: NSManagedObjectContext) -> NSFetchRequest<NSFetchRequestResult> {
         

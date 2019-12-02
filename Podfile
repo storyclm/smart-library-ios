@@ -11,14 +11,14 @@ def my_pods
   pod 'StoryIoT', :git => 'https://github.com/storyclm/story-iot-ios.git', :tag => 'develop'
   pod 'AlamofireNetworkActivityLogger', '~> 2.0'
   pod 'SVProgressHUD', '~> 2.2'
+  pod 'lottie-ios'
   pod 'SwiftKeychainWrapper'
 
   # Pods for ContentComponent
   pod 'Alamofire', '4.8.1'
   pod 'Kingfisher', '~> 5.6.0'
-#  pod 'Zip', '~> 1.1'
-  pod 'StoryContent', '~> 0.4.1'
-  
+  pod 'StoryContent', '~> 0.4.2'
+
 end 
   
 target 'SmartLibrary' do

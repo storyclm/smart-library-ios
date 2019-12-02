@@ -12,7 +12,7 @@ import Kingfisher
 
 protocol LibraryCellProtocol: class {
     func libraryCell(_ cell: LibraryCell, infoButtonPressedForPresentation presentation: Presentation)
-    func libraryCell(_ cell: LibraryCell, syncButtonPressedForPresentation presentation: Presentation, progressHandler: ((Int?, Progress) -> Void)?, completionHandler: ((Int?) -> Void)?, psnHandler: ((PresentationSynchronizingNow) -> Void)?)
+    func libraryCell(_ cell: LibraryCell, syncButtonPressedForPresentation presentation: Presentation)
 }
 
 class LibraryCell: UICollectionViewCell {
@@ -34,9 +34,13 @@ class LibraryCell: UICollectionViewCell {
     
     var presentationSynchronizingNow: PresentationSynchronizingNow?
     
-    var progressHandler: ((_ presentationId: Int?, _ progress: Progress) -> Void)?
-    var completionHandler: ((_ presentationId: Int?) -> Void)?
-    var psnHandler: ((_ psn: PresentationSynchronizingNow) -> Void)?
+    struct Handlers {
+        var progressHandler: ((_ presentationId: Int?, _ progress: Progress) -> Void)?
+        var completionHandler: ((_ presentationId: Int?) -> Void)?
+        var psnHandler: ((_ psn: PresentationSynchronizingNow) -> Void)?
+    }
+
+    private(set) var handlers: Handlers?
     
     // MARK: -
     
@@ -100,7 +104,7 @@ class LibraryCell: UICollectionViewCell {
         self.presentationSynchronizingNow = presentationSynchronizingNow
 
         // hanlers
-        self.progressHandler = { [weak self] presentationId, progress in
+        let progressHandler: ((_ presentationId: Int?, _ progress: Progress) -> Void)? = { [weak self] presentationId, progress in
             DispatchQueue.main.async {
                 if presentationId == self?.presentation?.presentationId?.intValue {
                     self?.syncButton.downloadPercent = CGFloat(progress.fractionCompleted)
@@ -111,7 +115,7 @@ class LibraryCell: UICollectionViewCell {
             }
         }
         
-        self.completionHandler = { [weak self] presentationId in
+        let completionHandler: ((_ presentationId: Int?) -> Void)? = { [weak self] presentationId in
             DispatchQueue.main.async {
                 if presentationId == self?.presentation?.presentationId?.intValue {
                     if presentation.isSyncDone() {
@@ -121,11 +125,13 @@ class LibraryCell: UICollectionViewCell {
             }
         }
         
-        self.psnHandler = { [weak self] psn in
+        let psnHandler: ((_ psn: PresentationSynchronizingNow) -> Void)? = { [weak self] psn in
             self?.presentationSynchronizingNow = psn
-            self?.presentationSynchronizingNow?.progressHandler = self?.progressHandler
-            self?.presentationSynchronizingNow?.completionHandler = self?.completionHandler
+            self?.presentationSynchronizingNow?.progressHandler = self?.handlers?.progressHandler
+            self?.presentationSynchronizingNow?.completionHandler = self?.handlers?.completionHandler
         }
+
+        self.handlers = Handlers(progressHandler: progressHandler, completionHandler: completionHandler, psnHandler: psnHandler)
         
         setupImageView(with: presentation)
         setupLabels(with: presentation)
@@ -139,8 +145,8 @@ class LibraryCell: UICollectionViewCell {
             syncButton.downloadState = .toDownload
             syncButton.setImage(UIImage(named: "downloadBtn2"), for: .normal)
         }
-        self.presentationSynchronizingNow?.progressHandler = self.progressHandler
-        self.presentationSynchronizingNow?.completionHandler = self.completionHandler
+        self.presentationSynchronizingNow?.progressHandler = self.handlers?.progressHandler
+        self.presentationSynchronizingNow?.completionHandler = self.handlers?.completionHandler
         
     }
     
@@ -250,7 +256,7 @@ class LibraryCell: UICollectionViewCell {
             sender.downloadState = .readyToDownload
             syncButton.setImage(nil, for: .normal)
             
-            delegate?.libraryCell(self, syncButtonPressedForPresentation: presentation, progressHandler: self.progressHandler, completionHandler: self.completionHandler, psnHandler: self.psnHandler)
+            delegate?.libraryCell(self, syncButtonPressedForPresentation: presentation)
             
             
         } else if presentation.isSyncNow() || presentation.isSyncWait() {
