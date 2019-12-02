@@ -17,8 +17,8 @@ def my_pods
   # Pods for ContentComponent
   pod 'Alamofire', '4.8.1'
   pod 'Kingfisher', '~> 5.6.0'
-  pod 'StoryContent', '~> 0.4.1'
-  
+  pod 'StoryContent', '~> 0.4.2'
+
 end 
   
 target 'SmartLibrary' do
