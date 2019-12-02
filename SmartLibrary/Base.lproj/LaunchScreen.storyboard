@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,12 +13,28 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Ra-30-5Dd">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="0.27058823529999998" green="0.70980392160000005" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="eWa-ia-5rf">
+                                        <rect key="frame" x="262" y="580" width="500" height="206.00000000000006"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_launch_breffi" translatesAutoresizingMaskIntoConstraints="NO" id="1jz-oH-nmX">
+                                        <rect key="frame" x="440.5" y="1286" width="143" height="40"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="eWa-ia-5rf" firstAttribute="centerY" secondItem="4Ra-30-5Dd" secondAttribute="centerY" id="FbP-2Y-j8t"/>
+                                    <constraint firstItem="eWa-ia-5rf" firstAttribute="centerX" secondItem="4Ra-30-5Dd" secondAttribute="centerX" id="GSL-G2-uyi"/>
+                                    <constraint firstItem="1jz-oH-nmX" firstAttribute="centerX" secondItem="4Ra-30-5Dd" secondAttribute="centerX" id="Yey-7G-csw"/>
+                                    <constraint firstAttribute="bottom" secondItem="1jz-oH-nmX" secondAttribute="bottom" constant="40" id="aes-dE-N7q"/>
+                                    <constraint firstItem="eWa-ia-5rf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4Ra-30-5Dd" secondAttribute="leading" constant="54" id="bIJ-ek-3Ju"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="eWa-ia-5rf" secondAttribute="trailing" constant="54" id="phJ-d5-nq3"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -38,4 +52,8 @@
             <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="img_launch_breffi" width="143.5" height="40"/>
+        <image name="img_launch_logo" width="500" height="206"/>
+    </resources>
 </document>
