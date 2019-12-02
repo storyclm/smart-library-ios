@@ -10,7 +10,7 @@ import UIKit
 import StoryContent
 import SVProgressHUD
 
-class LibraryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, LibraryCellProtocol, PresentationViewControllerDelegate, UIPopoverPresentationControllerDelegate {
+class LibraryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -47,21 +47,18 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
             } else {
                 self.reloadData()
             }
-            
         }
-        
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         collectionView.collectionViewLayout.invalidateLayout()
-        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
         
-        if let _ = self.presentedViewController?.popoverPresentationController {
+        if self.presentedViewController?.popoverPresentationController != nil {
             self.presentedViewController?.dismiss(animated: true, completion: nil)
         }
     }
@@ -95,12 +92,10 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     @objc func handleRefresh() {
-       
         SCLMSyncManager.shared.synchronizeClients { (success) in
             self.refreshControl.endRefreshing()
             self.reloadData()
         }
-        
     }
     
     // MARK: - Helpers
@@ -132,8 +127,55 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     private func dismissPopoverPresentationControllerIfNeed() {
-        if let vc = self.presentedViewController, let _ = vc.popoverPresentationController {
+        if let vc = self.presentedViewController, vc.popoverPresentationController != nil {
             vc.dismiss(animated: true, completion: nil)
+        }
+    }
+
+    // MARK: - Invisible presentations
+
+    private func downloadInvisiblePresentationsIfNeeded(completion: (() -> Void)?) {
+        let fetcher = self.viewModel.fetchedResultsControllerInvisible
+        do {
+            try fetcher.performFetch()
+        } catch {
+            print("fetchedResultsControllerInvisible performFetch error: \(error)")
+            completion?()
+        }
+
+        var allInvisiblePresentations: [Presentation] = []
+        for client in fetcher.sections ?? [] {
+            if let objects = client.objects {
+                let presentations = objects.compactMap ({ (object) -> Presentation? in
+                    if let presentation = object as? Presentation {
+                        if presentation.isSyncReady() || presentation.isUpdateAvailable() {
+                            return presentation
+                        }
+                    }
+                    return nil
+                })
+                allInvisiblePresentations.append(contentsOf: presentations)
+            }
+        }
+        if allInvisiblePresentations.isEmpty == false {
+            self.showBatchLoader(with: allInvisiblePresentations, completion: completion)
+        } else {
+            completion?()
+        }
+    }
+
+    private func showBatchLoader(with presentations: [Presentation], completion: (() -> Void)?) {
+        let batchVC = SCLMBatchLoadingViewController()
+        batchVC.viewModel = self.batchViewModel
+        batchVC.onDissmis = {
+            completion?()
+        }
+
+        let batchManager = SCLMBatchLoadingManager()
+        batchManager.addBatchLoadable(batchVC)
+        batchManager.addPresentations(presentations)
+        batchVC.present(on: self) {
+            batchManager.startLoading()
         }
     }
     
@@ -161,7 +203,6 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         if sender is LibraryCell {
             if let cell = sender as? LibraryCell {
                 if let presentation = cell.presentation {
-                    
                     if presentation.isSyncDone() && presentation.isContentExists() {
                         return true
                     } else if presentation.isUpdateAvailable() && presentation.isContentExists() {
@@ -169,40 +210,33 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
                     } else {
                         cell.syncButton.downloadState = .readyToDownload
                         cell.syncButton.setImage(nil, for: .normal)
-                        libraryCell(cell, syncButtonPressedForPresentation: presentation, progressHandler: cell.progressHandler, completionHandler: cell.completionHandler, psnHandler: cell.psnHandler)
+                        libraryCell(cell, syncButtonPressedForPresentation: presentation)
                     }
-                    
                 }
             }
         }
         return false
-        
     }
     
     // MARK: - UICollectionViewDataSource
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        
         if let sections = viewModel.fetchedResultsController.sections {
             return sections.count
         }
         return 0
-        
     }
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         if let sections = viewModel.fetchedResultsController.sections {
             if sections.count > section {
                 return sections[section].numberOfObjects
             }
         }
         return 0
-        
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LibraryCell.identifier, for: indexPath) as! LibraryCell
         
         let presentation = viewModel.fetchedResultsController.object(at: indexPath) as! Presentation
@@ -211,7 +245,6 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         cell.setup(with: presentation, delegate: self, presentationSynchronizingNow: presentationSynchronizingNow)
         
         return cell
-        
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -221,23 +254,15 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         if UIDevice.current.userInterfaceIdiom == .pad {
-            
             let width = collectionView.frame.size.width / CGFloat(cellCountForCurrentOrientation()) - 30
             let height = width / 1.65
-            
             return CGSize(width: width, height: height)
-            
         } else {
-            
             let width = collectionView.bounds.size.width
             let height = width * 1.20
-            
             return CGSize(width: width, height: height);
-            
         }
-        
     }
     
     func cellCountForCurrentOrientation() -> Int {
@@ -248,7 +273,6 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
         let presentation = viewModel.fetchedResultsController.object(at: indexPath) as! Presentation
         let title = presentation.client?.name ?? ""
         
@@ -257,81 +281,105 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
             return sectionHeaderView
         }
         return UICollectionReusableView()
-        
     }
-    
-    // MARK: - LibraryCellProtocol
+}
+
+// MARK: - LibraryCellProtocol
+extension LibraryViewController: LibraryCellProtocol {
+
     func libraryCell(_ cell: LibraryCell, infoButtonPressedForPresentation presentation: Presentation) {
         showActionSheet(for: cell, presentation: presentation)
     }
 
-    func libraryCell(_ cell: LibraryCell, syncButtonPressedForPresentation presentation: Presentation, progressHandler: ((Int?, Progress) -> Void)?, completionHandler: ((Int?) -> Void)?, psnHandler: ((PresentationSynchronizingNow) -> Void)?) {
-        
+    func libraryCell(_ cell: LibraryCell, syncButtonPressedForPresentation presentation: Presentation) {
+
         if presentation.isSyncNow() {
             return
         }
-        
-        let size = presentation.contentSize() / 1024 / 1024
-        let mediaSize = presentation.mediaSize() / 1024 / 1024
+
+        let totalSize = Double(presentation.totalSize()) / 1024.0 / 1024.0
         let title = presentation.isSyncReady() ? "Загрузка презентации" : "Обновление презентации"
         var message = ""
         var insufficientStorageMessage = ""
         if let freeSpace = FileManager.default.deviceRemainingFreeSpaceInBytes() {
-            let freeSpaceMb = freeSpace / 1024 / 1024
-            if freeSpaceMb < size + mediaSize {
+            let freeSpaceMb = Double(freeSpace) / 1024.0 / 1024.0
+            if freeSpaceMb < totalSize {
                 insufficientStorageMessage = "Недостаточно места на диске для загрузки всего контента.\n"
             }
         }
+
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        numberFormatter.maximumFractionDigits = 2
+
+        let contentSize = numberFormatter.string(from: NSNumber(value: totalSize)) ?? "\(totalSize)"
+
         if let cp = presentation.contentPackage, cp.isDownloadCanBeResumed() {
-            message = "Размер контента \(size + mediaSize) Мб.\n\(insufficientStorageMessage)\n Продолжить загрузку?"
+            message = "Размер контента \(contentSize) Мб.\n\(insufficientStorageMessage)\nПродолжить загрузку?"
         } else {
-            message = "Размер контента \(size + mediaSize) Мб.\n\(insufficientStorageMessage)\n Начать загрузку?"
+            message = "Размер контента \(contentSize) Мб.\n\(insufficientStorageMessage)\nНачать загрузку?"
         }
-        
+
         AlertController.showAlert(title: title, message: message, presentedFor: self, buttonLeft: .cancel, buttonRight: .yes, buttonLeftHandler: { (action) in
-            
             cell.updateSyncButton(with: presentation)
-            
         }) { (action) in
-            
-            self.viewModel.synchronizePresentation(presentation, completionHandler: { (error) in
-                
-                if let error = error as NSError?, error.code != -999 { // -999 is about Cancelled
-                    AlertController.showAlert(title: "Ошибка", message: error.localizedDescription, presentedFor: self, buttonLeft: .ok, buttonRight: nil, buttonLeftHandler: nil, buttonRightHandler: nil)
-                }
-                
-                if let completionHandler = completionHandler {
-                    completionHandler(presentation.presentationId?.intValue)
-                }
-                
-            }, progressHandler: { progress in
-                progressHandler?(presentation.presentationId?.intValue, progress)
-                
-            }, psnHandler: { psn in
-                psnHandler?(psn)
-                
-            })
-            
+            self.downloadInvisiblePresentationsIfNeeded {[weak self] in
+                self?.downloadPresentation(presentation, in: cell)
+            }
         }
-        
     }
-    
-    // MARK: - PresentationViewControllerDelegate
-    
+
+    func downloadPresentation(_ presentation: Presentation, in cell: LibraryCell) {
+        self.viewModel.synchronizePresentation(presentation, completionHandler: { (error) in
+            if let error = error as NSError?, error.code != -999 { // -999 is about Cancelled
+                AlertController.showAlert(title: "Ошибка",
+                                          message: error.localizedDescription,
+                                          presentedFor: self, buttonLeft: .ok, buttonRight: nil, buttonLeftHandler: nil, buttonRightHandler: nil)
+            }
+            if let completionHandler = cell.handlers?.completionHandler {
+                completionHandler(presentation.presentationId?.intValue)
+            }
+        }, progressHandler: { progress in
+            cell.handlers?.progressHandler?(presentation.presentationId?.intValue, progress)
+
+        }, psnHandler: { psn in
+            cell.handlers?.psnHandler?(psn)
+        })
+    }
+}
+
+// MARK: - PresentationViewControllerDelegate
+
+extension LibraryViewController: PresentationViewControllerDelegate {
+
     func presentationViewControllerWillClose() {
         if let indexPath = activePresentationIndexPath {
             if let cell = collectionView.cellForItem(at: indexPath) as? LibraryCell, let presentation = viewModel.fetchedResultsController.object(at: indexPath) as? Presentation {
                 cell.updateUnreadImageViewIfNeed(with: presentation)
             }
-            
         }
-        
     }
-    
-    // MARK: - UIPopoverPresentationControllerDelegate
-    
-    public func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
-        
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate
+extension LibraryViewController: UIPopoverPresentationControllerDelegate {
+
+    public func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) { }
+}
+
+// MARK: - SCLMBatchLoading ViewModel
+extension LibraryViewController {
+
+    var batchViewModel: SCLMBatchLoadingViewModel {
+        let batchViewModel = SCLMBatchLoadingViewModel()
+        batchViewModel.loader = BatchLoaderView()
+
+        batchViewModel.cancelButtonViewModel = {
+            let buttonViewModel = SCLMBatchLoadingViewModel.ButtonViewModel()
+            buttonViewModel.isHidden = true
+            return buttonViewModel
+        }()
+
+        return batchViewModel
     }
-    
 }

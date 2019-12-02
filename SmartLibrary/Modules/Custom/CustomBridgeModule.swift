@@ -35,7 +35,7 @@ class CustomBridgeModule: SCLMBridgeModule {
             result(commandHandler2(guid: message.guid, command:message.command, data: message.data))
 
         default:
-            result(SCLMBridgeResponse(guid: message.guid, responseData: nil, errorCode: .failure, errorMessage: "unknown command"))
+            result(SCLMBridgeResponse(guid: message.guid, responseData: nil, status: SCLMBridgeResponse.Status.failure, errorMessage: "unknown command"))
         }
     }
 
@@ -43,13 +43,13 @@ class CustomBridgeModule: SCLMBridgeModule {
         // get some job here
         delegate?.customBridgeModuleDelegateCallback(command: command, params: data)
 
-        return SCLMBridgeResponse(guid: guid, responseData: nil, errorCode: ResponseStatus.success, errorMessage: nil)
+        return SCLMBridgeResponse(guid: guid, responseData: nil, status: SCLMBridgeResponse.Status.success, errorMessage: nil)
     }
 
     private func commandHandler2(guid: String, command: String, data: Any) -> SCLMBridgeResponse {
         // get some job here
         delegate?.customBridgeModuleDelegateCallback(command: command, params: data)
 
-        return SCLMBridgeResponse(guid: guid, responseData: nil, errorCode: ResponseStatus.success, errorMessage: nil)
+        return SCLMBridgeResponse(guid: guid, responseData: nil, status: SCLMBridgeResponse.Status.success, errorMessage: nil)
     }
 }
