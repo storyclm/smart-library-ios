@@ -124,7 +124,7 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)
         
-        if UI_USER_INTERFACE_IDIOM() == .pad {
+        if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
             alertController.popoverPresentationController?.sourceView = cell.infoButton
             alertController.popoverPresentationController?.sourceRect = cell.infoButton.bounds
         }
@@ -393,6 +393,12 @@ extension LibraryViewController {
     var batchViewModel: SCLMBatchLoadingViewModel {
         let batchViewModel = SCLMBatchLoadingViewModel()
         batchViewModel.loader = BatchLoaderView()
+
+        batchViewModel.subtitleViewModel = {
+            let viewModel = batchViewModel.subtitleViewModel
+            viewModel.numberOfLines = 3
+            return viewModel
+        }()
 
         batchViewModel.cancelButtonViewModel = {
             let buttonViewModel = SCLMBatchLoadingViewModel.ButtonViewModel()
