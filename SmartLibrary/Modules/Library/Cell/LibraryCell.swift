@@ -29,7 +29,7 @@ class LibraryCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var infoButton: UIButton!
-    @IBOutlet weak var syncButton: NFDownloadButton!
+    @IBOutlet var syncButton: NFDownloadButton!
     @IBOutlet weak var unreadImageView: UIImageView!
     
     var presentationSynchronizingNow: PresentationSynchronizingNow?
@@ -92,6 +92,8 @@ class LibraryCell: UICollectionViewCell {
         syncButton.downloadColor = UIColor.white
         syncButton.backgroundColor = UIColor(rgb: 0x45B5F3)
         syncButton.layer.cornerRadius = syncButton.frame.width / 2
+
+        self.syncButton.removeFromSuperview()
     }
     
     // MARK: -

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 import StoryContent
 import SVProgressHUD
 
@@ -45,7 +46,9 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
             if error != nil {
                 AlertController.showAlert(title: "Error", message: error?.localizedDescription, presentedFor: self, buttonLeft: .ok, buttonRight: nil, buttonLeftHandler: nil, buttonRightHandler: nil)
             } else {
-                self.reloadData()
+                self.downloadFullContentIfNeeded {[weak self] in
+                    self?.reloadData()
+                }
             }
         }
     }
@@ -94,7 +97,9 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
     @objc func handleRefresh() {
         SCLMSyncManager.shared.synchronizeClients { (success) in
             self.refreshControl.endRefreshing()
-            self.reloadData()
+            self.downloadFullContentIfNeeded {[weak self] in
+                self?.reloadData()
+            }
         }
     }
     
@@ -107,9 +112,11 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
             print("sendAction for presentation with id \(String(describing: presentation.presentationId))")
         }
         let deleteAction = UIAlertAction(title: "Удалить", style: .destructive) { (action) in
-            self.viewModel.deleteContentFolderForPresentation(presentation)
-            cell.updateSyncButton(with: presentation)
-            cell.updateInfoButton(with: presentation)
+            print("deleteAction for presentation with id \(String(describing: presentation.presentationId))")
+
+//            self.viewModel.deleteContentFolderForPresentation(presentation)
+//            cell.updateSyncButton(with: presentation)
+//            cell.updateInfoButton(with: presentation)
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
 
@@ -132,20 +139,37 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
 
-    // MARK: - Invisible presentations
+    // MARK: - Full content
 
-    private func downloadInvisiblePresentationsIfNeeded(completion: (() -> Void)?) {
-        let fetcher = self.viewModel.fetchedResultsControllerInvisible
+    private func downloadFullContentIfNeeded(completion: (() -> Void)?) {
+        let invisibleFetcher = self.viewModel.fetchedResultsControllerInvisible
+        let visibleFetcher = self.viewModel.fetchedResultsController
+
         do {
-            try fetcher.performFetch()
+            try visibleFetcher.performFetch()
+            try invisibleFetcher.performFetch()
         } catch {
             print("fetchedResultsControllerInvisible performFetch error: \(error)")
             completion?()
         }
 
-        var allInvisiblePresentations: [Presentation] = []
+        var presentationsForDownload: [Presentation] = []
+        presentationsForDownload.append(contentsOf: self.listOfDownloadRequeredPresentation(from: invisibleFetcher))
+        presentationsForDownload.append(contentsOf: self.listOfDownloadRequeredPresentation(from: visibleFetcher))
+
+        if presentationsForDownload.isEmpty {
+            completion?()
+        } else {
+            self.showBatchLoader(with: presentationsForDownload, completion: completion)
+        }
+    }
+
+    private func listOfDownloadRequeredPresentation(from fetcher: NSFetchedResultsController<NSFetchRequestResult>) -> [Presentation] {
+        var result: [Presentation] = []
+
         for client in fetcher.sections ?? [] {
             if let objects = client.objects {
+
                 let presentations = objects.compactMap ({ (object) -> Presentation? in
                     if let presentation = object as? Presentation {
                         if presentation.isSyncReady() || presentation.isUpdateAvailable() {
@@ -154,14 +178,11 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
                     }
                     return nil
                 })
-                allInvisiblePresentations.append(contentsOf: presentations)
+                result.append(contentsOf: presentations)
             }
         }
-        if allInvisiblePresentations.isEmpty == false {
-            self.showBatchLoader(with: allInvisiblePresentations, completion: completion)
-        } else {
-            completion?()
-        }
+
+        return result
     }
 
     private func showBatchLoader(with presentations: [Presentation], completion: (() -> Void)?) {
@@ -182,7 +203,6 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if sender is LibraryCell {
             if let cell = sender as? LibraryCell {
                 activePresentationIndexPath = self.collectionView.indexPath(for: cell)
@@ -323,8 +343,8 @@ extension LibraryViewController: LibraryCellProtocol {
         AlertController.showAlert(title: title, message: message, presentedFor: self, buttonLeft: .cancel, buttonRight: .yes, buttonLeftHandler: { (action) in
             cell.updateSyncButton(with: presentation)
         }) { (action) in
-            self.downloadInvisiblePresentationsIfNeeded {[weak self] in
-                self?.downloadPresentation(presentation, in: cell)
+            self.downloadFullContentIfNeeded {[weak self] in
+                self?.reloadData()
             }
         }
     }
