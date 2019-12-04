@@ -102,6 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             SCLMAuthService.shared.setClientId(clientId)
             SCLMAuthService.shared.setClientSecret(clientSecret)
+
             SCLMAuthService.shared.setAppId(appId)
             SCLMAuthService.shared.setAppSecret(appSecret)
             SCLMAuthService.shared.setAuthEndpoint(authEndpoint)

@@ -36,7 +36,6 @@ class LoginViewController: UIViewController {
         passwordField.isSecureTextEntry = true
         
         emailField.becomeFirstResponder()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,8 +73,9 @@ class LoginViewController: UIViewController {
             
         }) { (error) in
             SVProgressHUD.dismiss()
-            AlertController.showAlert(title: "Error", message: error.localizedDescription, presentedFor: self, buttonLeft: .ok, buttonRight: nil, buttonLeftHandler: nil, buttonRightHandler: nil)
-            
+            AlertController.showAlert(title: "Error",
+                                      message: error.localizedDescription,
+                                      presentedFor: self, buttonLeft: .ok, buttonRight: nil, buttonLeftHandler: nil, buttonRightHandler: nil)
         }
     }
     
@@ -118,17 +118,15 @@ class LoginViewController: UIViewController {
         SVProgressHUD.show(withStatus: "Login...")
         
         viewModel.login(username: user, password: pass, success: {
-            
             SVProgressHUD.dismiss()
             
             let libraryVC = LibraryViewController.get()
             self.navigationController?.pushViewController(libraryVC, animated: true)
-            
         }) { error in
-            
             SVProgressHUD.dismiss()
-            AlertController.showAlert(title: "Error", message: error.localizedDescription, presentedFor: self, buttonLeft: .ok, buttonRight: nil, buttonLeftHandler: nil, buttonRightHandler: nil)
-            
+            AlertController.showAlert(title: "Error",
+                                      message: error.localizedDescription,
+                                      presentedFor: self, buttonLeft: .ok, buttonRight: nil, buttonLeftHandler: nil, buttonRightHandler: nil)
         }
     }
     

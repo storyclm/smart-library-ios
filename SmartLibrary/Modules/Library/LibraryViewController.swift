@@ -74,9 +74,9 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     private func setupNavigationItem() {
-        let logoutBarButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(logout))
-        
-        navigationItem.rightBarButtonItem = logoutBarButtonItem
+//        let logoutBarButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(logout))
+//        navigationItem.rightBarButtonItem = logoutBarButtonItem
+
         navigationItem.hidesBackButton = true
     }
     
