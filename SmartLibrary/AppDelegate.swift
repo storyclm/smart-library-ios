@@ -92,8 +92,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let plistURL = Bundle.main.url(forResource: "AuthCredentials", withExtension: "plist"), let dict = NSDictionary(contentsOf: plistURL),
             let clientId = dict["clientId"] as? String,
             let clientSecret = dict["clientSecret"] as? String,
-            let appId = dict["appId"] as? String,
-            let appSecret = dict["appSecret"] as? String,
             let authEndpoint = dict["authEndpoint"] as? String,
             let apiEndpoint = dict["apiEndpoint"] as? String else {
                 
@@ -103,10 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SCLMAuthService.shared.setClientId(clientId)
             SCLMAuthService.shared.setClientSecret(clientSecret)
 
-            SCLMAuthService.shared.setAppId(appId)
-            SCLMAuthService.shared.setAppSecret(appSecret)
             SCLMAuthService.shared.setAuthEndpoint(authEndpoint)
-            
             SCLMSyncService.shared.setApiEndpoint(apiEndpoint)
         
     }
