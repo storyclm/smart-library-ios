@@ -17,9 +17,12 @@ class LibraryViewModel: NSObject {
     public lazy var fetchedResultsController: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
         
         let fetchResult = self.fetchRequest(for: Presentation.entityName(), batchSize: 100, sortKey: "client.name", context: syncManager.context)
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchResult, managedObjectContext: syncManager.context, sectionNameKeyPath: "client.name", cacheName: nil)
-        
-        
+        fetchResult.predicate = NSPredicate(format: "visibility == true")
+
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchResult,
+                                                                  managedObjectContext: syncManager.context,
+                                                                  sectionNameKeyPath: "client.name",
+                                                                  cacheName: nil)
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -33,9 +36,12 @@ class LibraryViewModel: NSObject {
     public lazy var fetchedResultsControllerSectionLess: NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
         
         let fetchResult = self.fetchRequest(for: Presentation.entityName(), batchSize: 100, sortKey: "client.name", context: syncManager.context)
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchResult, managedObjectContext: syncManager.context, sectionNameKeyPath: nil, cacheName: nil)
-        
-        
+        fetchResult.predicate = NSPredicate(format: "visibility == true")
+
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchResult,
+                                                                  managedObjectContext: syncManager.context,
+                                                                  sectionNameKeyPath: nil,
+                                                                  cacheName: nil)
         do {
             try fetchedResultsController.performFetch()
         } catch {
@@ -54,7 +60,6 @@ class LibraryViewModel: NSObject {
                                                                   managedObjectContext: syncManager.context,
                                                                   sectionNameKeyPath: "client.name",
                                                                   cacheName: nil)
-
         do {
             try fetchedResultsController.performFetch()
         } catch {

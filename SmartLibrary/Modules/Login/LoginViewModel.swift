@@ -24,7 +24,6 @@ class LoginViewModel {
             KeychainWrapper.standard.removeObject(forKey: KeychainKeys.password.rawValue)
             AppDelegate.shared().setIsFirstLaunchDone()
         }
-        
     }
     
     // MARK: - Public
@@ -41,12 +40,9 @@ class LoginViewModel {
         SCLMAuthService.shared.login(username: username, password: password, success: {
             self.saveToKeychain(username, password)
             success()
-            
         }) { (error) in
             failure(error)
-            
         }
-        
     }
     
     public func logout() {
@@ -63,7 +59,6 @@ class LoginViewModel {
     public func loadFromKeychain() -> (username: String?, password: String?) {
         if let email = KeychainWrapper.standard.string(forKey: KeychainKeys.email.rawValue), let pass = KeychainWrapper.standard.string(forKey: KeychainKeys.password.rawValue) {
             return (email, pass)
-            
         }
         return (nil, nil)
     }

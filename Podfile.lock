@@ -4,7 +4,7 @@ PODS:
     - Alamofire (~> 4.8)
   - Kingfisher (5.6.0)
   - lottie-ios (3.1.5)
-  - StoryContent (0.4.2):
+  - StoryContent (0.4.4):
     - Alamofire (= 4.8.1)
     - Kingfisher (~> 5.6.0)
     - ZIPFoundation (~> 0.9)
@@ -12,14 +12,14 @@ PODS:
     - Alamofire (= 4.8.1)
   - SVProgressHUD (2.2.5)
   - SwiftKeychainWrapper (3.4.0)
-  - ZIPFoundation (0.9.9)
+  - ZIPFoundation (0.9.10)
 
 DEPENDENCIES:
   - Alamofire (= 4.8.1)
   - AlamofireNetworkActivityLogger (~> 2.0)
   - Kingfisher (~> 5.6.0)
   - lottie-ios
-  - StoryContent (~> 0.4.2)
+  - StoryContent (~> 0.4.4)
   - StoryIoT (from `https://github.com/storyclm/story-iot-ios.git`, tag `develop`)
   - SVProgressHUD (~> 2.2)
   - SwiftKeychainWrapper
@@ -50,12 +50,12 @@ SPEC CHECKSUMS:
   AlamofireNetworkActivityLogger: 6d3398c692d2c5d83b0c58793537860aca1e383d
   Kingfisher: 1a50df6880a60bae26f3e21a0df3d17b892f5e0b
   lottie-ios: 32bf84389337d86fbc8b12266e88452e0abf1dee
-  StoryContent: e3b82a9463e748e1ba337563ab174f816e218da8
+  StoryContent: 3194f1852af11e34745d62cca9b3b987693948a8
   StoryIoT: 3912bed258a2a49ee1b80a4992c17d8f8e94a5e6
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
-  ZIPFoundation: 89df685c971926b0323087952320bdfee9f0b6ef
+  ZIPFoundation: 249fa8890597086cd536bb2df5c9804d84e122b0
 
-PODFILE CHECKSUM: 7167a9eea5e46139fdea74aceb4571fa713c24ed
+PODFILE CHECKSUM: 8a135e6ea1b7caadeae518b4651fece2037d5ec3
 
 COCOAPODS: 1.8.4
