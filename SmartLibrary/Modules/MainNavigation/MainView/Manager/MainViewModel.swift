@@ -1,5 +1,5 @@
 //
-//  LibraryViewModel.swift
+//  MainViewModel.swift
 //  SmartLibrary
 //
 //  Created by Alexander Yolkin on 1/23/19.
@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import StoryContent
 
-class LibraryViewModel: NSObject {
+final class MainViewModel {
     
     private let syncManager = SCLMSyncManager.shared
     
@@ -105,15 +105,4 @@ class LibraryViewModel: NSObject {
         }
         
     }
-    
-    public func deleteContentFolderForPresentation(_ presentation: Presentation) {
-        syncManager.deletePresentationContentPackage(presentation)
-    }
-    
-    public func updatePresentation(_ presentation: Presentation, completionHandler: @escaping (_ error: Error?) -> Void) {
-        syncManager.updatePresentation(presentation) { (error) in
-            completionHandler(error)
-        }
-    }
-    
 }

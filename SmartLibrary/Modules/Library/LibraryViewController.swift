@@ -11,11 +11,16 @@ import CoreData
 import StoryContent
 import SVProgressHUD
 
+protocol LibraryViewControllerDelegate: class {
+    func needToCheckUpdate()
+}
+
 class LibraryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    weak var delegate: LibraryViewControllerDelegate?
     
-    private var viewModel = LibraryViewModel()
+    private var viewModel: MainViewModel!
     private var activePresentationIndexPath: IndexPath?
     
     lazy var refreshControl: UIRefreshControl = {
@@ -32,25 +37,12 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         return vc
         
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupNavigationItem()
         setupView()
-        
-        SVProgressHUD.show(withStatus: "Loading...")
-        SCLMSyncManager.shared.synchronizeClients { (error) in
-
-            SVProgressHUD.dismiss()
-            if error != nil {
-                AlertController.showAlert(title: "Error", message: error?.localizedDescription, presentedFor: self, buttonLeft: .ok, buttonRight: nil, buttonLeftHandler: nil, buttonRightHandler: nil)
-            } else {
-                self.downloadFullContentIfNeeded {[weak self] in
-                    self?.reloadData()
-                }
-            }
-        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -95,12 +87,16 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     @objc func handleRefresh() {
-        SCLMSyncManager.shared.synchronizeClients { (success) in
+        SCLMSyncManager.shared.synchronizeClients { (error) in
             self.refreshControl.endRefreshing()
-            self.downloadFullContentIfNeeded {[weak self] in
-                self?.reloadData()
-            }
+            self.delegate?.needToCheckUpdate()
         }
+    }
+
+    // MARK: - Inject
+
+    func inject(viewModel: MainViewModel) {
+        self.viewModel = viewModel
     }
     
     // MARK: - Helpers
@@ -113,10 +109,6 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         }
         let deleteAction = UIAlertAction(title: "Удалить", style: .destructive) { (action) in
             print("deleteAction for presentation with id \(String(describing: presentation.presentationId))")
-
-//            self.viewModel.deleteContentFolderForPresentation(presentation)
-//            cell.updateSyncButton(with: presentation)
-//            cell.updateInfoButton(with: presentation)
         }
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
 
@@ -139,67 +131,6 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
 
-    // MARK: - Full content
-
-    private func downloadFullContentIfNeeded(completion: (() -> Void)?) {
-        let invisibleFetcher = self.viewModel.fetchedResultsControllerInvisible
-        let visibleFetcher = self.viewModel.fetchedResultsController
-
-        do {
-            try visibleFetcher.performFetch()
-            try invisibleFetcher.performFetch()
-        } catch {
-            print("fetchedResultsControllerInvisible performFetch error: \(error)")
-            completion?()
-        }
-
-        var presentationsForDownload: [Presentation] = []
-        presentationsForDownload.append(contentsOf: self.listOfDownloadRequeredPresentation(from: invisibleFetcher))
-        presentationsForDownload.append(contentsOf: self.listOfDownloadRequeredPresentation(from: visibleFetcher))
-
-        if presentationsForDownload.isEmpty {
-            completion?()
-        } else {
-            self.showBatchLoader(with: presentationsForDownload, completion: completion)
-        }
-    }
-
-    private func listOfDownloadRequeredPresentation(from fetcher: NSFetchedResultsController<NSFetchRequestResult>) -> [Presentation] {
-        var result: [Presentation] = []
-
-        for client in fetcher.sections ?? [] {
-            if let objects = client.objects {
-
-                let presentations = objects.compactMap ({ (object) -> Presentation? in
-                    if let presentation = object as? Presentation {
-                        if presentation.isSyncReady() || presentation.isUpdateAvailable() {
-                            return presentation
-                        }
-                    }
-                    return nil
-                })
-                result.append(contentsOf: presentations)
-            }
-        }
-
-        return result
-    }
-
-    private func showBatchLoader(with presentations: [Presentation], completion: (() -> Void)?) {
-        let batchVC = SCLMBatchLoadingViewController()
-        batchVC.viewModel = self.batchViewModel
-        batchVC.onDissmis = {
-            completion?()
-        }
-
-        let batchManager = SCLMBatchLoadingManager()
-        batchManager.addBatchLoadable(batchVC)
-        batchManager.addPresentations(presentations)
-        batchVC.present(on: self) {
-            batchManager.startLoading()
-        }
-    }
-    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -343,9 +274,7 @@ extension LibraryViewController: LibraryCellProtocol {
         AlertController.showAlert(title: title, message: message, presentedFor: self, buttonLeft: .cancel, buttonRight: .yes, buttonLeftHandler: { (action) in
             cell.updateSyncButton(with: presentation)
         }) { (action) in
-            self.downloadFullContentIfNeeded {[weak self] in
-                self?.reloadData()
-            }
+            self.delegate?.needToCheckUpdate()
         }
     }
 
@@ -385,27 +314,4 @@ extension LibraryViewController: PresentationViewControllerDelegate {
 extension LibraryViewController: UIPopoverPresentationControllerDelegate {
 
     public func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) { }
-}
-
-// MARK: - SCLMBatchLoading ViewModel
-extension LibraryViewController {
-
-    var batchViewModel: SCLMBatchLoadingViewModel {
-        let batchViewModel = SCLMBatchLoadingViewModel()
-        batchViewModel.loader = BatchLoaderView()
-
-        batchViewModel.subtitleViewModel = {
-            let viewModel = batchViewModel.subtitleViewModel
-            viewModel.numberOfLines = 3
-            return viewModel
-        }()
-
-        batchViewModel.cancelButtonViewModel = {
-            let buttonViewModel = SCLMBatchLoadingViewModel.ButtonViewModel()
-            buttonViewModel.isHidden = true
-            return buttonViewModel
-        }()
-
-        return batchViewModel
-    }
 }
