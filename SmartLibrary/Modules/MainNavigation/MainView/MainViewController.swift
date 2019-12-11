@@ -101,7 +101,7 @@ final class MainViewController: UIViewController {
 
     private func openPresentation(_ presentation: Presentation, isMain: Bool) {
         let presentationVC = PresentationViewController.get()
-        presentationVC.inject(presentation: presentation)
+        presentationVC.inject(presentation: presentation, isMain: isMain)
         presentationVC.delegate = self
         presentationVC.modalPresentationStyle = .fullScreen
         self.present(presentationVC, animated: true)

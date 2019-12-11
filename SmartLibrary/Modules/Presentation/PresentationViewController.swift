@@ -646,7 +646,7 @@ extension PresentationViewController: CustomBridgeModuleDelegate {
 }
 
 extension PresentationViewController {
-    func inject(presentation: Presentation) {
+    func inject(presentation: Presentation, isMain: Bool) {
         self.currentPresentation = presentation
     }
 }

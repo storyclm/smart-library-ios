@@ -121,24 +121,6 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         }
     }
 
-    // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if sender is LibraryCell {
-            if let cell = sender as? LibraryCell {
-                activePresentationIndexPath = self.collectionView.indexPath(for: cell)
-                if let presentation = cell.presentation {
-                    
-                    let presentationVC = segue.destination as! PresentationViewController
-                    presentationVC.inject(presentation: presentation)
-                    presentationVC.delegate = self
-                    
-                }
-            }
-        }
-        
-    }
-
     // MARK: - UICollectionViewDataSource
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -263,24 +245,6 @@ extension LibraryViewController: LibraryCellProtocol {
             self.delegate?.libraryNeedToCheckUpdate(self)
         }
     }
-
-    func downloadPresentation(_ presentation: Presentation, in cell: LibraryCell) {
-        self.viewModel.synchronizePresentation(presentation, completionHandler: { (error) in
-            if let error = error as NSError?, error.code != -999 { // -999 is about Cancelled
-                AlertController.showAlert(title: "Ошибка",
-                                          message: error.localizedDescription,
-                                          presentedFor: self, buttonLeft: .ok, buttonRight: nil, buttonLeftHandler: nil, buttonRightHandler: nil)
-            }
-            if let completionHandler = cell.handlers?.completionHandler {
-                completionHandler(presentation.presentationId?.intValue)
-            }
-        }, progressHandler: { progress in
-            cell.handlers?.progressHandler?(presentation.presentationId?.intValue, progress)
-
-        }, psnHandler: { psn in
-            cell.handlers?.psnHandler?(psn)
-        })
-    }
 }
 
 // MARK: - PresentationViewControllerDelegate
@@ -294,10 +258,4 @@ extension LibraryViewController: PresentationViewControllerDelegate {
             }
         }
     }
-}
-
-// MARK: - UIPopoverPresentationControllerDelegate
-extension LibraryViewController: UIPopoverPresentationControllerDelegate {
-
-    public func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) { }
 }
