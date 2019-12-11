@@ -86,7 +86,7 @@ final class ContentManager {
 
     private func listOfDownloadRequeredPresentation(from fetcher: NSFetchedResultsController<NSFetchRequestResult>) -> [Presentation] {
         return self.listOfPresentation(from: fetcher).filter { (presentation) -> Bool in
-            return presentation.contentPackage != nil && (presentation.isSyncReady() || presentation.isUpdateAvailable())
+            return presentation.isContentExists() && presentation.skip == false && (presentation.isSyncReady() || presentation.isUpdateAvailable())
         }
     }
 
@@ -102,7 +102,7 @@ final class ContentManager {
 
         let filtered = self.listOfPresentation(from: visibleFetcher)
             .filter {  (presentation) -> Bool in
-                guard presentation.contentPackage != nil else { return false }
+                guard presentation.isContentExists() else { return false }
                 guard let name = presentation.name else { return false }
                 return name.caseInsensitiveCompare(mainName) == ComparisonResult.orderedSame
             }

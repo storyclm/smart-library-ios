@@ -12,7 +12,8 @@ import StoryContent
 import SVProgressHUD
 
 protocol LibraryViewControllerDelegate: class {
-    func needToCheckUpdate()
+    func libraryNeedToCheckUpdate(_ viewController: LibraryViewController)
+    func libraryNeedOpenPresentation(_ viewController: LibraryViewController, presentation: Presentation, isMain: Bool)
 }
 
 class LibraryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -66,14 +67,7 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     private func setupNavigationItem() {
-//        let logoutBarButtonItem = UIBarButtonItem(title: "Logout", style: .done, target: self, action: #selector(logout))
-//        navigationItem.rightBarButtonItem = logoutBarButtonItem
-
         navigationItem.hidesBackButton = true
-    }
-    
-    @objc func logout() {
-        SCLMAuthService.shared.logout()
     }
     
     func reloadData() {
@@ -83,14 +77,11 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         } catch {
             print("fetchedResultsController performFetch error")
         }
-        
     }
     
     @objc func handleRefresh() {
-        SCLMSyncManager.shared.synchronizeClients { (error) in
-            self.refreshControl.endRefreshing()
-            self.delegate?.needToCheckUpdate()
-        }
+        self.delegate?.libraryNeedToCheckUpdate(self)
+        self.refreshControl.endRefreshing()
     }
 
     // MARK: - Inject
@@ -122,7 +113,6 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         }
         
         present(alertController, animated: true, completion: nil)
-
     }
     
     private func dismissPopoverPresentationControllerIfNeed() {
@@ -148,27 +138,7 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         }
         
     }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        
-        if sender is LibraryCell {
-            if let cell = sender as? LibraryCell {
-                if let presentation = cell.presentation {
-                    if presentation.isSyncDone() && presentation.isContentExists() {
-                        return true
-                    } else if presentation.isUpdateAvailable() && presentation.isContentExists() {
-                        return true
-                    } else {
-                        cell.syncButton.downloadState = .readyToDownload
-                        cell.syncButton.setImage(nil, for: .normal)
-                        libraryCell(cell, syncButtonPressedForPresentation: presentation)
-                    }
-                }
-            }
-        }
-        return false
-    }
-    
+
     // MARK: - UICollectionViewDataSource
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -197,7 +167,23 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
         
         return cell
     }
-    
+
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? LibraryCell {
+            if let presentation = cell.presentation {
+                if presentation.isContentExists() {
+                    if presentation.isSyncDone() || presentation.isUpdateAvailable() {
+                        self.delegate?.libraryNeedOpenPresentation(self, presentation: presentation, isMain: false)
+                    } else {
+                        cell.syncButton.downloadState = .readyToDownload
+                        cell.syncButton.setImage(nil, for: UIControl.State.normal)
+                        self.libraryCell(cell, syncButtonPressedForPresentation: presentation)
+                    }
+                }
+            }
+        }
+    }
+
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -274,7 +260,7 @@ extension LibraryViewController: LibraryCellProtocol {
         AlertController.showAlert(title: title, message: message, presentedFor: self, buttonLeft: .cancel, buttonRight: .yes, buttonLeftHandler: { (action) in
             cell.updateSyncButton(with: presentation)
         }) { (action) in
-            self.delegate?.needToCheckUpdate()
+            self.delegate?.libraryNeedToCheckUpdate(self)
         }
     }
 

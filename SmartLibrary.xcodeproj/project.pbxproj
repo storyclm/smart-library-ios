@@ -14,7 +14,7 @@
 		1BAB7DC323952F1600850D4F /* SLLoaderContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB7DBF23952F1600850D4F /* SLLoaderContentView.swift */; };
 		1BAB7DC423952F1600850D4F /* SLLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB7DC023952F1600850D4F /* SLLoaderView.swift */; };
 		1BAB7DC523952F1600850D4F /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 1BAB7DC123952F1600850D4F /* loader.json */; };
-		1BD54332239FC0F300E1FCE8 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD54331239FC0F300E1FCE8 /* MainNavigationController.swift */; };
+		1BD54332239FC0F300E1FCE8 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD54331239FC0F300E1FCE8 /* Router.swift */; };
 		1BD54334239FC8C000E1FCE8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD54333239FC8C000E1FCE8 /* MainViewController.swift */; };
 		1BD54336239FCA6500E1FCE8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD54335239FCA6500E1FCE8 /* MainView.swift */; };
 		1BD54338239FDC8400E1FCE8 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD54337239FDC8400E1FCE8 /* ContentManager.swift */; };
@@ -87,7 +87,7 @@
 		1BAB7DBF23952F1600850D4F /* SLLoaderContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLLoaderContentView.swift; sourceTree = "<group>"; };
 		1BAB7DC023952F1600850D4F /* SLLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLLoaderView.swift; sourceTree = "<group>"; };
 		1BAB7DC123952F1600850D4F /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
-		1BD54331239FC0F300E1FCE8 /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
+		1BD54331239FC0F300E1FCE8 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		1BD54333239FC8C000E1FCE8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1BD54335239FCA6500E1FCE8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		1BD54337239FDC8400E1FCE8 /* ContentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
@@ -214,7 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				1BD54339239FDD9600E1FCE8 /* MainView */,
-				1BD54331239FC0F300E1FCE8 /* MainNavigationController.swift */,
+				1BD54331239FC0F300E1FCE8 /* Router.swift */,
 			);
 			path = MainNavigation;
 			sourceTree = "<group>";
@@ -659,7 +659,7 @@
 				5C48B5CC21F74E2500EE1795 /* AppDelegate.swift in Sources */,
 				5C2F2C0A2306A7FF004F4DB9 /* PSBaseSubtreeView.m in Sources */,
 				1BD54336239FCA6500E1FCE8 /* MainView.swift in Sources */,
-				1BD54332239FC0F300E1FCE8 /* MainNavigationController.swift in Sources */,
+				1BD54332239FC0F300E1FCE8 /* Router.swift in Sources */,
 				5C2F2C0C2306A7FF004F4DB9 /* PSBaseBranchView.m in Sources */,
 				5C12E39D2200AD57004D68F5 /* PresentationViewController.swift in Sources */,
 				5C1AF8F321F9BA1700CF4ABA /* Date+Ext.swift in Sources */,

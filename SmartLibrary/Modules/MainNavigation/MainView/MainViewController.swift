@@ -11,11 +11,23 @@ import StoryContent
 
 final class MainViewController: UIViewController {
 
+    private var router: Router
     private let contentManager = ContentManager.instance
 
     private var mainView: MainView {
         self.view as! MainView
     }
+
+    init(with router: Router) {
+        self.router = router
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Lifecycle
 
     override func loadView() {
         self.view = MainView(frame: UIScreen.main.bounds)
@@ -25,8 +37,14 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
 
         self.mainView.loader.play(state: SLLoaderView.AnimationState.start)
-        
-        self.checkContent()
+
+        self.router.checkLogin(completion: { (success) in
+            if success {
+                self.checkContent()
+            } else {
+                // Repeat
+            }
+        })
     }
 
     // MARK: - Content
@@ -38,7 +56,7 @@ final class MainViewController: UIViewController {
                 self.showBatchLoader(for: updatePresentations)
             case .allUpdated(let mainPresentation):
                 if let presentation = mainPresentation {
-                    self.openMainPresentation(presentation)
+                    self.openPresentation(presentation, isMain: true)
                 } else {
                     self.openLibrary()
                 }
@@ -81,11 +99,12 @@ final class MainViewController: UIViewController {
         self.navigationController?.pushViewController(libraryVC, animated: true)
     }
 
-    private func openMainPresentation(_ presentation: Presentation) {
+    private func openPresentation(_ presentation: Presentation, isMain: Bool) {
         let presentationVC = PresentationViewController.get()
         presentationVC.inject(presentation: presentation)
         presentationVC.delegate = self
-        self.navigationController?.pushViewController(presentationVC, animated: true)
+        presentationVC.modalPresentationStyle = .fullScreen
+        self.present(presentationVC, animated: true)
     }
 
 }
@@ -99,8 +118,12 @@ extension MainViewController: PresentationViewControllerDelegate {
 
 extension MainViewController: LibraryViewControllerDelegate {
 
-    func needToCheckUpdate() {
+    func libraryNeedToCheckUpdate(_ viewController: LibraryViewController) {
         // TODO:
+    }
+
+    func libraryNeedOpenPresentation(_ viewController: LibraryViewController, presentation: Presentation, isMain: Bool) {
+        self.openPresentation(presentation, isMain: isMain)
     }
 }
 

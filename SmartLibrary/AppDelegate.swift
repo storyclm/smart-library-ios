@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    lazy var router = Router()
+
     class func shared() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
@@ -44,8 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         SLSessionsSyncManager.shared.startTimer()
 
-        let mainNavigationController = MainNavigationController()
-        AppDelegate.shared().window?.rootViewController = mainNavigationController
+        self.router.start()
         
         return true
     }

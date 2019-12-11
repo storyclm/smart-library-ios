@@ -125,7 +125,6 @@
                                             <outlet property="nameLabel" destination="1Kg-Th-KG4" id="7QU-Am-NRC"/>
                                             <outlet property="syncButton" destination="SIV-rh-KCj" id="lI8-K4-dg7"/>
                                             <outlet property="unreadImageView" destination="suW-Cx-cG2" id="Z0V-WT-EZP"/>
-                                            <segue destination="ieZ-hD-jlC" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="4fg-xR-xL2"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
