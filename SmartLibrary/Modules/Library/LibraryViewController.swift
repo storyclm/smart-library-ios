@@ -161,6 +161,10 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
                         cell.syncButton.setImage(nil, for: UIControl.State.normal)
                         self.libraryCell(cell, syncButtonPressedForPresentation: presentation)
                     }
+                } else {
+                    let alert = UIAlertController(title: "Ошибка", message: "Отсутствует контент презентации", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true)
                 }
             }
         }
@@ -178,13 +182,16 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
             let height = width / 1.65
             return CGSize(width: width, height: height)
         } else {
-            let width = collectionView.bounds.size.width
-            let height = width * 1.20
+            let width = collectionView.bounds.size.width / CGFloat(cellCountForCurrentOrientation()) - 30
+            let height = width * 1.1867
             return CGSize(width: width, height: height);
         }
     }
     
     func cellCountForCurrentOrientation() -> Int {
+        if UIDevice.current.userInterfaceIdiom == .phone, UIApplication.shared.statusBarOrientation == .portrait || UIApplication.shared.statusBarOrientation == .portraitUpsideDown {
+            return 1
+        }
         return 2
     }
     

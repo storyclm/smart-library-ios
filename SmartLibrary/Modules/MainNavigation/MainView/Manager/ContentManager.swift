@@ -86,7 +86,7 @@ final class ContentManager {
 
     private func listOfDownloadRequeredPresentation(from fetcher: NSFetchedResultsController<NSFetchRequestResult>) -> [Presentation] {
         return self.listOfPresentation(from: fetcher).filter { (presentation) -> Bool in
-            return presentation.isContentExists() && presentation.skip == false && (presentation.isSyncReady() || presentation.isUpdateAvailable())
+            return presentation.skip == false && (presentation.isSyncReady() || presentation.isUpdateAvailable())
         }
     }
 

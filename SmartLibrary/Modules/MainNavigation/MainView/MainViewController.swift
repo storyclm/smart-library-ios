@@ -53,8 +53,10 @@ final class MainViewController: UIViewController {
         contentManager.checkUpdateAvailability { (state) in
             switch state {
             case .needUpdate(let updatePresentations):
+                // If presentaion is open - show alert about update available, otherwise open mainViewController and start update content
                 self.showBatchLoader(for: updatePresentations)
             case .allUpdated(let mainPresentation):
+                // If presentaion is open - show alert about structure changes
                 if let presentation = mainPresentation {
                     self.openPresentation(presentation, isMain: true)
                 } else {
@@ -73,7 +75,8 @@ final class MainViewController: UIViewController {
         let batchVC = SCLMBatchLoadingViewController()
         batchVC.viewModel = self.batchViewModel
         batchVC.onDissmis = {[weak self] in
-            self?.checkContent()
+//            self?.checkContent()
+            self?.openLibrary()
         }
 
         let batchManager = SCLMBatchLoadingManager()
