@@ -153,7 +153,7 @@ class LibraryViewController: UIViewController, UICollectionViewDataSource, UICol
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? LibraryCell {
             if let presentation = cell.presentation {
-                if presentation.isContentExists() {
+                if presentation.sclmIsIndexExist() {
                     if presentation.isSyncDone() || presentation.isUpdateAvailable() {
                         self.delegate?.libraryNeedOpenPresentation(self, presentation: presentation, isMain: false)
                     } else {

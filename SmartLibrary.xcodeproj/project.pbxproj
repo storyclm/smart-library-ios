@@ -18,6 +18,7 @@
 		1BD54334239FC8C000E1FCE8 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD54333239FC8C000E1FCE8 /* MainViewController.swift */; };
 		1BD54336239FCA6500E1FCE8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD54335239FCA6500E1FCE8 /* MainView.swift */; };
 		1BD54338239FDC8400E1FCE8 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD54337239FDC8400E1FCE8 /* ContentManager.swift */; };
+		1BF4ABBA23A67A3A00B1BFC4 /* Presentation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4ABB923A67A3A00B1BFC4 /* Presentation+Extension.swift */; };
 		22ACB71D73C925DAC5877D6E /* Pods_SmartLibraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E402F5F095AC622451F2832 /* Pods_SmartLibraryTests.framework */; };
 		5C12E39D2200AD57004D68F5 /* PresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E39C2200AD57004D68F5 /* PresentationViewController.swift */; };
 		5C12E3A42201AC1B004D68F5 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E3A32201AC1B004D68F5 /* AlertController.swift */; };
@@ -91,6 +92,7 @@
 		1BD54333239FC8C000E1FCE8 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1BD54335239FCA6500E1FCE8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		1BD54337239FDC8400E1FCE8 /* ContentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
+		1BF4ABB923A67A3A00B1BFC4 /* Presentation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Presentation+Extension.swift"; sourceTree = "<group>"; };
 		37B1820E2322DAA480E7B7DE /* Pods-SmartLibraryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLibraryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLibraryTests/Pods-SmartLibraryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4F3025B1508031E6E7A16175 /* Pods-SmartLibraryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLibraryTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLibraryTests/Pods-SmartLibraryTests.release.xcconfig"; sourceTree = "<group>"; };
 		5C12E39C2200AD57004D68F5 /* PresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationViewController.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				5C1AF8F221F9BA1700CF4ABA /* Date+Ext.swift */,
 				5C24FAC7222574E30097B70C /* UIColor+Ext.swift */,
 				5C2F2BF62306A4FE004F4DB9 /* UIView+Ext.swift */,
+				1BF4ABB923A67A3A00B1BFC4 /* Presentation+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -680,6 +683,7 @@
 				5C24FAC8222574E30097B70C /* UIColor+Ext.swift in Sources */,
 				5C2F2C142306A7FF004F4DB9 /* SlideLeafView.swift in Sources */,
 				5C2F2BF72306A4FE004F4DB9 /* UIView+Ext.swift in Sources */,
+				1BF4ABBA23A67A3A00B1BFC4 /* Presentation+Extension.swift in Sources */,
 				5C2F2C102306A7FF004F4DB9 /* PSBaseLeafView.m in Sources */,
 				5C9092242306D77C00750FA8 /* SLLocationManager.swift in Sources */,
 				5CA88DC921F872A900A7AAF0 /* LibraryViewController.swift in Sources */,

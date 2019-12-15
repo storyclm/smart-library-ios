@@ -52,6 +52,8 @@ final class ContentManager {
         }
     }
 
+    // MARK: -
+
     private func availableForUpdatePresentations() -> Result<[Presentation], Error> {
         let invisibleFetcher = self.mainViewModel.fetchedResultsControllerInvisible
         let visibleFetcher = self.mainViewModel.fetchedResultsController
@@ -71,6 +73,8 @@ final class ContentManager {
         return Result.success(presentationsForDownload)
     }
 
+    // MARK: *
+
     private func listOfPresentation(from fetcher: NSFetchedResultsController<NSFetchRequestResult>) -> [Presentation] {
         var result: [Presentation] = []
 
@@ -86,11 +90,20 @@ final class ContentManager {
 
     private func listOfDownloadRequeredPresentation(from fetcher: NSFetchedResultsController<NSFetchRequestResult>) -> [Presentation] {
         return self.listOfPresentation(from: fetcher).filter { (presentation) -> Bool in
-            return presentation.skip == false && (presentation.isSyncReady() || presentation.isUpdateAvailable())
+            if presentation.isSyncReady() {
+                return true
+            } else if presentation.isUpdateAvailable(), presentation.sclmIsIndexExist() {
+                return true
+            } else {
+                return false
+            }
+//            return presentation.skip == false && (presentation.isSyncReady() || presentation.isUpdateAvailable())
         }
     }
 
-    private func findMainPresentation() -> Result<Presentation?, Error> {
+    // MARK: *
+
+    func findMainPresentation() -> Result<Presentation?, Error> {
         let mainName = "index"
         let visibleFetcher = self.mainViewModel.fetchedResultsController
 
@@ -102,7 +115,7 @@ final class ContentManager {
 
         let filtered = self.listOfPresentation(from: visibleFetcher)
             .filter {  (presentation) -> Bool in
-                guard presentation.isContentExists() else { return false }
+                guard presentation.sclmIsIndexExist() else { return false }
                 guard let name = presentation.name else { return false }
                 return name.caseInsensitiveCompare(mainName) == ComparisonResult.orderedSame
             }

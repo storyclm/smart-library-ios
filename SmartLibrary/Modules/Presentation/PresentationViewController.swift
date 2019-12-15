@@ -479,7 +479,7 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
         bridge?.sessions.logAction(.close, presentation: self.currentPresentation)
         
         
-        if presentation.isContentExists() {
+        if presentation.sclmIsIndexExist() {
             
             bridge?.sessions.createNewSession(forPresentation: presentation)
             self.currentPresentation = presentation

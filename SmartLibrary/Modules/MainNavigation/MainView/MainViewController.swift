@@ -75,8 +75,7 @@ final class MainViewController: UIViewController {
         let batchVC = SCLMBatchLoadingViewController()
         batchVC.viewModel = self.batchViewModel
         batchVC.onDissmis = {[weak self] in
-//            self?.checkContent()
-            self?.openLibrary()
+            self?.afterBatchLoaderBehaviour()
         }
 
         let batchManager = SCLMBatchLoadingManager()
@@ -84,6 +83,18 @@ final class MainViewController: UIViewController {
         batchManager.addPresentations(presentations)
         batchVC.present(on: self) {
             batchManager.startLoading()
+        }
+    }
+
+    private func afterBatchLoaderBehaviour() {
+        if case let Result.success(mainPresentation) = self.contentManager.findMainPresentation() {
+            if let presentation = mainPresentation {
+            self.openPresentation(presentation, isMain: true)
+            } else {
+                self.openLibrary()
+            }
+        } else {
+            self.openLibrary()
         }
     }
 
