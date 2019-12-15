@@ -198,9 +198,7 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
     }
     
     @IBAction func closeButtonPressed() {
-        close(mode: .closeDefault) {
-            self.dismiss(animated: true, completion: nil)
-        }
+        self.closeIfNeeded(mode: .closeDefault)
     }
     
     // MARK: - Navigation
@@ -255,6 +253,22 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
             self?.mediaButton.alpha = CGFloat(alpha)
         }) { [weak self] (success) in
             self?.tapGesture.delegate = self
+        }
+    }
+
+    private func closeIfNeeded(mode: ClosePresentationMode) {
+        if let mainPresentation = self.mainPresentation {
+            if self.currentPresentation != mainPresentation {
+                self.openPresentation(mainPresentation, with: nil, and: nil)
+            } else {
+                // Нельзя закрывать главную (main) презентацию
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.close(mode: mode) {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
         }
     }
     
@@ -534,19 +548,7 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
     }
     
     func closePresentation(mode: ClosePresentationMode) {
-        if let mainPresentation = self.mainPresentation {
-            if self.currentPresentation != mainPresentation {
-                self.openPresentation(mainPresentation, with: nil, and: nil)
-            } else {
-                // Нельзя закрывать главную (main) презентацию
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.close(mode: mode) {
-                    self.dismiss(animated: true, completion: nil)
-                }
-            }
-        }
+        self.closeIfNeeded(mode: mode)
     }
     
     // MARK: - SCLMBridgeUIModuleProtocol
