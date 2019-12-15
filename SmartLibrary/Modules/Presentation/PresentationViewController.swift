@@ -42,8 +42,9 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
     private var mediaPlaybackRequiresUserAction = false
     private var controlsTimer: Timer?
     private var isControlsHidden = false
-    
-    
+
+    private weak var mainPresentation: Presentation?
+
     deinit {
         print("PresentationViewController deinit")
     }
@@ -60,7 +61,7 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
         return vc
         
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,7 +69,7 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
         
         UserDefaults.standard.removeObject(forKey: "applicationWillResignActiveStartTime")
         
-        guard let _ = currentPresentation else {
+        guard currentPresentation != nil else {
             fatalError("presentation should be settled befor viewDidLoad")
         }
         
@@ -77,7 +78,7 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
 
         tapGesture.delegate = self
         webView.navigationDelegate = self
-        webView.scrollView.isScrollEnabled = false
+//        webView.scrollView.isScrollEnabled = false
         
         setupWebViewConfiguration()
         setupUI()
@@ -101,7 +102,8 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
         if let slideName = currentSlide.name {
             backForwardList.append(slideName)
         }
-        
+
+        self.updateCloseButtonVisibility()
     }
     
     // MARK: - Observers
@@ -323,7 +325,10 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
         controlsTimer?.invalidate()
         mediaButton.isHidden = true
         closeButton.isHidden = true
-        
+    }
+
+    private func updateCloseButtonVisibility() {
+        self.closeButton.isHidden = (currentPresentation == mainPresentation)
     }
     
     // MARK: - SCLMWebViewProtocol
@@ -480,7 +485,6 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
         
         
         if presentation.sclmIsIndexExist() {
-            
             bridge?.sessions.createNewSession(forPresentation: presentation)
             self.currentPresentation = presentation
             
@@ -491,25 +495,21 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
             
             if let name = slideName, name.count > 0 {
                 self.currentSlide = presentation.slides?.filter({$0.name == name}).first
-                
             } else {
                 self.currentSlide = presentation.startUpSlide()
             }
             
             if let currentSlide = self.currentSlide {
-                
                 backForwardList.removeAll()
                 if let slideName = currentSlide.name {
                     backForwardList.append(slideName)
                 }
-                
                 self.loadSlide(currentSlide)
-                
             }
-            
+
+            self.updateCloseButtonVisibility()
         } else {
             AlertController.showAlert(title: "Открытие презентации", message: "Вы пытаетесь открыть презентацию \(presentation.name ?? ""), контент которой не загружен. Загрузите контент и попробуйте еще раз.", presentedFor: self, buttonLeft: .ok, buttonRight: nil, buttonLeftHandler: nil, buttonRightHandler: nil)
-            
         }
     }
     
@@ -534,11 +534,18 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
     }
     
     func closePresentation(mode: ClosePresentationMode) {
-        DispatchQueue.main.async {
-            self.close(mode: mode) {
-                self.dismiss(animated: true, completion: nil)
+        if let mainPresentation = self.mainPresentation {
+            if self.currentPresentation != mainPresentation {
+                self.openPresentation(mainPresentation, with: nil, and: nil)
+            } else {
+                // Нельзя закрывать главную (main) презентацию
             }
-            
+        } else {
+            DispatchQueue.main.async {
+                self.close(mode: mode) {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
         }
     }
     
@@ -648,6 +655,7 @@ extension PresentationViewController: CustomBridgeModuleDelegate {
 extension PresentationViewController {
     func inject(presentation: Presentation, isMain: Bool) {
         self.currentPresentation = presentation
+        self.mainPresentation = presentation
     }
 }
 
