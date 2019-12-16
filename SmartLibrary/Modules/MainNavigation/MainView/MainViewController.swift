@@ -49,12 +49,12 @@ final class MainViewController: UIViewController {
             }
         })
 
-        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     // MARK: - Notifications
 
-    @objc private func willResignActive(_ notification: Notification) {
+    @objc private func didBecomeActive(_ notification: Notification) {
         self.checkContent(isBackground: true)
     }
 
