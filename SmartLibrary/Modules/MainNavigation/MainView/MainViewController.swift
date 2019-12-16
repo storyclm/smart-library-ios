@@ -14,6 +14,9 @@ final class MainViewController: UIViewController {
     private var router: Router
     private let contentManager = ContentManager.instance
 
+    private weak var currentPresentationViewController: PresentationViewController?
+    private weak var currentLibraryViewController: LibraryViewController?
+
     private var mainView: MainView {
         self.view as! MainView
     }
@@ -45,24 +48,25 @@ final class MainViewController: UIViewController {
                 // Repeat
             }
         })
+
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+    }
+
+    // MARK: - Notifications
+
+    @objc private func willResignActive(_ notification: Notification) {
+        self.checkContent(isBackground: true)
     }
 
     // MARK: - Content
 
-    private func checkContent() {
+    private func checkContent(isBackground: Bool = false) {
         contentManager.checkUpdateAvailability { (state) in
             switch state {
             case .needUpdate(let updatePresentations):
-                // If presentaion is open - show alert about update available, otherwise open mainViewController and start update content
-                self.showBatchLoader(for: updatePresentations)
+                self.handleNeedUpdate(with: updatePresentations, isBackground: isBackground)
             case .allUpdated(let mainPresentation):
-                // If presentaion is open - show alert about structure changes
-                if let presentation = mainPresentation {
-                    self.openPresentation(presentation, isMain: true)
-                } else {
-                    self.openLibrary()
-                }
-
+                self.handleAllUpdated(with: mainPresentation, isBackground: isBackground)
             case .fetchError(let error):
                 self.showErrorAlert(error.localizedDescription)
             case .error(let error):
@@ -70,6 +74,58 @@ final class MainViewController: UIViewController {
             }
         }
     }
+
+    private func handleNeedUpdate(with presentations: [Presentation], isBackground: Bool) {
+        if isBackground, let currentPresentationVC = self.currentPresentationViewController {
+            let alert = UIAlertController(title: "Обновление контента", message: "Контент приложения готов к обновлению", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Сохранить и обновить контент", style: UIAlertAction.Style.default, handler: { (_) in
+                currentPresentationVC.close(mode: ClosePresentationMode.closeSessionComplete) {
+                    currentPresentationVC.dismiss(animated: true) {
+                        self.showBatchLoader(for: presentations)
+                    }
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "Продолжить работу", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true)
+        } else {
+            if let libraryVC = self.currentLibraryViewController {
+                libraryVC.navigationController?.popToRootViewController(animated: true)
+            }
+            self.showBatchLoader(for: presentations)
+        }
+    }
+
+    private func handleAllUpdated(with mainPresentation: Presentation?, isBackground: Bool) {
+        if isBackground, let currentPresentationVC = self.currentPresentationViewController {
+            if currentPresentationVC.mainPresentation != mainPresentation {
+                let alert = UIAlertController(title: "Обновление контента", message: "Главная презентация изменилась", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Сохранить и открыть новую презентацию", style: UIAlertAction.Style.default, handler: { (_) in
+                    currentPresentationVC.close(mode: ClosePresentationMode.closeSessionComplete) {
+                        currentPresentationVC.dismiss(animated: true) {
+                            self.openMainPresentationIfNeeded(mainPresentation)
+                        }
+                    }
+                }))
+                alert.addAction(UIAlertAction(title: "Продолжить работу", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true)
+            }
+        } else {
+            if let libraryVC = self.currentLibraryViewController {
+                libraryVC.navigationController?.popToRootViewController(animated: true)
+            }
+            self.openMainPresentationIfNeeded(mainPresentation)
+        }
+    }
+
+    private func openMainPresentationIfNeeded(_ mainPresentation: Presentation?) {
+        if let presentation = mainPresentation {
+            self.openPresentation(presentation, isMain: true)
+        } else {
+            self.openLibrary()
+        }
+    }
+
+    // MARK: - Batch loader
 
     private func showBatchLoader(for presentations: [Presentation]) {
         let batchVC = SCLMBatchLoadingViewController()
@@ -89,7 +145,7 @@ final class MainViewController: UIViewController {
     private func afterBatchLoaderBehaviour() {
         if case let Result.success(mainPresentation) = self.contentManager.findMainPresentation() {
             if let presentation = mainPresentation {
-            self.openPresentation(presentation, isMain: true)
+                self.openPresentation(presentation, isMain: true)
             } else {
                 self.openLibrary()
             }
@@ -110,6 +166,8 @@ final class MainViewController: UIViewController {
         let libraryVC = LibraryViewController.get()
         libraryVC.delegate = self
         libraryVC.inject(viewModel: contentManager.mainViewModel)
+        self.currentLibraryViewController = libraryVC
+
         self.navigationController?.pushViewController(libraryVC, animated: true)
     }
 
@@ -118,6 +176,8 @@ final class MainViewController: UIViewController {
         presentationVC.inject(presentation: presentation, isMain: isMain)
         presentationVC.delegate = self
         presentationVC.modalPresentationStyle = .fullScreen
+        self.currentPresentationViewController = presentationVC
+
         self.present(presentationVC, animated: true)
     }
 
@@ -126,14 +186,14 @@ final class MainViewController: UIViewController {
 extension MainViewController: PresentationViewControllerDelegate {
 
     func presentationViewControllerWillClose() {
-        // TODO: 
+        self.currentPresentationViewController = nil
     }
 }
 
 extension MainViewController: LibraryViewControllerDelegate {
 
     func libraryNeedToCheckUpdate(_ viewController: LibraryViewController) {
-        // TODO:
+        self.checkContent(isBackground: true)
     }
 
     func libraryNeedOpenPresentation(_ viewController: LibraryViewController, presentation: Presentation, isMain: Bool) {
@@ -161,5 +221,22 @@ extension MainViewController {
         }()
 
         return batchViewModel
+    }
+}
+
+extension UIApplication {
+
+    class func getTopViewController(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+
+        if let nav = base as? UINavigationController {
+            return getTopViewController(base: nav.visibleViewController)
+
+        } else if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
+            return getTopViewController(base: selected)
+
+        } else if let presented = base?.presentedViewController {
+            return getTopViewController(base: presented)
+        }
+        return base
     }
 }

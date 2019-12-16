@@ -43,7 +43,7 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
     private var controlsTimer: Timer?
     private var isControlsHidden = false
 
-    private weak var mainPresentation: Presentation?
+    private(set) weak var mainPresentation: Presentation?
 
     deinit {
         print("PresentationViewController deinit")

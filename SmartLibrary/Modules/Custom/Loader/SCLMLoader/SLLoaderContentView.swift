@@ -26,6 +26,7 @@ final class SLLoaderContentView: UIView {
     }
 
     private func setup() {
+        self.animationView.backgroundBehavior = .pauseAndRestore
         self.backgroundColor = UIColor.clear
         self.clipsToBounds = true
 
