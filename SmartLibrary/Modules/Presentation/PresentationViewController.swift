@@ -665,8 +665,9 @@ extension PresentationViewController: SCLMLocationManagerProtocol {
     func authorizationStatusNoAccess() {
         AlertController.showAlert(title: "Нет доступа к геопозиции", message: "Перейдите в настройки, чтобы предоставить доступ.", presentedFor: self, buttonLeft: nil, buttonRight: .ok, buttonLeftHandler: nil) { (action) in
             
-            let url = URL(string: UIApplication.openSettingsURLString)!
-            UIApplication.shared.openURL(url)
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         }
         
     }

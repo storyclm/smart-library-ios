@@ -19,6 +19,7 @@
 		1BD54336239FCA6500E1FCE8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD54335239FCA6500E1FCE8 /* MainView.swift */; };
 		1BD54338239FDC8400E1FCE8 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD54337239FDC8400E1FCE8 /* ContentManager.swift */; };
 		1BF4ABBA23A67A3A00B1BFC4 /* Presentation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4ABB923A67A3A00B1BFC4 /* Presentation+Extension.swift */; };
+		1BF4ABBF23A94C4A00B1BFC4 /* LoaderAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4ABBE23A94C4A00B1BFC4 /* LoaderAnimator.swift */; };
 		22ACB71D73C925DAC5877D6E /* Pods_SmartLibraryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E402F5F095AC622451F2832 /* Pods_SmartLibraryTests.framework */; };
 		5C12E39D2200AD57004D68F5 /* PresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E39C2200AD57004D68F5 /* PresentationViewController.swift */; };
 		5C12E3A42201AC1B004D68F5 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C12E3A32201AC1B004D68F5 /* AlertController.swift */; };
@@ -93,6 +94,7 @@
 		1BD54335239FCA6500E1FCE8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		1BD54337239FDC8400E1FCE8 /* ContentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
 		1BF4ABB923A67A3A00B1BFC4 /* Presentation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Presentation+Extension.swift"; sourceTree = "<group>"; };
+		1BF4ABBE23A94C4A00B1BFC4 /* LoaderAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderAnimator.swift; sourceTree = "<group>"; };
 		37B1820E2322DAA480E7B7DE /* Pods-SmartLibraryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLibraryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLibraryTests/Pods-SmartLibraryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4F3025B1508031E6E7A16175 /* Pods-SmartLibraryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLibraryTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLibraryTests/Pods-SmartLibraryTests.release.xcconfig"; sourceTree = "<group>"; };
 		5C12E39C2200AD57004D68F5 /* PresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +242,14 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		1BF4ABBD23A94C3000B1BFC4 /* Animators */ = {
+			isa = PBXGroup;
+			children = (
+				1BF4ABBE23A94C4A00B1BFC4 /* LoaderAnimator.swift */,
+			);
+			path = Animators;
+			sourceTree = "<group>";
+		};
 		23036AEC6F3E77F2822E0828 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,9 +292,9 @@
 			isa = PBXGroup;
 			children = (
 				5C1AF8F221F9BA1700CF4ABA /* Date+Ext.swift */,
+				1BF4ABB923A67A3A00B1BFC4 /* Presentation+Extension.swift */,
 				5C24FAC7222574E30097B70C /* UIColor+Ext.swift */,
 				5C2F2BF62306A4FE004F4DB9 /* UIView+Ext.swift */,
-				1BF4ABB923A67A3A00B1BFC4 /* Presentation+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -380,6 +390,7 @@
 		5C48B5CA21F74E2500EE1795 /* SmartLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				1BF4ABBD23A94C3000B1BFC4 /* Animators */,
 				5CA88DBB21F8719500A7AAF0 /* Modules */,
 				5C12E3A12201ABF6004D68F5 /* Common */,
 				5C1AF8F121F9BA0200CF4ABA /* Extensions */,
@@ -663,6 +674,7 @@
 				5C2F2C0A2306A7FF004F4DB9 /* PSBaseSubtreeView.m in Sources */,
 				1BD54336239FCA6500E1FCE8 /* MainView.swift in Sources */,
 				1BD54332239FC0F300E1FCE8 /* Router.swift in Sources */,
+				1BF4ABBF23A94C4A00B1BFC4 /* LoaderAnimator.swift in Sources */,
 				5C2F2C0C2306A7FF004F4DB9 /* PSBaseBranchView.m in Sources */,
 				5C12E39D2200AD57004D68F5 /* PresentationViewController.swift in Sources */,
 				5C1AF8F321F9BA1700CF4ABA /* Date+Ext.swift in Sources */,

@@ -17,7 +17,7 @@ final class Router {
 
     init() {
         SCLMAuthService.shared.logoutHandler = {[weak self] in
-            self?.checkLogin(completion: { (success) in
+            self?.checkLogin(completion: { (_) in
                 // Do nothing?
             })
         }
@@ -39,14 +39,14 @@ final class Router {
 
     // MARK: - Login
 
-    func checkLogin(completion: @escaping ((_ success: Bool) -> Void)) {
+    func checkLogin(completion: @escaping ((_ error: Error?) -> Void)) {
         let loginViewModel = LoginViewModel()
 
         if loginViewModel.isLogged() {
-            completion(true)
+            completion(nil)
         } else {
             self.apiLogin { (error) in
-                completion(error == nil)
+                completion(error)
             }
         }
     }

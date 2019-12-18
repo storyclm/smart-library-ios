@@ -17,7 +17,7 @@ final class MainViewController: UIViewController {
     private weak var currentPresentationViewController: PresentationViewController?
     private weak var currentLibraryViewController: LibraryViewController?
 
-    private var mainView: MainView {
+    var mainView: MainView {
         self.view as! MainView
     }
 
@@ -41,15 +41,35 @@ final class MainViewController: UIViewController {
 
         self.mainView.loader.play(state: SLLoaderView.AnimationState.start)
 
-        self.router.checkLogin(completion: { (success) in
+        self.checkLogin { (success) in
             if success {
                 self.checkContent()
+                self.addObservers()
             } else {
                 // Repeat
             }
-        })
+        }
+    }
 
+    private func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(didBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+
+    private func checkLogin(completion: @escaping (Bool) -> Void) {
+        self.router.checkLogin { (error) in
+            if let error = error {
+                let alert = UIAlertController(title: "Ошибка", message: "Ошибка во время логина\n\(error.localizedDescription)", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Повторить", style: UIAlertAction.Style.default, handler: { (_) in
+                    self.checkLogin(completion: completion)
+                }))
+                alert.addAction(UIAlertAction(title: "Закрыть", style: UIAlertAction.Style.cancel, handler: { (_) in
+                    completion(false)
+                }))
+                self.present(alert, animated: true)
+            } else {
+                completion(true)
+            }
+        }
     }
 
     // MARK: - Notifications
@@ -130,15 +150,17 @@ final class MainViewController: UIViewController {
     private func showBatchLoader(for presentations: [Presentation]) {
         let batchVC = SCLMBatchLoadingViewController()
         batchVC.viewModel = self.batchViewModel
-        batchVC.onDissmis = {[weak self] in
-            self?.afterBatchLoaderBehaviour()
-        }
 
         let batchManager = SCLMBatchLoadingManager()
         batchManager.addBatchLoadable(batchVC)
         batchManager.addPresentations(presentations)
-        batchVC.present(on: self) {
-            batchManager.startLoading()
+
+        batchVC.transitioningDelegate = self
+
+        self.mainView.loader.play(state: SLLoaderView.AnimationState.end) {
+            batchVC.present(on: self) {
+                batchManager.startLoading()
+            }
         }
     }
 
@@ -175,7 +197,7 @@ final class MainViewController: UIViewController {
         let presentationVC = PresentationViewController.get()
         presentationVC.inject(presentation: presentation, isMain: isMain)
         presentationVC.delegate = self
-        presentationVC.modalPresentationStyle = .fullScreen
+        presentationVC.modalPresentationStyle = UIModalPresentationStyle.fullScreen
         self.currentPresentationViewController = presentationVC
 
         self.present(presentationVC, animated: true)
@@ -238,5 +260,22 @@ extension UIApplication {
             return getTopViewController(base: presented)
         }
         return base
+    }
+}
+
+extension MainViewController: UIViewControllerTransitioningDelegate {
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return LoaderAnimator(isPresenting: true)
+    }
+
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let animator = LoaderAnimator(isPresenting: false)
+        animator.dismissCompletion = {
+            self.mainView.loader.play(state: SLLoaderView.AnimationState.start) {
+                self.afterBatchLoaderBehaviour()
+            }
+        }
+        return animator
     }
 }
