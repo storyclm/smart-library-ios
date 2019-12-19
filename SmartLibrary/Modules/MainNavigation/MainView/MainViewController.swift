@@ -16,6 +16,7 @@ final class MainViewController: UIViewController {
 
     private weak var currentPresentationViewController: PresentationViewController?
     private weak var currentLibraryViewController: LibraryViewController?
+    private weak var currentBatchLoaderViewController: SCLMBatchLoadingViewController?
 
     var mainView: MainView {
         self.view as! MainView
@@ -75,6 +76,7 @@ final class MainViewController: UIViewController {
     // MARK: - Notifications
 
     @objc private func didBecomeActive(_ notification: Notification) {
+        guard currentBatchLoaderViewController == nil else { return }
         self.checkContent(isBackground: true)
     }
 
@@ -150,6 +152,9 @@ final class MainViewController: UIViewController {
     private func showBatchLoader(for presentations: [Presentation]) {
         let batchVC = SCLMBatchLoadingViewController()
         batchVC.viewModel = self.batchViewModel
+        batchVC.onDissmis = {
+            self.currentBatchLoaderViewController = nil
+        }
 
         let batchManager = SCLMBatchLoadingManager()
         batchManager.addBatchLoadable(batchVC)
@@ -157,6 +162,7 @@ final class MainViewController: UIViewController {
 
         batchVC.transitioningDelegate = self
 
+        self.currentBatchLoaderViewController = batchVC
         self.mainView.loader.play(state: SLLoaderView.AnimationState.end) {
             batchVC.present(on: self) {
                 batchManager.startLoading()
