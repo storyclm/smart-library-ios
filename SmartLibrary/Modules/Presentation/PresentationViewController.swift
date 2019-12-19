@@ -243,11 +243,12 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
         }
         
         if isControlsHidden {
-            controlsTimer = Timer(timeInterval: 5.0, target: self, selector: #selector(dismissControls), userInfo: nil, repeats: false)
+            controlsTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(dismissControls), userInfo: nil, repeats: false)
         }
         
         let alpha = isControlsHidden ? 1.0 : 0.0
         isControlsHidden = !isControlsHidden
+
         UIView.animate(withDuration: 0.5, animations: { [weak self] in
             self?.closeButton.alpha = CGFloat(alpha)
             self?.mediaButton.alpha = CGFloat(alpha)
@@ -337,12 +338,16 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
             webView.stopLoading()
         }
         controlsTimer?.invalidate()
-        mediaButton.isHidden = true
-        closeButton.isHidden = true
+        mediaButton.hide()
+        closeButton.hide()
     }
 
     private func updateCloseButtonVisibility() {
-        self.closeButton.isHidden = (currentPresentation == mainPresentation)
+        if currentPresentation == mainPresentation {
+            self.closeButton.hide()
+        } else {
+            self.closeButton.fadeShow()
+        }
     }
     
     // MARK: - SCLMWebViewProtocol
@@ -554,13 +559,13 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
     // MARK: - SCLMBridgeUIModuleProtocol
     
     func hideCloseBtn() {
-        closeButton.hide()
+        closeButton.fadeHide()
     }
     
     func hideSystemBtns() {
-        mediaButton.hide()
-        closeButton.hide()
-        mapButton.hide()
+        mediaButton.fadeHide()
+        closeButton.fadeHide()
+        mapButton.fadeHide()
     }
     
     // MARK: - SCLMBridgeSessionsModuleProtocol
@@ -602,13 +607,13 @@ class PresentationViewController: UIViewController, WKNavigationDelegate, UIGest
     }
     
     func hideMediaLibraryBtn() {
-        mediaButton.hide()
+        mediaButton.fadeHide()
     }
     
     // MARK: - SCLMBridgeMapModuleProtocol
     
     func hideMapBtn() {
-        mapButton.hide()
+        mapButton.fadeHide()
     }
     
     func showMapBtn() {
@@ -700,9 +705,33 @@ extension UIView {
             self.isHidden = false
         }
     }
+
+    func fadeShow() {
+        DispatchQueue.main.async {
+            self.alpha = 0
+            self.isHidden = false
+
+            UIView.animate(withDuration: 0.5, animations: {
+                self.alpha = 1.0
+            })
+        }
+    }
+
     func hide() {
         DispatchQueue.main.async {
             self.isHidden = true
+        }
+    }
+
+    func fadeHide() {
+        DispatchQueue.main.async {
+            let oldAlpha = self.alpha
+            UIView.animate(withDuration: 0.5, animations: {
+                self.alpha = 0
+            }) { (_) in
+                self.isHidden = true
+                self.alpha = oldAlpha
+            }
         }
     }
 }
