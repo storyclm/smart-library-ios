@@ -152,7 +152,7 @@ final class MainViewController: UIViewController {
     private func showBatchLoader(for presentations: [Presentation]) {
         let batchVC = SCLMBatchLoadingViewController()
         batchVC.viewModel = self.batchViewModel
-        batchVC.onDissmis = {
+        batchVC.onDissmis = { _, _ in
             self.currentBatchLoaderViewController = nil
         }
 
