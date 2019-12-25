@@ -11,59 +11,57 @@ import Lottie
 
 final class SLLoader {
 
-    private var loaderView: SLLoaderView?
+    private var view: UIView?
+    private(set) var loader: SLLoaderView?
 
+    private var isNeedToHideAtComplete = false
     private var hideCompletion: (() -> Void)?
-    private var isHideAwaits = false
-    private var isStartAnimationDone: Bool = false {
-        didSet {
-            if self.isStartAnimationDone && isHideAwaits {
-                self.hideAnimation(completion: hideCompletion)
-            }
-        }
+    private var isStartAnimationDone: Bool = false
+
+    init(view: UIView) {
+        self.view = view
     }
-
-    static let instance = SLLoader()
-
-    private init() {}
 
     // MARK: - Animation
 
-    func showAnimation(on view: UIView, positionFix: CGPoint = CGPoint.zero) {
-        let loaderView = self.addLoaderView(on: view)
+    func showAnimation(isFullScreen: Bool = false, positionFix: CGPoint = CGPoint.zero) {
+        self.hideAnimation(isAnimated: false, completion: nil)
+
+        guard let view = self.view else { return }
+
+        let loaderView = self.addLoaderView(on: view, isFullScreen: isFullScreen)
         loaderView.contentFixOffset = positionFix
 
         loaderView.play(state: SLLoaderView.AnimationState.start) {
-            self.isStartAnimationDone = true
+            self.startAnimationDone()
         }
     }
 
-    func hideAnimation(completion: (() -> Void)? = nil) {
+    func hideAnimation(isAnimated: Bool = true, completion: (() -> Void)? = nil) {
+        guard isAnimated else {
+            self.resetFlags()
+            self.removeLoader()
+
+            completion?()
+            return
+        }
+
         guard isStartAnimationDone else {
-            isHideAwaits = true
+            self.isNeedToHideAtComplete = true
             self.hideCompletion = completion
             return
         }
 
         self.resetFlags()
 
-        if let loaderView = self.loaderView {
-            loaderView.play(state: SLLoaderView.AnimationState.end) {
-                self.removeViewAnimated(loaderView) {
-                    self.loaderView = nil
-                    completion?()
-                }
+        if let loader = self.loader {
+            loader.play(state: SLLoaderView.AnimationState.end) {
+                self.removeLoader()
+                completion?()
             }
         } else {
             completion?()
         }
-    }
-
-    func hideAnimationInstantly() {
-        self.resetFlags()
-
-        self.loaderView?.removeFromSuperview()
-        self.loaderView = nil
     }
 
     // MARK: - Views helper
@@ -77,24 +75,35 @@ final class SLLoader {
         }
     }
 
-    private func addLoaderView(on view: UIView) -> SLLoaderView {
-        if let loader = self.loaderView {
-            loader.removeFromSuperview()
-            self.loaderView = nil
-        }
+    private func addLoaderView(on view: UIView, isFullScreen: Bool) -> SLLoaderView {
+        self.removeLoader()
 
-        let loaderView = SLLoaderView(on: view)
-        self.loaderView = loaderView
+        let loaderView = SLLoaderView(on: view, isFullScreen: isFullScreen)
+        self.loader = loaderView
 
         return loaderView
     }
 
     // MARK: - Helpers
 
+    private func removeLoader() {
+        if let loader = self.loader {
+            loader.removeFromSuperview()
+            self.loader = nil
+        }
+    }
+
     private func resetFlags() {
         self.isStartAnimationDone = false
-        self.isHideAwaits = false
+        self.isNeedToHideAtComplete = false
         self.hideCompletion = nil
+    }
+
+    private func startAnimationDone() {
+        self.isStartAnimationDone = true
+        if isNeedToHideAtComplete {
+            self.hideAnimation(isAnimated: true, completion: hideCompletion)
+        }
     }
 
 }

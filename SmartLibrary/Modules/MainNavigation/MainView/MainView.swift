@@ -11,14 +11,15 @@ import UIKit
 final class MainView: UIView {
 
     private lazy var gradientLayer: CAGradientLayer = {
-           let gradientLayer = CAGradientLayer()
-           gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-           gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-           gradientLayer.colors = [ UIColor(red: 0.99, green: 0.99, blue: 1, alpha: 1).cgColor, UIColor(red: 0.94, green: 0.94, blue: 0.94, alpha: 1).cgColor ]
-           return gradientLayer
-       }()
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.colors = [ UIColor(red: 0.99, green: 0.99, blue: 1, alpha: 1).cgColor, UIColor(red: 0.94, green: 0.94, blue: 0.94, alpha: 1).cgColor ]
+        return gradientLayer
+    }()
 
-    var loader = SLLoaderView()
+    private var logoImageView = UIImageView(image: UIImage(named: "img_launch_logo"))
+
 
     // MARK: - Init
 
@@ -34,7 +35,7 @@ final class MainView: UIView {
 
     private func setup() {
         self.layer.insertSublayer(self.gradientLayer, at: 0)
-        self.addSubview(loader)
+        self.addSubview(logoImageView)
     }
 
     // MARK: - Layout
@@ -43,13 +44,7 @@ final class MainView: UIView {
         super.layoutSubviews()
 
         self.gradientLayer.frame = self.bounds
-
-        self.loader.frame = {
-            var rect = CGRect.zero
-            rect.size = CGSize(width: 350.0, height: 225.0)
-            rect.origin.x = (self.frame.width - rect.width) * 0.5
-            rect.origin.y = (self.frame.height - rect.height) * 0.5
-            return rect
-        }()
+        self.logoImageView.sizeToFit()
+        self.logoImageView.center = self.center
     }
 }

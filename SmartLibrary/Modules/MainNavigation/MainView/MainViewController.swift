@@ -18,9 +18,8 @@ final class MainViewController: UIViewController {
     private weak var currentLibraryViewController: LibraryViewController?
     private weak var currentBatchLoaderViewController: SCLMBatchLoadingViewController?
 
-    var mainView: MainView {
-        self.view as! MainView
-    }
+    private var additionalLoader: SLLoader?
+    private lazy var loader = SLLoader(view: self.view)
 
     init(with router: Router) {
         self.router = router
@@ -40,7 +39,7 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.mainView.loader.play(state: SLLoaderView.AnimationState.start)
+        self.loader.showAnimation(isFullScreen: true)
 
         self.checkLogin { (success) in
             if success {
@@ -83,6 +82,9 @@ final class MainViewController: UIViewController {
     // MARK: - Content
 
     private func checkContent(isBackground: Bool = false) {
+        if isBackground {
+            self.showLoaderOnSubController()
+        }
         contentManager.checkUpdateAvailability { (state) in
             switch state {
             case .needUpdate(let updatePresentations):
@@ -90,52 +92,60 @@ final class MainViewController: UIViewController {
             case .allUpdated(let mainPresentation):
                 self.handleAllUpdated(with: mainPresentation, isBackground: isBackground)
             case .fetchError(let error):
-                self.showErrorAlert(error.localizedDescription)
+                self.removeLoaderFromSubController() {
+                    self.showErrorAlert(error.localizedDescription)
+                }
             case .error(let error):
-                self.showErrorAlert(error.localizedDescription)
+                self.removeLoaderFromSubController() {
+                    self.showErrorAlert(error.localizedDescription)
+                }
             }
         }
     }
 
     private func handleNeedUpdate(with presentations: [Presentation], isBackground: Bool) {
-        if isBackground, let currentPresentationVC = self.currentPresentationViewController {
-            let alert = UIAlertController(title: "Обновление контента", message: "Контент приложения готов к обновлению", preferredStyle: UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "Сохранить и обновить контент", style: UIAlertAction.Style.default, handler: { (_) in
-                currentPresentationVC.close(mode: ClosePresentationMode.closeSessionComplete) {
-                    currentPresentationVC.dismiss(animated: true) {
-                        self.showBatchLoader(for: presentations)
-                    }
-                }
-            }))
-            alert.addAction(UIAlertAction(title: "Продолжить работу", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true)
-        } else {
-            if let libraryVC = self.currentLibraryViewController {
-                libraryVC.navigationController?.popToRootViewController(animated: true)
-            }
-            self.showBatchLoader(for: presentations)
-        }
-    }
-
-    private func handleAllUpdated(with mainPresentation: Presentation?, isBackground: Bool) {
-        if isBackground, let currentPresentationVC = self.currentPresentationViewController {
-            if currentPresentationVC.mainPresentation != mainPresentation {
-                let alert = UIAlertController(title: "Обновление контента", message: "Главная презентация изменилась", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "Сохранить и открыть новую презентацию", style: UIAlertAction.Style.default, handler: { (_) in
+        self.removeLoaderFromSubController() {
+            if isBackground, let currentPresentationVC = self.currentPresentationViewController {
+                let alert = UIAlertController(title: "Обновление контента", message: "Контент приложения готов к обновлению", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Сохранить и обновить контент", style: UIAlertAction.Style.default, handler: { (_) in
                     currentPresentationVC.close(mode: ClosePresentationMode.closeSessionComplete) {
                         currentPresentationVC.dismiss(animated: true) {
-                            self.openMainPresentationIfNeeded(mainPresentation)
+                            self.showBatchLoader(for: presentations)
                         }
                     }
                 }))
                 alert.addAction(UIAlertAction(title: "Продолжить работу", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true)
+            } else {
+                if let libraryVC = self.currentLibraryViewController {
+                    libraryVC.navigationController?.popToRootViewController(animated: true)
+                }
+                self.showBatchLoader(for: presentations)
             }
-        } else {
-            if let libraryVC = self.currentLibraryViewController {
-                libraryVC.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+
+    private func handleAllUpdated(with mainPresentation: Presentation?, isBackground: Bool) {
+        self.removeLoaderFromSubController() {
+            if isBackground, let currentPresentationVC = self.currentPresentationViewController {
+                if currentPresentationVC.mainPresentation != mainPresentation {
+                    let alert = UIAlertController(title: "Обновление контента", message: "Главная презентация изменилась", preferredStyle: UIAlertController.Style.alert)
+                    alert.addAction(UIAlertAction(title: "Сохранить и открыть новую презентацию", style: UIAlertAction.Style.default, handler: { (_) in
+                        currentPresentationVC.close(mode: ClosePresentationMode.closeSessionComplete) {
+                            currentPresentationVC.dismiss(animated: true) {
+                                self.openMainPresentationIfNeeded(mainPresentation)
+                            }
+                        }
+                    }))
+                    alert.addAction(UIAlertAction(title: "Продолжить работу", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true)
+                }
+            } else {
+                if let libraryVC = self.currentLibraryViewController {
+                    libraryVC.navigationController?.popToRootViewController(animated: true)
+                }
+                self.openMainPresentationIfNeeded(mainPresentation)
             }
-            self.openMainPresentationIfNeeded(mainPresentation)
         }
     }
 
@@ -145,6 +155,38 @@ final class MainViewController: UIViewController {
         } else {
             self.openLibrary()
         }
+    }
+
+    // MARK: - Loader
+
+    private func showLoaderOnSubController() {
+        func addLoader(to view: UIView) {
+            let loader = SLLoader(view: view)
+            loader.showAnimation(isFullScreen: true)
+            self.additionalLoader = loader
+        }
+
+        if let presentationVC = self.currentPresentationViewController {
+            addLoader(to: presentationVC.view)
+        } else if let libraryVC = self.currentLibraryViewController {
+            addLoader(to: libraryVC.view)
+        }
+    }
+
+    private func removeLoaderFromSubController(completion: (() -> Void)?) {
+        guard let libLoader = self.additionalLoader else {
+            completion?()
+            return
+        }
+        libLoader.hideAnimation(isAnimated: true) {
+            self.additionalLoader = nil
+            completion?()
+        }
+    }
+
+    func currentLoader() -> SLLoader {
+        guard let libraryLoader = self.additionalLoader else { return self.loader }
+        return libraryLoader
     }
 
     // MARK: - Batch loader
@@ -163,11 +205,11 @@ final class MainViewController: UIViewController {
         batchVC.transitioningDelegate = self
 
         self.currentBatchLoaderViewController = batchVC
-        self.mainView.loader.play(state: SLLoaderView.AnimationState.end) {
+        self.loader.loader?.play(state: SLLoaderView.AnimationState.end, completion: {
             batchVC.present(on: self) {
                 batchManager.startLoading()
             }
-        }
+        })
     }
 
     private func afterBatchLoaderBehaviour() {
@@ -278,9 +320,9 @@ extension MainViewController: UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let animator = LoaderAnimator(isPresenting: false)
         animator.dismissCompletion = {
-            self.mainView.loader.play(state: SLLoaderView.AnimationState.start) {
+            self.loader.loader?.play(state: SLLoaderView.AnimationState.start, completion: {
                 self.afterBatchLoaderBehaviour()
-            }
+            })
         }
         return animator
     }

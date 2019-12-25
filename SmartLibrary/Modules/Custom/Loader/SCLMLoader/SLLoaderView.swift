@@ -17,44 +17,63 @@ final class SLLoaderView: UIView {
     }
 
     private(set) var animationState: AnimationState?
-    
+
     var contentFixOffset = CGPoint.zero
 
     let contentView = SLLoaderContentView()
 
-    init(on view: UIView) {
+    private(set) var isFullScreen: Bool = false
+    private lazy var gradientLayer: CAGradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.colors = [ UIColor(red: 0.99, green: 0.99, blue: 1, alpha: 1).cgColor, UIColor(red: 0.94, green: 0.94, blue: 0.94, alpha: 1).cgColor ]
+        return gradientLayer
+    }()
+
+    init(on view: UIView, isFullScreen: Bool) {
         super.init(frame: view.bounds)
+        self.isFullScreen = isFullScreen
+
         view.addSubview(self)
-        
+
         self.setup()
+
+        if isFullScreen {
+            self.addGradient()
+        }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setup()
     }
-    
+
     private func setup() {
         self.backgroundColor = UIColor.clear
         self.isUserInteractionEnabled = true
-        
+
         self.addSubview(contentView)
         self.calculateContentFrame()
         self.contentView.calculateFrames()
     }
 
+    private func addGradient() {
+        self.layer.insertSublayer(self.gradientLayer, at: 0)
+    }
+
     // MARK: - Layout
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         self.calculateContentFrame()
     }
-    
+
     private func calculateContentFrame() {
         self.contentView.frame = {
             var rect = CGRect.zero
@@ -63,6 +82,10 @@ final class SLLoaderView: UIView {
             rect.origin.y = (self.frame.height - rect.size.height) * 0.5 + contentFixOffset.y
             return rect.integral
         }()
+
+        if isFullScreen {
+            self.gradientLayer.frame = self.bounds
+        }
     }
 
     // MARK: - Play
@@ -85,4 +108,5 @@ final class SLLoaderView: UIView {
                }
            }
        }
+
 }

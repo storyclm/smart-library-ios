@@ -60,13 +60,14 @@ final class LoaderAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         container.bringSubviewToFront(toView)
         toView.alpha = 0.0
 
-        let loaderViewSnap = mainViewController.mainView.loader.snapshotView(afterScreenUpdates: true)
-        loaderViewSnap?.frame = mainViewController.mainView.loader.frame
+        let loader = mainViewController.currentLoader().loader
+        let loaderViewSnap = loader?.snapshotView(afterScreenUpdates: true)
+        loaderViewSnap?.frame = loader?.frame ?? CGRect.zero
         if let loaderSnap = loaderViewSnap {
             container.addSubview(loaderSnap)
         }
 
-        mainViewController.mainView.loader.alpha = 0.0
+        loader?.alpha = 0.0
 
         UIView.animate(withDuration: 0.5, animations: {
             loaderViewSnap?.center = CGPoint(x: loaderViewSnap?.center.x ?? 0, y: container.frame.height * 0.25 - 6.0)
@@ -74,7 +75,7 @@ final class LoaderAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             UIView.animate(withDuration: 0.5, animations: {
                 toView.alpha = 1.0
             }) { (_) in
-                mainViewController.mainView.loader.alpha = 1.0
+                loader?.alpha = 1.0
                 loaderViewSnap?.removeFromSuperview()
                 completion(true)
             }
@@ -95,23 +96,24 @@ final class LoaderAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             container.bringSubviewToFront(fView)
         }
 
-        let loaderViewSnap = mainViewController.mainView.loader.snapshotView(afterScreenUpdates: true)
-        loaderViewSnap?.frame = mainViewController.mainView.loader.frame
+        let loader = mainViewController.currentLoader().loader
+        let loaderViewSnap = loader?.snapshotView(afterScreenUpdates: true)
+        loaderViewSnap?.frame = loader?.frame ?? CGRect.zero
         if let loaderSnap = loaderViewSnap {
             container.addSubview(loaderSnap)
             loaderSnap.center = CGPoint(x: loaderViewSnap?.center.x ?? 0, y: container.frame.height * 0.25 - 6.0)
         }
 
-        mainViewController.mainView.loader.alpha = 0.0
+        loader?.alpha = 0.0
 
         UIView.animate(withDuration: 0.5, animations: {
             fromView?.alpha = 0.0
         }) { (_) in
             UIView.animate(withDuration: 0.5, animations: {
-                loaderViewSnap?.center = mainViewController.mainView.loader.center
+                loaderViewSnap?.center = loader?.center ?? CGPoint.zero
             }) { (_) in
                 fromView?.alpha = 1.0
-                mainViewController.mainView.loader.alpha = 1.0
+                loader?.alpha = 1.0
 
                 loaderViewSnap?.removeFromSuperview()
                 completion(true)
