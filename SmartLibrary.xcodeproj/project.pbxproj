@@ -9,7 +9,11 @@
 /* Begin PBXBuildFile section */
 		15D5C56C12B8A7CCE88E27D8 /* Pods_SmartLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F1917A91CAC59A59BD9C623 /* Pods_SmartLibrary.framework */; };
 		1B238F65232FA53E0078396F /* CustomBridgeModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B238F64232FA53E0078396F /* CustomBridgeModule.swift */; };
-		1BAB7DBC23952ECC00850D4F /* BatchLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB7DBB23952ECB00850D4F /* BatchLoaderView.swift */; };
+		1B404F9123E2031F009B2E70 /* BatchLoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B404F8B23E2031F009B2E70 /* BatchLoadingManager.swift */; };
+		1B404F9223E2031F009B2E70 /* BatchLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B404F8E23E2031F009B2E70 /* BatchLoaderView.swift */; };
+		1B404F9323E2031F009B2E70 /* BatchLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B404F8F23E2031F009B2E70 /* BatchLoadingViewController.swift */; };
+		1B404F9423E2031F009B2E70 /* BatchLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B404F9023E2031F009B2E70 /* BatchLoadingView.swift */; };
+		1B404F9623E204BE009B2E70 /* AttributedStringBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B404F9523E204BD009B2E70 /* AttributedStringBuilder.swift */; };
 		1BAB7DC223952F1600850D4F /* SLLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB7DBE23952F1600850D4F /* SLLoader.swift */; };
 		1BAB7DC323952F1600850D4F /* SLLoaderContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB7DBF23952F1600850D4F /* SLLoaderContentView.swift */; };
 		1BAB7DC423952F1600850D4F /* SLLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAB7DC023952F1600850D4F /* SLLoaderView.swift */; };
@@ -84,7 +88,11 @@
 		126AB419A6CBA046B987E441 /* Pods_SmartLibrary_Staging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartLibrary_Staging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		171CFB13C4FC7E001AE5A125 /* Pods-SmartLibrary_Staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartLibrary_Staging.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartLibrary_Staging/Pods-SmartLibrary_Staging.debug.xcconfig"; sourceTree = "<group>"; };
 		1B238F64232FA53E0078396F /* CustomBridgeModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBridgeModule.swift; sourceTree = "<group>"; };
-		1BAB7DBB23952ECB00850D4F /* BatchLoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatchLoaderView.swift; sourceTree = "<group>"; };
+		1B404F8B23E2031F009B2E70 /* BatchLoadingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchLoadingManager.swift; sourceTree = "<group>"; };
+		1B404F8E23E2031F009B2E70 /* BatchLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchLoaderView.swift; sourceTree = "<group>"; };
+		1B404F8F23E2031F009B2E70 /* BatchLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchLoadingViewController.swift; sourceTree = "<group>"; };
+		1B404F9023E2031F009B2E70 /* BatchLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchLoadingView.swift; sourceTree = "<group>"; };
+		1B404F9523E204BD009B2E70 /* AttributedStringBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedStringBuilder.swift; sourceTree = "<group>"; };
 		1BAB7DBE23952F1600850D4F /* SLLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLLoader.swift; sourceTree = "<group>"; };
 		1BAB7DBF23952F1600850D4F /* SLLoaderContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLLoaderContentView.swift; sourceTree = "<group>"; };
 		1BAB7DC023952F1600850D4F /* SLLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLLoaderView.swift; sourceTree = "<group>"; };
@@ -188,17 +196,45 @@
 		1B238F63232FA5130078396F /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				1B404F8A23E2031F009B2E70 /* BatchLoading */,
 				1BAB7DBA23952EB800850D4F /* Loader */,
+				1B404F9523E204BD009B2E70 /* AttributedStringBuilder.swift */,
 				1B238F64232FA53E0078396F /* CustomBridgeModule.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		1B404F8A23E2031F009B2E70 /* BatchLoading */ = {
+			isa = PBXGroup;
+			children = (
+				1B404F8C23E2031F009B2E70 /* ViewController */,
+				1B404F8B23E2031F009B2E70 /* BatchLoadingManager.swift */,
+			);
+			path = BatchLoading;
+			sourceTree = "<group>";
+		};
+		1B404F8C23E2031F009B2E70 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1B404F8D23E2031F009B2E70 /* Loader */,
+				1B404F8F23E2031F009B2E70 /* BatchLoadingViewController.swift */,
+				1B404F9023E2031F009B2E70 /* BatchLoadingView.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		1B404F8D23E2031F009B2E70 /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				1B404F8E23E2031F009B2E70 /* BatchLoaderView.swift */,
+			);
+			path = Loader;
 			sourceTree = "<group>";
 		};
 		1BAB7DBA23952EB800850D4F /* Loader */ = {
 			isa = PBXGroup;
 			children = (
 				1BAB7DBD23952F1600850D4F /* SCLMLoader */,
-				1BAB7DBB23952ECB00850D4F /* BatchLoaderView.swift */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -667,7 +703,6 @@
 				1BAB7DC323952F1600850D4F /* SLLoaderContentView.swift in Sources */,
 				5CFB914822240223001C4E57 /* MediaCell.swift in Sources */,
 				5CFB914A22240874001C4E57 /* MediaViewModel.swift in Sources */,
-				1BAB7DBC23952ECC00850D4F /* BatchLoaderView.swift in Sources */,
 				5C24FAC622256BF80097B70C /* NFDownloadButton.swift in Sources */,
 				5CA88DCC21F8749000A7AAF0 /* LibraryCell.swift in Sources */,
 				5C48B5CC21F74E2500EE1795 /* AppDelegate.swift in Sources */,
@@ -675,9 +710,14 @@
 				1BD54336239FCA6500E1FCE8 /* MainView.swift in Sources */,
 				1BD54332239FC0F300E1FCE8 /* Router.swift in Sources */,
 				1BF4ABBF23A94C4A00B1BFC4 /* LoaderAnimator.swift in Sources */,
+				1B404F9623E204BE009B2E70 /* AttributedStringBuilder.swift in Sources */,
+				1B404F9323E2031F009B2E70 /* BatchLoadingViewController.swift in Sources */,
 				5C2F2C0C2306A7FF004F4DB9 /* PSBaseBranchView.m in Sources */,
+				1B404F9223E2031F009B2E70 /* BatchLoaderView.swift in Sources */,
+				1B404F9423E2031F009B2E70 /* BatchLoadingView.swift in Sources */,
 				5C12E39D2200AD57004D68F5 /* PresentationViewController.swift in Sources */,
 				5C1AF8F321F9BA1700CF4ABA /* Date+Ext.swift in Sources */,
+				1B404F9123E2031F009B2E70 /* BatchLoadingManager.swift in Sources */,
 				5C2F2C122306A7FF004F4DB9 /* SlideModelNode.swift in Sources */,
 				1B238F65232FA53E0078396F /* CustomBridgeModule.swift in Sources */,
 				1BD54334239FC8C000E1FCE8 /* MainViewController.swift in Sources */,

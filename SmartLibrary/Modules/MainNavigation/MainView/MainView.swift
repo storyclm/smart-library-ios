@@ -10,16 +10,7 @@ import UIKit
 
 final class MainView: UIView {
 
-    private lazy var gradientLayer: CAGradientLayer = {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        gradientLayer.colors = [ UIColor(red: 0.99, green: 0.99, blue: 1, alpha: 1).cgColor, UIColor(red: 0.94, green: 0.94, blue: 0.94, alpha: 1).cgColor ]
-        return gradientLayer
-    }()
-
-    private var logoImageView = UIImageView(image: UIImage(named: "img_launch_logo"))
-
+    let logoImageView = UIImageView(image: UIImage(named: "img_launch_logo"))
 
     // MARK: - Init
 
@@ -34,7 +25,7 @@ final class MainView: UIView {
     }
 
     private func setup() {
-        self.layer.insertSublayer(self.gradientLayer, at: 0)
+        self.backgroundColor = UIColor.backgroundColor
         self.addSubview(logoImageView)
     }
 
@@ -43,7 +34,6 @@ final class MainView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        self.gradientLayer.frame = self.bounds
         self.logoImageView.sizeToFit()
         self.logoImageView.center = self.center
     }

@@ -40,7 +40,7 @@ class BatchLoaderView: UIView {
     }
 }
 
-extension BatchLoaderView: SCLMBatchLoadable {
+extension BatchLoaderView {
 
     var preferredSize: CGSize {
         return CGSize(width: 350.0, height: 225.0)

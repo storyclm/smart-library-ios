@@ -28,4 +28,8 @@ extension UIColor {
             blue: rgb & 0xFF
         )
     }
+
+    static var backgroundColor: UIColor {
+        return UIColor(red: 0.99, green: 0.99, blue: 1, alpha: 1)
+    }
 }

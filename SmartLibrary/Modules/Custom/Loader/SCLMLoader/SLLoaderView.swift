@@ -23,13 +23,6 @@ final class SLLoaderView: UIView {
     let contentView = SLLoaderContentView()
 
     private(set) var isFullScreen: Bool = false
-    private lazy var gradientLayer: CAGradientLayer = {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        gradientLayer.colors = [ UIColor(red: 0.99, green: 0.99, blue: 1, alpha: 1).cgColor, UIColor(red: 0.94, green: 0.94, blue: 0.94, alpha: 1).cgColor ]
-        return gradientLayer
-    }()
 
     init(on view: UIView, isFullScreen: Bool) {
         super.init(frame: view.bounds)
@@ -38,10 +31,6 @@ final class SLLoaderView: UIView {
         view.addSubview(self)
 
         self.setup()
-
-        if isFullScreen {
-            self.addGradient()
-        }
     }
 
     override init(frame: CGRect) {
@@ -55,16 +44,11 @@ final class SLLoaderView: UIView {
     }
 
     private func setup() {
-        self.backgroundColor = UIColor.clear
         self.isUserInteractionEnabled = true
 
         self.addSubview(contentView)
         self.calculateContentFrame()
         self.contentView.calculateFrames()
-    }
-
-    private func addGradient() {
-        self.layer.insertSublayer(self.gradientLayer, at: 0)
     }
 
     // MARK: - Layout
@@ -84,7 +68,7 @@ final class SLLoaderView: UIView {
         }()
 
         if isFullScreen {
-            self.gradientLayer.frame = self.bounds
+            self.backgroundColor = isFullScreen ? UIColor.backgroundColor : UIColor.clear
         }
     }
 

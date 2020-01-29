@@ -16,7 +16,7 @@ final class MainViewController: UIViewController {
 
     private weak var currentPresentationViewController: PresentationViewController?
     private weak var currentLibraryViewController: LibraryViewController?
-    private weak var currentBatchLoaderViewController: SCLMBatchLoadingViewController?
+    private weak var currentBatchLoaderViewController: BatchLoadingViewController?
 
     private var additionalLoader: SLLoader?
     private lazy var loader = SLLoader(view: self.view)
@@ -192,13 +192,12 @@ final class MainViewController: UIViewController {
     // MARK: - Batch loader
 
     private func showBatchLoader(for presentations: [Presentation]) {
-        let batchVC = SCLMBatchLoadingViewController()
-        batchVC.viewModel = self.batchViewModel
-        batchVC.onDissmis = { _, _ in
+        let batchVC = BatchLoadingViewController()
+        batchVC.onDismiss = { _, _ in
             self.currentBatchLoaderViewController = nil
         }
 
-        let batchManager = SCLMBatchLoadingManager()
+        let batchManager = BatchLoadingManager()
         batchManager.addBatchLoadable(batchVC)
         batchManager.addPresentations(presentations)
 
@@ -268,29 +267,6 @@ extension MainViewController: LibraryViewControllerDelegate {
 
     func libraryNeedOpenPresentation(_ viewController: LibraryViewController, presentation: Presentation, isMain: Bool) {
         self.openPresentation(presentation, isMain: isMain)
-    }
-}
-
-// MARK: - SCLMBatchLoading ViewModel
-extension MainViewController {
-
-    var batchViewModel: SCLMBatchLoadingViewModel {
-        let batchViewModel = SCLMBatchLoadingViewModel()
-        batchViewModel.loader = BatchLoaderView()
-
-        batchViewModel.subtitleViewModel = {
-            let viewModel = batchViewModel.subtitleViewModel
-            viewModel.numberOfLines = 3
-            return viewModel
-        }()
-
-        batchViewModel.cancelButtonViewModel = {
-            let buttonViewModel = SCLMBatchLoadingViewModel.ButtonViewModel()
-            buttonViewModel.isHidden = true
-            return buttonViewModel
-        }()
-
-        return batchViewModel
     }
 }
 

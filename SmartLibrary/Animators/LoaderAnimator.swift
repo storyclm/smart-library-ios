@@ -51,7 +51,7 @@ final class LoaderAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     private func animation(transitionContext: UIViewControllerContextTransitioning, mainViewController: MainViewController, completion: @escaping (Bool) -> Void) {
         let container = transitionContext.containerView
 
-        guard let toView = transitionContext.view(forKey: .to) else {
+        guard let toView = transitionContext.view(forKey: .to), let loader = mainViewController.currentLoader().loader else {
             completion(false)
             return
         }
@@ -60,14 +60,15 @@ final class LoaderAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         container.bringSubviewToFront(toView)
         toView.alpha = 0.0
 
-        let loader = mainViewController.currentLoader().loader
-        let loaderViewSnap = loader?.snapshotView(afterScreenUpdates: true)
-        loaderViewSnap?.frame = loader?.frame ?? CGRect.zero
+        let loaderViewSnap = loader.snapshotView(afterScreenUpdates: true)
+        loaderViewSnap?.frame = loader.frame
         if let loaderSnap = loaderViewSnap {
             container.addSubview(loaderSnap)
         }
 
-        loader?.alpha = 0.0
+        loader.alpha = 0.0
+        let logoImageView = (mainViewController.view as? MainView)?.logoImageView
+        logoImageView?.isHidden = true
 
         UIView.animate(withDuration: 0.5, animations: {
             loaderViewSnap?.center = CGPoint(x: loaderViewSnap?.center.x ?? 0, y: container.frame.height * 0.25 - 6.0)
@@ -75,8 +76,9 @@ final class LoaderAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             UIView.animate(withDuration: 0.5, animations: {
                 toView.alpha = 1.0
             }) { (_) in
-                loader?.alpha = 1.0
+                loader.alpha = 1.0
                 loaderViewSnap?.removeFromSuperview()
+                logoImageView?.isHidden = false
                 completion(true)
             }
         }
@@ -105,6 +107,8 @@ final class LoaderAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         }
 
         loader?.alpha = 0.0
+        let logoImageView = (mainViewController.view as? MainView)?.logoImageView
+        logoImageView?.isHidden = true
 
         UIView.animate(withDuration: 0.5, animations: {
             fromView?.alpha = 0.0
@@ -114,7 +118,7 @@ final class LoaderAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             }) { (_) in
                 fromView?.alpha = 1.0
                 loader?.alpha = 1.0
-
+                logoImageView?.isHidden = false
                 loaderViewSnap?.removeFromSuperview()
                 completion(true)
             }
@@ -130,9 +134,4 @@ final class LoaderAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
         return mainVC
     }
-
-    private func loaderVC(from viewController: UIViewController?) -> SCLMBatchLoadingViewController? {
-        return viewController as? SCLMBatchLoadingViewController
-    }
-
 }
