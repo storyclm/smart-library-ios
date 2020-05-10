@@ -666,7 +666,7 @@ extension PresentationViewController {
     }
 }
 
-extension PresentationViewController: SCLMLocationManagerProtocol {
+extension PresentationViewController: SCLMLocationManagerDelegate {
     func authorizationStatusNoAccess() {
         AlertController.showAlert(title: "Нет доступа к геопозиции", message: "Перейдите в настройки, чтобы предоставить доступ.", presentedFor: self, buttonLeft: nil, buttonRight: .ok, buttonLeftHandler: nil) { (action) in
             

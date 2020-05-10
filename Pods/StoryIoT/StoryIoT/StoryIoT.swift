@@ -46,24 +46,12 @@ public class StoryIoT {
     
     // MARK: - Auth
     
-    ///
-    /// Сигнатура параметров запроса создается путем конкатенации требуемых параметров в строку в виде: "Название параметра" + "=" + "Значение параметра". Очередность параметров должна соответствовать очередности в списке параметров, за исключением параметра signature . Этот параметр должен быть исключен. Так же должны быть исключены необязательные параметры не требуемые настройками хаба. В результате должна получиться строка:
-    ///
-    /// key=df94b12c3355425eb4efa406f09e8b9fexpiration=2020-05-28T09:02:49.5754586Z
-    ///
-    /// Если настройки хаба не требуют некоторые параметры, то их необходимо исключить.
-    ///
-    /// Строка должна быть в кодировке UTF-8. Из получившийся строки создается сигнатура по секретному ключу, при  этом используется алгоритм HMAC-SHA512. Секретный ключ хранится на устройстве. В результате кодирование должен быть получен массив зашифрованных байт. Чтобы получить строку, массив байт нужно закодировать в base64 и заменить символы “/” на “_” и “+” на “-”. Должна получится строка:
-    ///
-    /// ZQ6Zxtuy9DGhHjneAepq8NJovZMW0KLNwffhND_-ng1xuxFJSclYcpGUJSGxniM8IqV6nhWdWclsIdTE2n6X2Q==
-    ///
-    private func buildSignature(forKey publicKey: String, privateKey: String, expiration: String) -> String? {
-        let string = "key=\(publicKey)expiration=\(expiration)"
-        if let hmac = string.data(using: .utf8)?.digest(.sha512, key: privateKey) {
-            let result = hmac.base64EncodedString()
-            return result.replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: "+", with: "-")
-        }
-        return nil
+    private func buildSignature(expiration: String) -> String? {
+        let signBuilder = SIOTSignBuilder(privateKey: authCredentials.secret)
+        signBuilder.add(key: "key", value: authCredentials.key)
+        signBuilder.add(key: "expiration", value: expiration)
+
+        return signBuilder.result()
     }
     
     // MARK: - Helpers
@@ -76,7 +64,7 @@ public class StoryIoT {
 
         let expirationString = ISO8601DateFormatter().string(from: Date(timeIntervalSinceNow: authCredentials.expirationTimeInterval))
         
-        if let signature = buildSignature(forKey: authCredentials.key, privateKey: authCredentials.secret, expiration: expirationString) {
+        if let signature = buildSignature(expiration: expirationString) {
             
             let requestString = "\(authCredentials.endpoint)/\(authCredentials.hub)/publish/?key=\(authCredentials.key)&expiration=\(expirationString)&signature=\(signature)"
             
@@ -91,7 +79,7 @@ public class StoryIoT {
         
         let expirationString = ISO8601DateFormatter().string(from: Date(timeIntervalSinceNow: authCredentials.expirationTimeInterval))
         
-        if let signature = buildSignature(forKey: authCredentials.key, privateKey: authCredentials.secret, expiration: expirationString) {
+        if let signature = buildSignature(expiration: expirationString) {
             
             let requestString = "\(authCredentials.endpoint)/\(authCredentials.hub)/storage/\(messageId)/?key=\(authCredentials.key)&expiration=\(expirationString)&signature=\(signature)"
             
@@ -106,7 +94,7 @@ public class StoryIoT {
         
         let expirationString = ISO8601DateFormatter().string(from: Date(timeIntervalSinceNow: authCredentials.expirationTimeInterval))
         
-        if let signature = buildSignature(forKey: authCredentials.key, privateKey: authCredentials.secret, expiration: expirationString) {
+        if let signature = buildSignature(expiration: expirationString) {
             
             let requestString = "\(authCredentials.endpoint)/\(authCredentials.hub)/storage/\(messageId)/meta/\(metaName)/?key=\(authCredentials.key)&expiration=\(expirationString)&signature=\(signature)"
             
@@ -129,7 +117,7 @@ public class StoryIoT {
         
         let expirationString = ISO8601DateFormatter().string(from: Date(timeIntervalSinceNow: authCredentials.expirationTimeInterval))
         
-        if let signature = buildSignature(forKey: authCredentials.key, privateKey: authCredentials.secret, expiration: expirationString) {
+        if let signature = buildSignature(expiration: expirationString) {
             
             var requestString = "\(authCredentials.endpoint)/\(authCredentials.hub)/feed/?key=\(authCredentials.key)&expiration=\(expirationString)&signature=\(signature)&direction=\(direction.rawValue)&size=\(size)"
             
@@ -148,7 +136,7 @@ public class StoryIoT {
         
         let expirationString = ISO8601DateFormatter().string(from: Date(timeIntervalSinceNow: authCredentials.expirationTimeInterval))
         
-        if let signature = buildSignature(forKey: authCredentials.key, privateKey: authCredentials.secret, expiration: expirationString) {
+        if let signature = buildSignature(expiration: expirationString) {
             
             let requestString = "\(authCredentials.endpoint)/\(authCredentials.hub)/publish/\(messageId)/confirm/?key=\(authCredentials.key)&expiration=\(expirationString)&signature=\(signature)"
             
@@ -160,51 +148,44 @@ public class StoryIoT {
     }
     
     // MARK: - Publish
-    
-    public func publishSmall(body: [String: Any],
-                             eventId: String?,
-                             userId: String?,
-                             entityId: String?,
-                             location: CLLocation?,
-                             success: @escaping (_ response: PublishResponse) -> Void,
-                             failure: @escaping (_ error: NSError) -> Void) {
-        
+
+    public func publishSmall(message: SIOTMessageModel, success: @escaping (_ response: PublishResponse) -> Void, failure: @escaping (_ error: NSError) -> Void) {
         guard let url = publishRequestUrl() else {
             let err = SIOTError.make(description: "Can't get requestUrl", reason: nil)
             failure(err)
             return
         }
-        
-    
-        let metadata = Metadata(eventId: eventId, userId: userId, entityId: entityId, location: location)
+
+//        if case let Puppy.mastiff(droolRating, weight) = fido {
+        guard case let SIOTMessageModel.BodyModel.json(jsonBody) = message.body else {
+            let err = SIOTError.make(description: "Wrong body type of SIOTMessageModel for publishSmall", reason: nil)
+            failure(err)
+            return
+        }
+
+        let metadata = Metadata(message: message)
         var headers: HTTPHeaders = metadata.asDictionary()
         headers["Content-Type"] = "application/json"
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = HTTPMethod.post.rawValue
-        
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted) else {
+
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonBody, options: .prettyPrinted) else {
             let err = SIOTError.make(description: "Can't serialize body to jsonData", reason: nil)
             failure(err)
             return
         }
-        
+
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.post.rawValue
         request.allHTTPHeaderFields = headers
         request.httpBody = jsonData
-        
-        
+
         Alamofire.request(request).responseJSON { (response) in
             
             switch response.result {
                 
             case .success(_):
                 if let data = response.data {
-//                    let utf8Text = String(data: data, encoding: .utf8)
-//                    print("Data: \(utf8Text)")
-                    
-                    let jsonDecoder = JSONDecoder()
                     do {
-                        let response = try jsonDecoder.decode(PublishResponse.self, from: data)
+                        let response = try JSONDecoder().decode(PublishResponse.self, from: data)
                         success(response)
                     } catch (let err) {
                         print(err.localizedDescription)
@@ -233,22 +214,22 @@ public class StoryIoT {
     /// Публикация сообщения возможна только по протоколу HTTPS. Процесс выглядит следующим образом:
     /// Издатель публикует сообщение в конечную точку с пустым телом. Если авторизация и валидация сообщения прошла успешно, сервер присваивает сообщению уникальный идентификатор, извлекает метаданные из сообщения и создает пустой объект в хранилище сообщений. Это сообщение не будет видно в ленте.
 
-    public func publishLarge(data: Data,
-                             eventId: String,
-                             userId: String,
-                             entityId: String?,
-                             location: CLLocation?,
-                             success: @escaping (_ response: PublishResponse) -> Void,
-                             failure: @escaping (_ error: NSError) -> Void) {
+    public func publishLarge(message: SIOTMessageModel, success: @escaping (_ response: PublishResponse) -> Void, failure: @escaping (_ error: NSError) -> Void) {
         
         guard let url = publishRequestUrl() else {
             let err = SIOTError.make(description: "Can't get requestUrl", reason: nil)
             failure(err)
             return
         }
+
+        guard case let SIOTMessageModel.BodyModel.data(bodyData) = message.body else {
+            let error = SIOTError.make(description: "Wrong body type of SIOTMessageModel for publishLarge", reason: nil)
+            failure(error)
+            return
+        }
         
         
-        let metadata = Metadata(eventId: eventId, userId: userId, entityId: entityId, location: location)
+        let metadata = Metadata(message: message)
         var headers: HTTPHeaders = metadata.asDictionary()
         headers["Content-Type"] = "application/json"
         
@@ -265,9 +246,8 @@ public class StoryIoT {
                     let utf8Text = String(data: data, encoding: .utf8)
                     print("Data: \(String(describing: utf8Text))")
                     
-                    let jsonDecoder = JSONDecoder()
                     do {
-                        let response = try jsonDecoder.decode(PublishResponse.self, from: data)
+                        let response = try JSONDecoder().decode(PublishResponse.self, from: data)
                         
                         /// В ответе клиенту отдается сообщение, которое имеет поле Path. Это поле содержит URL по которому методом PUT необходимо выполнить загрузку. Перед загрузкой необходимо сделать хэш sha512 и закодировать байт массив в base64 (без замены символов “/” и “+”). Результат нужно упаковать в строку вида:
                         
@@ -282,7 +262,7 @@ public class StoryIoT {
                         /// Ссылка будет рабочей 24 часа, после чего нужно запросить новую ссылку, в случае неудачи и повторять этот процесс до успешной загрузки большого сообщения.
 
                         if let id = response.id, let path = response.path, let url = URL(string: path) {
-                            self.uploadLargeData(data, url: url, success: {
+                            self.uploadLargeData(bodyData, url: url, success: {
                                 self.confirmLarge(messageId: id, success: { (response) in
                                     success(response)
                                     
@@ -340,10 +320,8 @@ public class StoryIoT {
         request.httpMethod = HTTPMethod.put.rawValue
         request.allHTTPHeaderFields = headers
         request.httpBody = data
-        
-        
+
         Alamofire.request(request).responseJSON { (response) in
-            
             if let statusCode = response.response?.statusCode, statusCode == 201 {
                 success()
             } else {
@@ -354,10 +332,7 @@ public class StoryIoT {
                     failure(error)
                 }
             }
-            
         }
-
-        
     }
     
     private func confirmLarge(messageId: String,
